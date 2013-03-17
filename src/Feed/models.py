@@ -33,8 +33,8 @@ class Poll(models.Model):
     
 class PollContent(models.Model):
 
-    poll_start = models.ForeignKey(Poll,db_index=True)
-    poll_end = models.ForeignKey(Poll,db_index=True)
+    poll_start = models.ForeignKey(Poll,db_index=True,related_name='pollcontent_poll_start')
+    poll_end = models.ForeignKey(Poll,db_index=True,related_name='pollcontent_poll_end')
     content = models.ForeignKey(Content,db_index=True)
 
 
