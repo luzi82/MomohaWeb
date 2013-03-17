@@ -57,6 +57,6 @@ SUBSCRIPTIONCONTENT_STATE_READ = 1
 
 class SubscriptionContent(models.Model):
     
-    content = models.ForeignKey(Content,db_index=True)
     subscription = models.ForeignKey(Subscription,db_index=True)
+    content = models.ForeignKey(Content,db_index=True)
     state = models.IntegerField(db_index=True)
