@@ -35,7 +35,7 @@ class PollContent(models.Model):
 
     poll_start = models.ForeignKey(Poll,db_index=True)
     poll_end = models.ForeignKey(Poll,db_index=True)
-    content = models.ForeignKey(Poll,db_index=True)
+    content = models.ForeignKey(Content,db_index=True)
 
 
 class FeedDetail(models.Model):
