@@ -3,6 +3,6 @@
 '''
 
 from django.contrib import admin
-from Feed.models import Feed
+from MomohaFeed.models import Feed
 
 admin.site.register(Feed)

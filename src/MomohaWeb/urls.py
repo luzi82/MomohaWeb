@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'Feed.views.index', name='index'),
+    url(r'^$', 'MomohaFeed.views.index', name='index'),
     # url(r'^MomohaWeb/', include('MomohaWeb.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
