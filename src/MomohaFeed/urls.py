@@ -5,7 +5,7 @@ urlpatterns = patterns(
     'MomohaFeed.views',
     url(r'^$',RedirectView.as_view(url='s/')),
     url(r'^s/$','listSubscription'),
-    url(r'^sadd/$','subscriptionAdd'),
+    url(r'^s\.add/$','subscriptionAdd'),
     url(r'^s/(?P<subscription_id>\d+)/rm/$','subscriptionRm'),
     url(r'^s/(?P<subscription_id>\d+)/$','subscriptionListContent'),
     url(r'^sc/(?P<subscriptioncontent_id>\d+)/$','subscriptionContentShow'),
