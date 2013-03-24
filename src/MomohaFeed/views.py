@@ -7,8 +7,10 @@ from MomohaFeed.models import Feed, Subscription
 
 @login_required
 def listSubscription(request):
-    # TODO
-    return render(request,"dummy.tmpl")
+    db_subscription_list = Subscription.objects.filter(
+        user__exact = request.user
+    ).select_related("feed")
+    return render(request,"MomohaFeed/listSubscription.tmpl",{"subscription_list":db_subscription_list})
 
 @login_required
 def subscriptionAdd(request):
@@ -17,28 +19,28 @@ def subscriptionAdd(request):
         form = SubscriptionAddForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data["url"]
-            feed = None
-            subscription = None
+            db_feed = None
+            db_subscription = None
             try:
-                feed = Feed.objects.get(
+                db_feed = Feed.objects.get(
                     url__exact = url
                 )
             except Feed.DoesNotExist:
-                feed = Feed.objects.create(
+                db_feed = Feed.objects.create(
                     url = url
                 )
             try:
-                subscription = Subscription.objects.get(
+                db_subscription = Subscription.objects.get(
                     user__exact = request.user,
-                    feed__exact = feed,
+                    feed__exact = db_feed,
                     end = None
                 )
             except Subscription.DoesNotExist:
-                subscription = Subscription.objects.create(
+                db_subscription = Subscription.objects.create(
                     user = request.user,
-                    feed = feed
+                    feed = db_feed
                 )
-            return redirect("MomohaFeed.views.subscriptionListContent",subscription_id=subscription.id)
+            return redirect("MomohaFeed.views.subscriptionListContent",subscription_id=db_subscription.id)
     if form == None:
         form = SubscriptionAddForm()
     return render(request,"MomohaFeed/subscriptionAdd.tmpl",{"form" : form})
