@@ -10,13 +10,11 @@
 <div class="row">
 <table class="span12" border="1">
 	<tr>
-		<th>ID</th>
-		<th>URL</th>
+		<th>Title</th>
 	</tr>
 	{% for subscription in subscription_list %}
 		<tr>
-			<td><a href="{% url 'MomohaFeed.views.subscription_list_content' subscription_id=subscription.id %}">{{ subscription.id }}</a></td>
-			<td>{{ subscription.feed.url }}</td>
+			<td><a href="{% url 'MomohaFeed.views.subscription_list_content' subscription_id=subscription.id %}">{{ subscription.feed.title }}</a></td>
 		</tr>
 	{% endfor %}
 </table>

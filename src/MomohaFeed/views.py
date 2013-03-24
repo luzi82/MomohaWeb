@@ -21,30 +21,15 @@ def subscription_add(request):
         form = SubscriptionAddForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data["url"]
-            db_feed = None
-            db_subscription = None
-            try:
-                db_feed = Feed.objects.get(
-                    url__exact = url
-                )
-            except Feed.DoesNotExist:
-                db_feed = Feed.objects.create(
-                    url = url
-                )
-            try:
-                db_subscription = Subscription.objects.get(
-                    user__exact = request.user,
-                    feed__exact = db_feed,
-                    end = None
-                )
-            except Subscription.DoesNotExist:
-                db_subscription = Subscription.objects.create(
-                    user = request.user,
-                    feed = db_feed
-                )
-            
+            db_feed,_ = Feed.objects.get_or_create(
+                url = url
+            )
+            db_subscription,_ = Subscription.objects.get_or_create(
+                user = request.user,
+                feed = db_feed,
+                enable = True
+            )
             poll(db_feed.id)
-            
             return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
     if form == None:
         form = SubscriptionAddForm()
