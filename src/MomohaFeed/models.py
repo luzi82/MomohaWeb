@@ -17,25 +17,20 @@ class Item(models.Model):
     key = models.CharField(max_length=KEY_LENGTH,db_index=True)
 
 
-class Content(models.Model):
-    
-    item = models.ForeignKey(Item,db_index=True)
-    title = models.CharField(max_length=TITLE_LENGTH)
-    time = models.DateTimeField(db_index=True)
-    description = models.CharField(max_length=DESCRIPTION_LENGTH)
-
-
 class Poll(models.Model):
     
     feed = models.ForeignKey(Feed,db_index=True)
     time = models.DateTimeField(db_index=True)
     
     
-class PollContent(models.Model):
-
+class Content(models.Model):
+    
+    item = models.ForeignKey(Item,db_index=True)
     poll_start = models.ForeignKey(Poll,db_index=True,related_name='pollcontent_poll_start')
     poll_end = models.ForeignKey(Poll,db_index=True,related_name='pollcontent_poll_end')
-    content = models.ForeignKey(Content,db_index=True)
+    title = models.CharField(max_length=TITLE_LENGTH)
+    time = models.DateTimeField(db_index=True)
+    description = models.CharField(max_length=DESCRIPTION_LENGTH)
 
 
 class FeedDetail(models.Model):
