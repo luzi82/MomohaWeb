@@ -20,7 +20,7 @@ class Item(models.Model):
 class Poll(models.Model):
     
     feed = models.ForeignKey(Feed,db_index=True)
-    time = models.DateTimeField(db_index=True)
+    time = models.DateTimeField(db_index=True,auto_now_add=True)
     
     
 class Content(models.Model):
@@ -36,8 +36,8 @@ class Content(models.Model):
 class FeedDetail(models.Model):
 
     poll_start = models.ForeignKey(Poll,db_index=True)
-    title = models.CharField(max_length=TITLE_LENGTH)
-    description = models.CharField(max_length=DESCRIPTION_LENGTH)
+    title = models.CharField(max_length=TITLE_LENGTH,null=True,db_index=True)
+    link = models.CharField(max_length=URL_LENGTH,null=True,db_index=True)
 
 
 class Subscription(models.Model):

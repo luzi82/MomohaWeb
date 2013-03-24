@@ -16,3 +16,7 @@ django-registration
 django-celery
 
 # pip install django-celery==3.0.11
+
+feedparser
+
+# pip install feedparser==5.1.3
