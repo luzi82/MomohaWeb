@@ -1,0 +1,14 @@
+{% extends "base.tmpl" %}
+
+{% load url from future %}
+
+{% block title %}Add subscription{% endblock %}
+
+{% block main %}
+<h1>Add subscription</h1>
+
+<form action="{% url 'MomohaFeed.views.subscriptionAdd' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Add" />
+</form>
+{% endblock %}

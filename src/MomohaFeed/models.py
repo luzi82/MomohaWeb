@@ -43,8 +43,9 @@ class FeedDetail(models.Model):
 class Subscription(models.Model):
 
     user = models.ForeignKey(auth_models.User,db_index=True)
-    poll = models.ForeignKey(Poll,db_index=True)
-    enable = models.BooleanField(db_index=True)
+    feed = models.ForeignKey(Feed,db_index=True)
+    start = models.DateTimeField(db_index=True,auto_now_add=True)
+    end = models.DateTimeField(db_index=True,null=True)
 
 
 SUBSCRIPTIONCONTENT_STATE_UNREAD = 0
