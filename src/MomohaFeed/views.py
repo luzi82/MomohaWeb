@@ -51,6 +51,11 @@ def subscriptionRm(request,subscription_id):
     return render(request,"dummy.tmpl")
 
 @login_required
+def subscriptionPoll(request,subscription_id):
+    # TODO
+    return render(request,"dummy.tmpl")
+
+@login_required
 def subscriptionListContent(request,subscription_id):
     # TODO
     return render(request,"dummy.tmpl")
