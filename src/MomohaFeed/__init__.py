@@ -44,11 +44,20 @@ def poll(db_feed):
         if entry_content != None:
             entry_content = htmlparser.unescape(entry_content)
         
-        entry_published = entry.published_parsed
-        entry_published = datetime.fromtimestamp(calendar.timegm(entry_published),utc)
+        entry_published = None
+        if hasattr(entry,'published_parsed'):
+            entry_published = entry.published_parsed
+            entry_published = datetime.fromtimestamp(calendar.timegm(entry_published),utc)
         
-        entry_updated = entry.updated_parsed
-        entry_updated = datetime.fromtimestamp(calendar.timegm(entry_updated),utc)
+        entry_updated = None
+        if hasattr(entry,'updated_parsed'):
+            entry_updated = entry.updated_parsed
+            entry_updated = datetime.fromtimestamp(calendar.timegm(entry_updated),utc)
+        
+        if entry_published == None:
+            entry_published = entry_updated
+        if entry_updated == None:
+            entry_updated = entry_published
         
         if (
             item_create or
