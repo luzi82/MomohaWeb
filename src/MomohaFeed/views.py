@@ -29,7 +29,7 @@ def subscription_add(request):
                 feed = db_feed,
                 enable = True
             )
-            poll(db_feed.id)
+            poll(db_feed)
             return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
     if form == None:
         form = SubscriptionAddForm()
@@ -42,9 +42,10 @@ def subscription_rm(request,subscription_id):
 
 @login_required
 def subscription_poll(request,subscription_id):
-    db_subscription = Subscription.objects.get(id=subscription_id)
+    db_subscription = Subscription.objects.get(id=subscription_id).select_related("feed")
     if(db_subscription.user != request.user):
         raise PermissionDenied
+    poll(db_subscription.feed)
     return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
 
 @login_required
