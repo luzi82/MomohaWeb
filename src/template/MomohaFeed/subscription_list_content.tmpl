@@ -1,0 +1,21 @@
+{% extends "base.tmpl" %}
+
+{% load url from future %}
+
+{% block title %}{{ db_subscription.feed.title }}{% endblock %}
+
+{% block main %}
+<h1>{{ db_subscription.feed.title }}</h1>
+
+<div class="row">
+<table class="span12" border="1">
+	{% for db_item in db_item_list %}
+		<tr><td>
+			<h2><a href="{{ db_item.link }}">{{ db_item.title }}</a></h2>
+			<p>{{ db_item.published }}</p>
+			<div>{{ db_item.content|safe }}</div>
+		</td></tr>
+	{% endfor %}
+</table>
+</div>
+{% endblock %}

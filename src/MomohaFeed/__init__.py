@@ -5,9 +5,12 @@ from datetime import datetime
 import time
 from django.utils.timezone import utc
 import calendar
+import HTMLParser
 
 def poll(db_feed):
     now = datetime.now()
+    
+    htmlparser = HTMLParser.HTMLParser()
     
     url = db_feed.url
     parse_result = feedparser.parse(url)
@@ -37,6 +40,9 @@ def poll(db_feed):
             entry_content = entry.content[0].value
         elif hasattr(entry,'summary'):
             entry_content = entry.summary
+            
+        if entry_content != None:
+            entry_content = htmlparser.unescape(entry_content)
         
         entry_published = entry.published_parsed
         entry_published = datetime.fromtimestamp(calendar.timegm(entry_published),utc)
