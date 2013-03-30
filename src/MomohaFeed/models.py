@@ -45,3 +45,4 @@ class ItemRead(models.Model):
     subscription = models.ForeignKey(Subscription,db_index=True)
     item = models.ForeignKey(Item,db_index=True)
     time = models.DateTimeField(db_index=True,auto_now_add=True)
+    enable = models.BooleanField(db_index=True)

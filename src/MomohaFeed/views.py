@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import SubscriptionAddForm
-from MomohaFeed.models import Feed, Subscription, Item
+from MomohaFeed.models import Feed, Subscription, Item, ItemRead
 from django.core.exceptions import PermissionDenied
 from MomohaFeed import poll
 
@@ -63,8 +63,22 @@ def subscription_list_content(request,subscription_id):
 
 @login_required
 def subscription_item_show(request,subscription_id,item_id):
-    # TODO
-    return render(request,"dummy.tmpl")
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+    
+    db_item = Item.objects.get(id=item_id)
+    
+    ItemRead.objects.get_or_create(
+        subscription = db_subscription,
+        item = db_item,
+        enable = True
+    )
+    
+    return render(request,"MomohaFeed/subscription_item_show.tmpl",{
+        "db_subscription" : db_subscription,
+        "db_item" : db_item
+    })
 
 @login_required
 def subscription_item_mark_read(request,subscription_id,item_id):
