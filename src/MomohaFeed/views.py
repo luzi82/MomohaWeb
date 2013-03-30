@@ -67,6 +67,7 @@ def subscription_list_content(request,subscription_id):
                         item_id = MomohaFeed_item.id AND
                         enable
                 )
+            ORDER BY published DESC
         ''',
         [
             db_subscription.feed.id , db_subscription.feed.id

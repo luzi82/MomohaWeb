@@ -6,7 +6,11 @@
 
 {% block main %}
 <h1>{{ db_subscription.feed.title }}</h1>
-
+<ul class="nav nav-pills">
+	<li>
+		<a href="{% url 'MomohaFeed.views.subscription_poll' subscription_id=db_subscription.id %}">Poll</a>
+	</li>
+</ul>
 <div class="row">
 <table class="span12" border="1">
 	<tr>
