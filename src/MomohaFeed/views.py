@@ -4,7 +4,6 @@ from MomohaFeed.forms import SubscriptionAddForm
 from MomohaFeed.models import Feed, Subscription, Item
 from django.core.exceptions import PermissionDenied
 from MomohaFeed import poll
-import HTMLParser
 
 # Create your views here.
 
@@ -63,11 +62,11 @@ def subscription_list_content(request,subscription_id):
     })
 
 @login_required
-def subscription_content_show(request,subscriptioncontent_id):
+def subscription_content_show(request,subscription_id,item_id):
     # TODO
     return render(request,"dummy.tmpl")
 
 @login_required
-def subscription_content_mark_read(request,subscriptioncontent_id):
+def subscription_content_mark_read(request,subscription_id,item_id):
     # TODO
     return render(request,"dummy.tmpl")
