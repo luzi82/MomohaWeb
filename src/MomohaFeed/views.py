@@ -12,7 +12,7 @@ def list_subscription(request):
     db_subscription_list = Subscription.objects.filter(
         user__exact = request.user
     ).select_related("feed")
-    return render(request,"MomohaFeed/list_subscription.tmpl",{"subscription_list":db_subscription_list})
+    return render(request,"MomohaFeed/list_subscription.tmpl",{"db_subscription_list":db_subscription_list})
 
 @login_required
 def subscription_add(request):
@@ -62,11 +62,11 @@ def subscription_list_content(request,subscription_id):
     })
 
 @login_required
-def subscription_content_show(request,subscription_id,item_id):
+def subscription_item_show(request,subscription_id,item_id):
     # TODO
     return render(request,"dummy.tmpl")
 
 @login_required
-def subscription_content_mark_read(request,subscription_id,item_id):
+def subscription_item_mark_read(request,subscription_id,item_id):
     # TODO
     return render(request,"dummy.tmpl")

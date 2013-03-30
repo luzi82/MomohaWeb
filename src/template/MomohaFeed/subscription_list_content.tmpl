@@ -10,11 +10,7 @@
 <div class="row">
 <table class="span12" border="1">
 	{% for db_item in db_item_list %}
-		<tr><td>
-			<h2><a href="{{ db_item.link }}">{{ db_item.title }}</a></h2>
-			<p>{{ db_item.published }}</p>
-			<div>{{ db_item.content|safe }}</div>
-		</td></tr>
+		<tr><td><a href="{% url 'MomohaFeed.views.subscription_item_show' subscription_id=db_subscription.id item_id=db_item.id %}">{{ db_item.title }}</a></td></tr>
 	{% endfor %}
 </table>
 </div>

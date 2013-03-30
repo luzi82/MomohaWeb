@@ -12,9 +12,9 @@
 	<tr>
 		<th>Title</th>
 	</tr>
-	{% for subscription in subscription_list %}
+	{% for db_subscription in db_subscription_list %}
 		<tr>
-			<td><a href="{% url 'MomohaFeed.views.subscription_list_content' subscription_id=subscription.id %}">{{ subscription.feed.title }}</a></td>
+			<td><a href="{% url 'MomohaFeed.views.subscription_list_content' subscription_id=db_subscription.id %}">{{ db_subscription.feed.title }}</a></td>
 		</tr>
 	{% endfor %}
 </table>
