@@ -54,7 +54,24 @@ def subscription_list_content(request,subscription_id):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = Item.objects.filter(feed=db_subscription.feed)
+    # db_item_list = Item.objects.filter(feed=db_subscription.feed)
+    db_item_list = Item.objects.raw(
+        '''
+            SELECT * FROM MomohaFeed_item
+            WHERE
+                feed_id = %s AND
+                NOT EXISTS (
+                    SELECT * FROM MomohaFeed_itemread
+                    WHERE
+                        subscription_id = %s AND
+                        item_id = MomohaFeed_item.id AND
+                        enable
+                )
+        ''',
+        [
+            db_subscription.feed.id , db_subscription.feed.id
+        ]
+    )
 
     return render(request,"MomohaFeed/subscription_list_content.tmpl",{
         "db_subscription" : db_subscription,
