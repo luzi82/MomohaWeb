@@ -1,5 +1,6 @@
 # Django settings for MomohaWeb project.
 import os
+import djcelery
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -126,6 +127,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'registration',
     'MomohaFeed',
+    'djcelery',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -161,3 +163,5 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 DATETIME_FORMAT = 'Y-m-d H:i'
 DATE_FORMAT = 'Y-m-d'
+
+djcelery.setup_loader()
