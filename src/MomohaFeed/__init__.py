@@ -7,7 +7,7 @@ from django.utils.timezone import utc
 import calendar
 import HTMLParser
 
-def poll(db_feed):
+def feed_poll(db_feed):
     now = datetime.now()
     
     htmlparser = HTMLParser.HTMLParser()

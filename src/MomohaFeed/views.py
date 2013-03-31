@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import SubscriptionAddForm
 from MomohaFeed.models import Feed, Subscription, Item, ItemRead
 from django.core.exceptions import PermissionDenied
-from MomohaFeed import poll
+from MomohaFeed import feed_poll
 
 # Create your views here.
 
@@ -33,7 +33,7 @@ def subscription_add(request):
                 feed = db_feed,
                 enable = True
             )
-            poll(db_feed)
+            feed_poll(db_feed)
             return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
     if form == None:
         form = SubscriptionAddForm()
@@ -49,7 +49,7 @@ def subscription_poll(request,subscription_id):
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
-    poll(db_subscription.feed)
+    feed_poll(db_subscription.feed)
     return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
 
 @login_required
