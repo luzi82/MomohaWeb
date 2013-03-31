@@ -9,4 +9,6 @@ urlpatterns = patterns(
     url(r'^s/(?P<subscription_id>\d+)/$','subscription_list_content'),
     url(r'^s/(?P<subscription_id>\d+)/i/(?P<item_id>\d+)/$','subscription_item_show'),
     url(r'^s/(?P<subscription_id>\d+)/i/(?P<item_id>\d+)/read/$','subscription_item_mark_read'),
+    
+    url(r'^j_list_subscription/$','j_list_subscription'),
 )

@@ -4,6 +4,21 @@ from MomohaFeed.forms import SubscriptionAddForm
 from MomohaFeed.models import Subscription, Item
 from django.core.exceptions import PermissionDenied
 import MomohaFeed
+from django.http import HttpResponse
+import simplejson
+
+def json(f):
+    def ff(request,*args,**kwargs):
+        ret = f(request,*args,**kwargs)
+        return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
+    return ff
+
+def u403(f):
+    def ff(request,*args,**kwargs):
+        if request.user == None:
+            raise PermissionDenied
+        return f(request,*args,**kwargs)
+    return ff
 
 # Create your views here.
 
@@ -77,3 +92,23 @@ def subscription_item_show(request,subscription_id,item_id):
 def subscription_item_mark_read(request,subscription_id,item_id):
     # TODO
     return render(request,"dummy.tmpl")
+
+@u403
+@json
+def j_list_subscription(request):
+    
+    db_subscription_list = Subscription.objects.filter(
+        user__exact = request.user
+    ).select_related("feed")
+    
+    subscription_list = []
+    for db_subscription in db_subscription_list:
+        subscription = {}
+        subscription['title'] = db_subscription.feed.title
+        subscription_list.append(subscription)
+    
+    ret = {
+        'subscription_list' : subscription_list
+    }
+
+    return ret
