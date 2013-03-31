@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'registration',
     'MomohaFeed',
     'djcelery',
+    'kombu.transport.django',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -159,8 +160,13 @@ LOGGING = {
     }
 }
 
+# APP djcelery
+BROKER_URL = 'django://'
+
+# APP registration
 ACCOUNT_ACTIVATION_DAYS = 7
 
+# date format
 DATETIME_FORMAT = 'Y-m-d H:i'
 DATE_FORMAT = 'Y-m-d'
 
