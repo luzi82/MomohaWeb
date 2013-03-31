@@ -1,4 +1,4 @@
-from MomohaFeed.models import Feed, Item
+from MomohaFeed.models import Feed, Item, Subscription, ItemRead
 import feedparser
 from django.db.models import Max
 from datetime import datetime
@@ -75,3 +75,48 @@ def feed_poll(db_feed):
             db_item.last_detail_update = now
         
         db_item.save()
+
+def subscription_add(db_user,url):
+    
+    db_feed,_ = Feed.objects.get_or_create(
+        url = url
+    )
+    db_subscription,_ = Subscription.objects.get_or_create(
+        user = db_user,
+        feed = db_feed,
+        enable = True
+    )
+    
+    return db_feed,db_subscription
+
+def subscription_list_content(db_subscription):
+
+    # db_item_list = Item.objects.filter(feed=db_subscription.feed)
+    db_item_list = Item.objects.raw(
+        '''
+            SELECT * FROM MomohaFeed_item
+            WHERE
+                feed_id = %s AND
+                NOT EXISTS (
+                    SELECT * FROM MomohaFeed_itemread
+                    WHERE
+                        subscription_id = %s AND
+                        item_id = MomohaFeed_item.id AND
+                        enable
+                )
+            ORDER BY published DESC
+        ''',
+        [
+            db_subscription.feed.id , db_subscription.feed.id
+        ]
+    )
+    
+    return db_item_list;
+
+def subscription_item_mark_read(db_subscription,db_item):
+
+    ItemRead.objects.get_or_create(
+        subscription = db_subscription,
+        item = db_item,
+        enable = True
+    )
