@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import SubscriptionAddForm
 from MomohaFeed.models import Subscription, Item
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 import MomohaFeed
 from django.http import HttpResponse
 import simplejson
@@ -107,8 +107,61 @@ def j_list_subscription(request):
         subscription['title'] = db_subscription.feed.title
         subscription_list.append(subscription)
     
-    ret = {
+    return {
         'subscription_list' : subscription_list
     }
 
-    return ret
+@u403
+@json
+def j_add_subscription(request):
+    if request.method == "POST":
+        form = SubscriptionAddForm(request.POST)
+        if form.is_valid():
+            url = form.cleaned_data["url"]
+            db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
+            MomohaFeed.feed_poll(db_feed)
+            return {
+                'subscription_id' : db_subscription.id
+            }
+    raise ValidationError
+
+@u403
+@json
+def j_subscription_set_enable(request,subscription_id,value):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    db_subscription.enable = value != 0
+    
+    return { 'success' : True }
+
+@u403
+@json
+def j_subscription_list_item(request,subscription_id):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    
+    item_list = []
+    for db_item in db_item_list:
+        item = {}
+        item['title'] = db_item.title
+        item['published'] = db_item.published
+        item_list.append(item)
+
+    return { 'db_item_list' : db_item_list }
+
+@u403
+@json
+def j_subscription_item_show(request,subscription_id,item_id):
+    pass
+
+@u403
+@json
+def j_subscription_item_set_readdone(request,subscription_id,item_id,value):
+    pass
