@@ -1,0 +1,3 @@
+[submodule "import/MemHTTPServer"]
+	path = import/MemHTTPServer
+	url = git@github.com:luzi82/MemHTTPServer.git
