@@ -20,3 +20,9 @@ django-celery
 feedparser
 
 # pip install feedparser==5.1.3
+
+
+Get source code
+===============
+
+$ git clone --recurse-submodules git@github.com:luzi82/MomohaWeb.git
