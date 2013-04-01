@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://purl.org/rss/1.0/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:cc="http://web.resource.org/cc/"
+    xmlns:admin="http://webns.net/mvcb/"
+    xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+    xml:lang="ja">
+
+    <channel rdf:about="http://rico-memo.jugem.jp/?mode=rss">
+    <title>☆リコメモ☆</title>
+    <link>http://rico-memo.jugem.jp/</link>
+    <description>Ricoのお仕事お知らせとかネタ雑記とか</description>
+    <dc:language>ja</dc:language>
+    <admin:generatorAgent rdf:resource="http://jugem.jp/?v=1.0"/>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=103" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=102" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=101" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=100" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=99" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=98" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=97" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=96" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=95" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=94" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=93" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=92" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=91" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=90" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=89" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=88" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=87" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=86" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=85" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=84" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=83" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=82" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=81" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=80" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=79" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=78" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=77" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=76" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=75" />
+        <rdf:li rdf:resource="http://rico-memo.jugem.jp/?eid=74" />
+      </rdf:Seq>
+    </items>
+    </channel>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=103">
+    <link>http://rico-memo.jugem.jp/?eid=103</link>
+    <title>電撃HIME5月号掲載のお知らせ</title>
+    <description>雑誌掲載情報です。</description>
+<content:encoded><![CDATA[
+<span style="margin: 0px; padding: 0px; color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px; background-color: rgb(255, 255, 255);">雑誌掲載情報です。</span><div style="margin: 0px; p...<p><a href="http://rico-memo.jugem.jp/?eid=103">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-03-29T19:26:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=102">
+    <link>http://rico-memo.jugem.jp/?eid=102</link>
+    <title>漫画ばんがいち５月号掲載のお知らせ</title>
+    <description>雑誌掲載のお知らせです。</description>
+<content:encoded><![CDATA[
+<span style="color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px; background-color: rgb(255, 255, 255);">雑誌掲載のお知らせです。</span><div style="margin: 0px; padding: 0px; font-fam...<p><a href="http://rico-memo.jugem.jp/?eid=102">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-03-22T23:40:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=101">
+    <link>http://rico-memo.jugem.jp/?eid=101</link>
+    <title> 大図書館の羊飼い ~Lovely Librarians~ 1 発売のお知らせ</title>
+    <description>３月１５日に、電撃HIMEにて連載している、コミカライズ作品の単行本1巻が発売されます。オーガスト様原作のゲーム「大図書館の羊飼い」を元にした番外編な感じのお話を書かせていただいております。（ちょいエロタ...</description>
+<content:encoded><![CDATA[
+３月１５日に、電撃HIMEにて連載している、コミカライズ作品の単行本1巻が発売されます。<div><br><div>オーガスト様原作のゲーム「大図書館の羊飼い」を元にした番外編な感じのお話を書かせていただいております。（ちょいエロ<br><div><br></div><div><br><div>タ...<p><a href="http://rico-memo.jugem.jp/?eid=101">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-03-13T20:42:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=100">
+    <link>http://rico-memo.jugem.jp/?eid=100</link>
+    <title>ばんがいち４月号掲載情報</title>
+    <description>雑誌掲載のお知らせです。発売中の漫画ばんがいち４月号に読み切りエロ漫画描いてます。ばんがいち公式サイト（18歳未満閲覧禁止）にサンプル載ってます。</description>
+<content:encoded><![CDATA[
+雑誌掲載のお知らせです。<div>発売中の漫画ばんがいち４月号に読み切りエロ漫画描いてます。</div><div><br></div><div><a href="http://www.coremagazine.co.jp/bangaichi/">ばんがいち公式サイト</a>（18歳未満閲覧禁止）にサンプル載ってます。</div><div><br></...<p><a href="http://rico-memo.jugem.jp/?eid=100">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-02-23T00:45:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=99">
+    <link>http://rico-memo.jugem.jp/?eid=99</link>
+    <title>電撃HIME３月号のお知らせ</title>
+    <description>雑誌掲載情報です。</description>
+<content:encoded><![CDATA[
+<span style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px;">雑誌掲載情報です。</span><div style="margin: 0px; padding: 0px; font-family: '...<p><a href="http://rico-memo.jugem.jp/?eid=99">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-02-01T09:09:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=98">
+    <link>http://rico-memo.jugem.jp/?eid=98</link>
+    <title>お礼＆お知らせ</title>
+    <description>あけましておめでとうございます。</description>
+<content:encoded><![CDATA[
+<span style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px;">あけましておめでとうございます。</span><div style="margin: 0px; padding: 0px; ...<p><a href="http://rico-memo.jugem.jp/?eid=98">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2013-01-01T16:41:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=97">
+    <link>http://rico-memo.jugem.jp/?eid=97</link>
+    <title>C83情報（サンプル追記</title>
+    <description>
+遅くなりました、C83の情報です。(終了したのでリンク消しました)</description>
+<content:encoded><![CDATA[
+
+遅くなりました、C83の情報です。<br><div>(終了したのでリンク消しました)</div><div><br></div><div><br><br></div>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-12-29T18:15:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=96">
+    <link>http://rico-memo.jugem.jp/?eid=96</link>
+    <title>雑誌掲載情報 ＆サイン本販売のお知らせ</title>
+    <description>12月17日発売の</description>
+<content:encoded><![CDATA[
+<div><span style="font-size: 12px; font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif;">12月17日発売の</span><span style="font-size: 12px; font-family: 'MS PGothic', sans-s...<p><a href="http://rico-memo.jugem.jp/?eid=96">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-12-23T11:52:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=95">
+    <link>http://rico-memo.jugem.jp/?eid=95</link>
+    <title>お仕事お知らせなど</title>
+    <description>今月30日発売の電撃HIME1月号にて</description>
+<content:encoded><![CDATA[
+<span style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px;">今月30日発売の電撃HIME1月号にて</span><div style="margin: 0px; padding: 0px; f...<p><a href="http://rico-memo.jugem.jp/?eid=95">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-11-29T19:05:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=94">
+    <link>http://rico-memo.jugem.jp/?eid=94</link>
+    <title>サンクリお疲れ様でした＆お仕事お知らせ</title>
+    <description>&amp;nbsp;サンクリ５７に参加された皆さん、お疲れ様でした。Rico-baスペースにお立ち寄り下さった方々、新刊・既刊をお手にとって下さった方々、どうもありがとうございました！差し入れ下さった方もありがとうございます＞＜...</description>
+<content:encoded><![CDATA[
+&nbsp;サンクリ５７に参加された皆さん、お疲れ様でした。<div><br><div>Rico-baスペースにお立ち寄り下さった方々、新刊・既刊をお手にとって下さった方々、どうもありがとうございました！</div><div><br></div><div>差し入れ下さった方もありがとうございます＞＜...<p><a href="http://rico-memo.jugem.jp/?eid=94">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-10-29T11:59:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=93">
+    <link>http://rico-memo.jugem.jp/?eid=93</link>
+    <title>お仕事お知らせ</title>
+    <description>お仕事お知らせです一迅社さまから10月25日日に発売の&amp;nbsp;リトルバスターズ！エクスタシー　えくすたちっくアンソロジーvol．8･･･に、カラーピンナップを一枚描かせていただきました。屋上で...</description>
+<content:encoded><![CDATA[
+<div>お仕事お知らせです</div><div><br></div><div>一迅社さまから10月25日日に発売の</div>&nbsp;リトルバスターズ！エクスタシー　えくすたちっくアンソロジーvol．8<div>･･･に、カラーピンナップを一枚描かせていただきました。</div><div><br></div><div>屋上で...<p><a href="http://rico-memo.jugem.jp/?eid=93">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-10-24T20:11:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=92">
+    <link>http://rico-memo.jugem.jp/?eid=92</link>
+    <title>サンクリ57</title>
+    <description>&amp;nbsp;サンシャインクリエイション57参加します。スペースは　A23ホール　J-49a　Rico-ba　です。新刊は個人誌はないのですが、Ico-baのtacaのパパ聞き小説（大きくなったひなエロ本）に表紙・挿絵担当しました。...</description>
+<content:encoded><![CDATA[
+&nbsp;サンシャインクリエイション57参加します。<div>スペースは　<font size="+1">A23ホール　J-49a　Rico-ba　</font>です。</div><div>新刊は個人誌はないのですが、Ico-baのtacaのパパ聞き小説（大きくなったひなエロ本）に表紙・挿絵担当しました。</div><div>...<p><a href="http://rico-memo.jugem.jp/?eid=92">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-10-24T12:34:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=91">
+    <link>http://rico-memo.jugem.jp/?eid=91</link>
+    <title>お仕事お知らせ（HIME  ＆ばんが</title>
+    <description>お仕事お知らせで...</description>
+<content:encoded><![CDATA[
+<div><br></div><br><div style="margin: 0px; padding: 0px; font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; line-height: 15px; "><span style="color: rgb(51, 51, 51); font-size: 10px; background-color: rgb(255, 255, 255); ">お仕事お知らせで...<p><a href="http://rico-memo.jugem.jp/?eid=91">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-10-15T20:37:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=90">
+    <link>http://rico-memo.jugem.jp/?eid=90</link>
+    <title>10月7日AugusticEternal４について</title>
+    <description>&amp;nbsp;10月7日に開催のAugusticEternal４について参加申し込みをしましたが、仕事の都合で参加できなくなりました。参加できず残念です。。。もし、参加を楽しみにして下さった方がいらっしゃいましたら、すみま...</description>
+<content:encoded><![CDATA[
+&nbsp;10月7日に開催のAugusticEternal４について<div>参加申し込みをしましたが、仕事の都合で参加できなくなりました。<div><br></div><div>参加できず残念です。。。</div><div><br></div><div>もし、参加を楽しみにして下さった方がいらっしゃいましたら、すみま...<p><a href="http://rico-memo.jugem.jp/?eid=90">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-09-24T16:07:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=89">
+    <link>http://rico-memo.jugem.jp/?eid=89</link>
+    <title>ばんがいち１１月号</title>
+    <description>&amp;nbsp;雑誌掲載のお知らせです。発売中の漫画ばんがいち1１月号に読み切りエロ漫画描いてます。ばんがいち公式サイト（18歳未満閲覧禁止）にサンプル載ってます。</description>
+<content:encoded><![CDATA[
+&nbsp;雑誌掲載のお知らせです。<div>発売中の漫画ばんがいち1１月号に読み切りエロ漫画描いてます。</div><div><br></div><div><a href="http://www.coremagazine.co.jp/bangaichi/">ばんがいち公式サイト</a>（18歳未満閲覧禁止）にサンプル載ってます。</div><div...<p><a href="http://rico-memo.jugem.jp/?eid=89">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-09-17T21:58:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=88">
+    <link>http://rico-memo.jugem.jp/?eid=88</link>
+    <title>大図書館の羊飼いLL第２話掲載のお知らせ</title>
+    <description>&amp;nbsp;８月30日発売の電撃HIME10月号（18禁雑誌）に、「大図書館の羊飼い〜Lovely　Librarians〜」の第二話が掲載されています。今回のお話は”玉藻”をメインンにしたお話です。水着回ー。</description>
+<content:encoded><![CDATA[
+&nbsp;８月30日発売の電撃HIME10月号（18禁雑誌）に、<div>「大図書館の羊飼い〜Lovely　Librarians〜」の第二話が掲載されています。<div><br></div><div>今回のお話は”玉藻”をメインンにしたお話です。</div><div>水着回ー。</div><div><br></div><div><img src="h...<p><a href="http://rico-memo.jugem.jp/?eid=88">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-08-30T09:21:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=87">
+    <link>http://rico-memo.jugem.jp/?eid=87</link>
+    <title>単行本発売のお知らせ＆コミケ新刊のお知らせ（8/8追記-2</title>
+    <description>まずは単行本のお知らせからです。</description>
+<content:encoded><![CDATA[
+<div style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px; ">まずは単行本のお知らせからです。</div><div style="font-family: Verdana, 'qMmpS Pro W3', '...<p><a href="http://rico-memo.jugem.jp/?eid=87">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-08-08T17:12:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=86">
+    <link>http://rico-memo.jugem.jp/?eid=86</link>
+    <title>７月発売掲載情報</title>
+    <description>&amp;nbsp;今月３０日発売の電撃HIME９月号から「大図書館の羊飼い〜Lovely Librarians〜　の連載が始まります。一回目は”つぐみ”をピックアップしたお話です。よろしくお願いしますー。</description>
+<content:encoded><![CDATA[
+&nbsp;今月３０日発売の電撃HIME９月号から<div>「大図書館の羊飼い〜Lovely Librarians〜　の連載が始まります。</div><div>一回目は”つぐみ”をピックアップしたお話です。</div><div><br></div><div>よろしくお願いしますー。</div><div><br></div><div><img src="...<p><a href="http://rico-memo.jugem.jp/?eid=86">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-07-27T16:36:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=85">
+    <link>http://rico-memo.jugem.jp/?eid=85</link>
+    <title>雑誌掲載情報</title>
+    <description>&amp;nbsp;雑誌掲載情報です。</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif;">&nbsp;雑誌掲載情報です。</span><div style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro...<p><a href="http://rico-memo.jugem.jp/?eid=85">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-06-29T18:12:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=84">
+    <link>http://rico-memo.jugem.jp/?eid=84</link>
+    <title>SC56の新刊＆新グッズ案内</title>
+    <description>&amp;nbsp;24日サンクリのお知らせです。</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px;">&nbsp;24日サンクリのお知らせです。</span><div style="font-family: Verdana, 'qMmpS Pro W3'...<p><a href="http://rico-memo.jugem.jp/?eid=84">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-06-17T09:56:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=83">
+    <link>http://rico-memo.jugem.jp/?eid=83</link>
+    <title>お仕事お知らせ</title>
+    <description>&amp;nbsp;
+今月16日発売の、漫画ばんがいちに</description>
+<content:encoded><![CDATA[
+&nbsp;
+<span style="color: rgb(51, 51, 51); font-family: 'Courier New', 'ＭＳ ゴシック', Osaka‐等幅; font-size: 10px; line-height: 15px; background-color: rgb(255, 255, 255); ">今月16日発売の、漫画ばんがいちに</span><a href="http://www.coremagazi...<p><a href="http://rico-memo.jugem.jp/?eid=83">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-06-14T20:54:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=82">
+    <link>http://rico-memo.jugem.jp/?eid=82</link>
+    <title>単行本作業中なのです</title>
+    <description></description>
+<content:encoded><![CDATA[
+<br><div id="message228089370" class="undoreset clearfix" role="main" style="margin: 0px 0px 0.5em; padding: 0px 0px 0.5em; line-height: 1.22em; outline: none; zoom: 1; font-size: 16px; height: auto; visibility: visible; clear: none; position: rel...<p><a href="http://rico-memo.jugem.jp/?eid=82">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-06-14T20:28:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=81">
+    <link>http://rico-memo.jugem.jp/?eid=81</link>
+    <title>いろいろおしらせ</title>
+    <description>&amp;nbsp;どうも、うん・・・Ricoです。</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px;">&nbsp;どうも、うん・・・Ricoです。</span><div style="font-family: Verdana, 'qMmpS Pro W3'...<p><a href="http://rico-memo.jugem.jp/?eid=81">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-05-10T14:15:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=80">
+    <link>http://rico-memo.jugem.jp/?eid=80</link>
+    <title>帝國メイド倶楽部お疲れ様でした</title>
+    <description>&amp;nbsp;今日の都産祭・帝國メイド倶楽部にて、スペースに来て下さった方々、どうもありがとうご...</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px;">&nbsp;今日の都産祭・帝國メイド倶楽部にて、スペースに来て下さった方々、どうもありがとうご...<p><a href="http://rico-memo.jugem.jp/?eid=80">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-05-03T23:51:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=79">
+    <link>http://rico-memo.jugem.jp/?eid=79</link>
+    <title>comic1☆６お疲れ様でした</title>
+    <description>&amp;nbsp;先日のcomic１☆６に参加された皆さんお疲れ様でした！当スペースに来て下さった方々、どうもありがとうございました！本を手にとって頂いた方々、本当にありがとうございました！！...</description>
+<content:encoded><![CDATA[
+&nbsp;先日のcomic１☆６に参加された皆さんお疲れ様でした！<div><br></div><div>当スペースに来て下さった方々、どうもありがとうございました！</div><div>本を手にとって頂いた方々、本当にありがとうございました！！</div><div><br></div><div><br></div><div>...<p><a href="http://rico-memo.jugem.jp/?eid=79">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-05-01T09:31:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=78">
+    <link>http://rico-memo.jugem.jp/?eid=78</link>
+    <title>連載のお知らせ</title>
+    <description>電撃姫が発売されたので告知〜。</description>
+<content:encoded><![CDATA[
+<span style="color: rgb(51, 51, 51); font-family: HelveticaNeue, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 18px; background-color: rgb(255, 255, 255); ">電撃姫が発売されたので告知〜。</span><div style="font-fami...<p><a href="http://rico-memo.jugem.jp/?eid=78">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-04-28T17:22:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=77">
+    <link>http://rico-memo.jugem.jp/?eid=77</link>
+    <title>抱き枕通販〆切りもうすぐです！</title>
+    <description>&amp;nbsp;申し込み締め切りが明後日（３０日）なので再宣伝。</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px;">&nbsp;申し込み締め切りが明後日（３０日）なので再宣伝。</span><div><span style="font-famil...<p><a href="http://rico-memo.jugem.jp/?eid=77">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-04-28T10:44:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=76">
+    <link>http://rico-memo.jugem.jp/?eid=76</link>
+    <title>comic１☆6お知らせ</title>
+    <description>&amp;nbsp;４月３０日comic1☆６の情報です。</description>
+<content:encoded><![CDATA[
+<span style="font-family: Verdana, 'qMmpS Pro W3', 'Hiragino Kaku Gothic Pro', CI, Meiryo, 'lr oSVbN', Osaka, Arial, Helvetica, sans-serif; font-size: 12px; ">&nbsp;４月３０日comic1☆６の情報です。</span><div style="font-family: Verdana, 'qMmpS Pro...<p><a href="http://rico-memo.jugem.jp/?eid=76">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-04-27T17:42:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=75">
+    <link>http://rico-memo.jugem.jp/?eid=75</link>
+    <title>お仕事お知らせ（ばんがいち</title>
+    <description>今月17日発売の、漫画ばんがいちに20P漫画書いてます。達兄と美沙の話最終話です。よ...</description>
+<content:encoded><![CDATA[
+今月17日発売の、漫画ばんがいちに<a href="http://www.coremagazine.co.jp/bangaichi/top/" style="color: black; text-decoration: none; font-family: 'MS PGothic'; line-height: 14px; ">20</a>P漫画書いてます。<div>達兄と美沙の話最終話です。</div><div>よ...<p><a href="http://rico-memo.jugem.jp/?eid=75">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-04-16T10:00:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+  <item rdf:about="http://rico-memo.jugem.jp/?eid=74">
+    <link>http://rico-memo.jugem.jp/?eid=74</link>
+    <title>サンクリお疲れ様でした！</title>
+    <description>今日のサンクリでスペースに来て下さった方々、どうもありがとうございました。新刊本日持ち込み分は 完売でした。ありがとうございます！！サンクリ新刊については３０日のcomic１☆６にも持ち込みます。comic...</description>
+<content:encoded><![CDATA[
+今日のサンクリでスペースに来て下さった方々、どうもありがとうございました。<div>新刊本日持ち込み分は 完売でした。</div><div>ありがとうございます！！</div><div><br></div><div>サンクリ新刊については３０日のcomic１☆６にも持ち込みます。</div><div>comic...<p><a href="http://rico-memo.jugem.jp/?eid=74">続きを読む &gt;&gt;</a></p>
+]]></content:encoded>
+    <dc:subject></dc:subject>
+    <dc:date>2012-04-15T22:12:00+09:00</dc:date>
+    <dc:creator>Rico</dc:creator>
+    <dc:publisher>JUGEM</dc:publisher>
+    <dc:rights>Rico</dc:rights>
+  </item>
+
+</rdf:RDF>
