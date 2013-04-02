@@ -26,3 +26,9 @@ Get source code
 ===============
 
 $ git clone --recurse-submodules git@github.com:luzi82/MomohaWeb.git
+
+
+Coding conventions
+==================
+
+For date-time type, use int64, ms from 1970+UTC0.  Software date-time type is trouble.
