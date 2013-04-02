@@ -42,3 +42,4 @@ class SimpleTest(TestCase):
         
         db_feed = Feed.objects.get(url=url)
         self.assertEqual(u'栗子現場直播', db_feed.title)
+        self.assertEqual('http://blog.luzi82.com/', db_feed.link)
