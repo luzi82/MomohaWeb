@@ -72,5 +72,4 @@ class SimpleTest(TestCase):
         self.assertEqual('http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html', db_item.link)
         self.assertTrue(db_item.content.startswith(u'<p>舊聞：Google 要放棄 Reader'))
         self.assertTrue(db_item.content.endswith("/>"))
-        # self.assertTrue(db_item.content.endswith(u'height=\"1\" width=\"1\"/>'))
         self.assertEqual(poll_time, db_item.last_detail_update)
