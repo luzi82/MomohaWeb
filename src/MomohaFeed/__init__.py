@@ -8,7 +8,7 @@ import calendar
 import HTMLParser
 
 def feed_poll(db_feed):
-    now = datetime.now()
+    now = now64()
     
     htmlparser = HTMLParser.HTMLParser()
     
@@ -47,12 +47,12 @@ def feed_poll(db_feed):
         entry_published = None
         if hasattr(entry,'published_parsed'):
             entry_published = entry.published_parsed
-            entry_published = datetime.fromtimestamp(calendar.timegm(entry_published),utc)
+            entry_published = int(calendar.timegm(entry_published)*1000)
         
         entry_updated = None
         if hasattr(entry,'updated_parsed'):
             entry_updated = entry.updated_parsed
-            entry_updated = datetime.fromtimestamp(calendar.timegm(entry_updated),utc)
+            entry_updated = int(calendar.timegm(entry_updated)*1000)
         
         if entry_published == None:
             entry_published = entry_updated
@@ -84,7 +84,8 @@ def subscription_add(db_user,url):
     db_subscription,_ = Subscription.objects.get_or_create(
         user = db_user,
         feed = db_feed,
-        enable = True
+        enable = True,
+        defaults = {'start': now64()}
     )
     
     return db_feed,db_subscription
@@ -118,5 +119,13 @@ def subscription_item_mark_read(db_subscription,db_item):
     ItemRead.objects.get_or_create(
         subscription = db_subscription,
         item = db_item,
-        enable = True
+        enable = True,
+        defaults = {'time': now64()}
     )
+
+def now64():
+    
+    ret = time.time()
+    ret *= 1000
+    ret = int(ret)
+    return ret
