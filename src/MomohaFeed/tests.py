@@ -73,3 +73,34 @@ class SimpleTest(TestCase):
         self.assertTrue(db_item.content.startswith(u'<p>舊聞：Google 要放棄 Reader'))
         self.assertTrue(db_item.content.endswith("/>"))
         self.assertEqual(poll_time, db_item.last_detail_update)
+
+
+    def test_j_list_subscription(self):
+
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertIn('subscription_id', result)
+
+        response = client.get("/feed/j_list_subscription/")
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(u'栗子現場直播', result['subscription_list'][0]['title'])
