@@ -142,7 +142,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         
-        self.assertEqual(u'もう誰にも頼らない', result['subscription_list'][0]['title'])
-        self.assertIn('id', result['subscription_list'][0])
-        self.assertEqual(1364789700000, result['subscription_list'][0]['published'])
-        self.assertEqual('http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html', result['subscription_list'][0]['url'])
+        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
+        self.assertIn('id', result['item_list'][0])
+        self.assertEqual(1364789700000, result['item_list'][0]['published'])
+        self.assertEqual('http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html', result['item_list'][0]['link'])

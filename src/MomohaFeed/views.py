@@ -141,22 +141,31 @@ def j_subscription_set_enable(request,subscription_id,value):
 
 @u403
 @json
-def j_subscription_list_item(request,subscription_id):
+def j_subscription_list_item(request):
 
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
+    if request.method == "POST":
+        form = MomohaFeed.forms.SubscriptionListItemForm(request.POST)
+        if form.is_valid():
+            subscription_id = form.cleaned_data["subscription_id"]
+            
+            db_subscription = Subscription.objects.get(id=subscription_id)
+            if(db_subscription.user != request.user):
+                raise PermissionDenied
+        
+            db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+            
+            item_list = []
+            for db_item in db_item_list:
+                item = {}
+                item['title'] = db_item.title
+                item['published'] = db_item.published
+                item['id'] = db_item.id
+                item['link'] = db_item.link
+                item_list.append(item)
+        
+            return { 'item_list' : item_list }
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
-    
-    item_list = []
-    for db_item in db_item_list:
-        item = {}
-        item['title'] = db_item.title
-        item['published'] = db_item.published
-        item_list.append(item)
-
-    return { 'db_item_list' : db_item_list }
+    raise ValidationError
 
 @u403
 @json
