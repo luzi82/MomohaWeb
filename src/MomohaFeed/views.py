@@ -114,18 +114,15 @@ def j_list_subscription(request):
 
 @u403
 @json
-def j_add_subscription(request):
-    if request.method == "POST":
-        form = SubscriptionAddForm(request.POST)
-        if form.is_valid():
-            url = form.cleaned_data["url"]
-            db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
-            MomohaFeed.feed_poll(db_feed)
-            return {
-                'success': True,
-                'subscription_id' : db_subscription.id
-            }
-    raise ValidationError
+@MomohaFeed.forms.post_form(SubscriptionAddForm)
+def j_add_subscription(request,form):
+    url = form.cleaned_data["url"]
+    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
+    MomohaFeed.feed_poll(db_feed)
+    return {
+        'success': True,
+        'subscription_id' : db_subscription.id
+    }
 
 @u403
 @json
@@ -141,31 +138,27 @@ def j_subscription_set_enable(request,subscription_id,value):
 
 @u403
 @json
-def j_subscription_list_item(request):
+@MomohaFeed.forms.post_form(MomohaFeed.forms.SubscriptionListItemForm)
+def j_subscription_list_item(request,form):
 
-    if request.method == "POST":
-        form = MomohaFeed.forms.SubscriptionListItemForm(request.POST)
-        if form.is_valid():
-            subscription_id = form.cleaned_data["subscription_id"]
-            
-            db_subscription = Subscription.objects.get(id=subscription_id)
-            if(db_subscription.user != request.user):
-                raise PermissionDenied
-        
-            db_item_list = MomohaFeed.subscription_list_content(db_subscription)
-            
-            item_list = []
-            for db_item in db_item_list:
-                item = {}
-                item['title'] = db_item.title
-                item['published'] = db_item.published
-                item['id'] = db_item.id
-                item['link'] = db_item.link
-                item_list.append(item)
-        
-            return { 'item_list' : item_list }
+    subscription_id = form.cleaned_data["subscription_id"]
+    
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
 
-    raise ValidationError
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    
+    item_list = []
+    for db_item in db_item_list:
+        item = {}
+        item['title'] = db_item.title
+        item['published'] = db_item.published
+        item['id'] = db_item.id
+        item['link'] = db_item.link
+        item_list.append(item)
+
+    return { 'item_list' : item_list }
 
 @u403
 @json
