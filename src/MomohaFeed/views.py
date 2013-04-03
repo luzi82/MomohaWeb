@@ -98,7 +98,8 @@ def subscription_item_mark_read(request,subscription_id,item_id):
 def j_list_subscription(request):
     
     db_subscription_list = Subscription.objects.filter(
-        user__exact = request.user
+        user__exact = request.user,
+        enable__exact = True
     ).select_related("feed")
     
     subscription_list = []
@@ -137,6 +138,7 @@ def j_subscription_set_enable(request,form):
         raise PermissionDenied
     
     db_subscription.enable = value
+    db_subscription.save()
     
     return { 'success' : True }
 
