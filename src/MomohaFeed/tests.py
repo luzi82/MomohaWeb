@@ -106,8 +106,61 @@ class SimpleTest(TestCase):
         response = client.get("/feed/j_list_subscription/")
         content=response.content
         result = simplejson.loads(content)
-        
+        self.assertEqual(1, len(result['subscription_list']))
         self.assertEqual(u'栗子現場直播', result['subscription_list'][0]['title'])
+        self.assertEqual(subscription_id, result['subscription_list'][0]['id'])
+        
+        
+    def test_j_subscription_set_enable(self):
+
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertIn('subscription_id', result)
+        subscription_id = result['subscription_id']
+        
+        response = client.post("/feed/j_subscription_set_enable/",{
+            'subscription_id': subscription_id,
+            'value': False
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        
+        response = client.get("/feed/j_list_subscription/")
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(0, len(result['subscription_list']))
+
+        response = client.post("/feed/j_subscription_set_enable/",{
+            'subscription_id': subscription_id,
+            'value': True
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        
+        response = client.get("/feed/j_list_subscription/")
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(1, len(result['subscription_list']))
         self.assertEqual(subscription_id, result['subscription_list'][0]['id'])
 
 

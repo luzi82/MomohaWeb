@@ -8,7 +8,7 @@ class AddSubscriptionForm (django.forms.Form):
 
 class SubscriptionSetEnableForm (django.forms.Form):
     subscription_id = django.forms.IntegerField()
-    value = django.forms.BooleanField()
+    value = django.forms.BooleanField(required = False)
 
 
 class SubscriptionListItemForm (django.forms.Form):
@@ -26,5 +26,7 @@ class post_form(object):
                 form = self.form_class(request.POST)
                 if form.is_valid():
                     return f(request,*args,form=form,**kwargs)
-            raise django.core.exceptions.ValidationError
+                else:
+                    raise django.core.exceptions.ValidationError(form.errors)
+            raise django.core.exceptions.ValidationError("not POST")
         return ff
