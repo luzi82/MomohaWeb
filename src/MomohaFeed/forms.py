@@ -2,7 +2,7 @@ import django.forms
 import django.core.exceptions
 
 
-class SubscriptionAddForm (django.forms.Form):
+class AddSubscriptionForm (django.forms.Form):
     url = django.forms.URLField()
 
 

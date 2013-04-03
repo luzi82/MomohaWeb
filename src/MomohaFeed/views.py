@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from MomohaFeed.forms import SubscriptionAddForm
+from MomohaFeed.forms import AddSubscriptionForm
 from MomohaFeed.models import Subscription, Item
 from django.core.exceptions import PermissionDenied
 import MomohaFeed
@@ -30,21 +30,21 @@ def list_subscription(request):
 
     return render(request,"MomohaFeed/list_subscription.tmpl",{
         "db_subscription_list":db_subscription_list,
-        "add_form":SubscriptionAddForm()
+        "add_form":AddSubscriptionForm()
     })
 
 @login_required
 def subscription_add(request):
     form = None
     if request.method == "POST":
-        form = SubscriptionAddForm(request.POST)
+        form = AddSubscriptionForm(request.POST)
         if form.is_valid():
             url = form.cleaned_data["url"]
             db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
             MomohaFeed.feed_poll(db_feed)
             return redirect("MomohaFeed.views.subscription_list_content",subscription_id=db_subscription.id)
     if form == None:
-        form = SubscriptionAddForm()
+        form = AddSubscriptionForm()
     return render(request,"MomohaFeed/subscription_add.tmpl",{"form" : form})
 
 @login_required
@@ -114,7 +114,7 @@ def j_list_subscription(request):
 
 @u403
 @json
-@MomohaFeed.forms.post_form(SubscriptionAddForm)
+@MomohaFeed.forms.post_form(AddSubscriptionForm)
 def j_add_subscription(request,form):
     url = form.cleaned_data["url"]
     db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
