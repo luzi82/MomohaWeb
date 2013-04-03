@@ -12,8 +12,8 @@ urlpatterns = patterns(
     
     url(r'^j_list_subscription/$','j_list_subscription'),
     url(r'^j_add_subscription/$','j_add_subscription'),
-    url(r'^j_subscription_set_enable/(?P<subscription_id>\d+)/(?P<value>[01])/$','j_subscription_set_enable'),
-    url(r'^j_subscription_list_item/(?P<subscription_id>\d+)/$','j_subscription_list_item'),
-    url(r'^j_subscription_item_show/(?P<subscription_id>\d+)/(?P<item_id>\d+)/$','j_subscription_item_show'),
-    url(r'^j_subscription_item_set_readdone/(?P<subscription_id>\d+)/(?P<item_id>\d+)/(?P<value>[01])/$','j_subscription_item_set_readdone'),
+    url(r'^j_subscription_set_enable/$','j_subscription_set_enable'),
+    url(r'^j_subscription_list_item/$','j_subscription_list_item'),
+    url(r'^j_subscription_item_show/$','j_subscription_item_show'),
+    url(r'^j_subscription_item_set_readdone/$','j_subscription_item_set_readdone'),
 )

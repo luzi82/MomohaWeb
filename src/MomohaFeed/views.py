@@ -121,6 +121,7 @@ def j_add_subscription(request):
             db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
             MomohaFeed.feed_poll(db_feed)
             return {
+                'success': True,
                 'subscription_id' : db_subscription.id
             }
     raise ValidationError
