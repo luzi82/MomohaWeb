@@ -6,6 +6,11 @@ class AddSubscriptionForm (django.forms.Form):
     url = django.forms.URLField()
 
 
+class SubscriptionSetEnableForm (django.forms.Form):
+    subscription_id = django.forms.IntegerField()
+    value = django.forms.BooleanField()
+
+
 class SubscriptionListItemForm (django.forms.Form):
     subscription_id = django.forms.IntegerField()
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from MomohaFeed.forms import AddSubscriptionForm
+from MomohaFeed.forms import AddSubscriptionForm, post_form
 from MomohaFeed.models import Subscription, Item
 from django.core.exceptions import PermissionDenied
 import MomohaFeed
@@ -114,7 +114,7 @@ def j_list_subscription(request):
 
 @u403
 @json
-@MomohaFeed.forms.post_form(AddSubscriptionForm)
+@post_form(AddSubscriptionForm)
 def j_add_subscription(request,form):
     url = form.cleaned_data["url"]
     db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
@@ -126,19 +126,23 @@ def j_add_subscription(request,form):
 
 @u403
 @json
-def j_subscription_set_enable(request,subscription_id,value):
+@post_form(MomohaFeed.forms.SubscriptionSetEnableForm)
+def j_subscription_set_enable(request,form):
 
+    subscription_id = form.cleaned_data["subscription_id"]
+    value = form.cleaned_data["value"]
+    
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
-
-    db_subscription.enable = value != 0
+    
+    db_subscription.enable = value
     
     return { 'success' : True }
 
 @u403
 @json
-@MomohaFeed.forms.post_form(MomohaFeed.forms.SubscriptionListItemForm)
+@post_form(MomohaFeed.forms.SubscriptionListItemForm)
 def j_subscription_list_item(request,form):
 
     subscription_id = form.cleaned_data["subscription_id"]
