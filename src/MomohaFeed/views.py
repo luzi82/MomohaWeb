@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import SubscriptionAddForm
 from MomohaFeed.models import Subscription, Item
-from django.core.exceptions import PermissionDenied, ValidationError
+from django.core.exceptions import PermissionDenied
 import MomohaFeed
 from django.http import HttpResponse
 import simplejson
