@@ -217,6 +217,7 @@ class SimpleTest(TestCase):
             'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
             vm_item['link']
         )
+        self.assertEqual(False,vm_item['readdone'])
 
 
     def test_j_subscription_item_detail(self):
@@ -278,6 +279,110 @@ class SimpleTest(TestCase):
         self.assertEqual(1364789887000, vm_item_detail['updated'])
         self.assertTrue(vm_item_detail['content'].startswith(u'<p>舊聞：Google 要放棄 Reader'))
         self.assertTrue(vm_item_detail['content'].endswith("/>"))
+        self.assertEqual(False,vm_item_detail['readdone'])
+        
+    
+    def test_j_subscription_item_set_readdone(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
+        item_id = vm_item['id']
+        
+
+        response = client.post("/feed/j_subscription_item_set_readdone/",{
+            'subscription_id': subscription_id,
+            'item_id': item_id,
+            'value': True
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertIn('success', result)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list'][0])
+        self.assertNotEqual(item_id, result['item_list'][0]['id'])
+
+
+        response = client.post("/feed/j_subscription_item_detail/",{
+            'subscription_id': subscription_id,
+            'item_id': item_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(True, result['item_detail']['readdone'])
+
+
+        response = client.post("/feed/j_subscription_item_set_readdone/",{
+            'subscription_id': subscription_id,
+            'item_id': item_id,
+            'value': False
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertIn('success', result)
+        self.assertEqual(True, result['success'])
+        
+        
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list'][0])
+        self.assertEqual(item_id, result['item_list'][0]['id'])
+
+
+        response = client.post("/feed/j_subscription_item_detail/",{
+            'subscription_id': subscription_id,
+            'item_id': item_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(False, result['item_detail']['readdone'])
 
 
     def verify_subscription(self,vm_subscription):
@@ -304,6 +409,7 @@ class SimpleTest(TestCase):
         self.assertIn('title', vm_item)
         self.assertIn('published', vm_item)
         self.assertIn('link', vm_item)
+        self.assertIn('readdone', vm_item)
 
 
     def verify_item_detail(self,vm_item_detail):
