@@ -15,7 +15,7 @@ class SubscriptionListItemForm (django.forms.Form):
     subscription_id = django.forms.IntegerField()
 
 
-class SubscriptionItemShowForm (django.forms.Form):
+class SubscriptionItemDetailForm (django.forms.Form):
     subscription_id = django.forms.IntegerField()
     item_id = django.forms.IntegerField()
 

@@ -219,7 +219,7 @@ class SimpleTest(TestCase):
         )
 
 
-    def test_j_subscription_item_show(self):
+    def test_j_subscription_item_detail(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
@@ -258,7 +258,7 @@ class SimpleTest(TestCase):
         item_id = result['item_list'][0]['id']
 
 
-        response = client.post("/feed/j_subscription_item_show/",{
+        response = client.post("/feed/j_subscription_item_detail/",{
             'subscription_id': subscription_id,
             'item_id': item_id
         })

@@ -161,8 +161,8 @@ def j_subscription_list_item(request,form):
 
 @u403
 @json
-@post_form(MomohaFeed.forms.SubscriptionItemShowForm)
-def j_subscription_item_show(request,form):
+@post_form(MomohaFeed.forms.SubscriptionItemDetailForm)
+def j_subscription_item_detail(request,form):
     
     item_id = form.cleaned_data["item_id"]
     
