@@ -45,16 +45,25 @@ class SimpleTest(TestCase):
         
         thread = Thread(target=httpServer.handle_request)
         thread.start()
-#        time0 = MomohaFeed.now64()
+        # time0 = MomohaFeed.now64()
         response = client.post("/feed/j_add_subscription/",{
             'url':url
         })
-#        time1 = MomohaFeed.now64()
+        # time1 = MomohaFeed.now64()
         content=response.content
         result = simplejson.loads(content)
-        self.assertIn('subscription_id', result)
+        
+        self.assertIn('success', result)
+        self.assertIn('subscription', result)
+
+        self.verify_subscription(result['subscription'])
+
         self.assertEqual(True, result['success'])
         
+        vm_subscription = result['subscription']
+        self.assertEqual(u'栗子現場直播', vm_subscription['title'])
+        self.assertEqual(u'http://blog.luzi82.com/', vm_subscription['link'])
+        self.assertEqual(True, vm_subscription['enable'])
 
 #        too white box
 #        db_feed = Feed.objects.get(url=url)
@@ -100,17 +109,20 @@ class SimpleTest(TestCase):
         })
         content=response.content
         result = simplejson.loads(content)
-        self.assertIn('subscription_id', result)
-        subscription_id = result['subscription_id']
+        vm_subscription_0 = result['subscription'][0]
+#        subscription_id = result['subscription']['id']
 
         response = client.get("/feed/j_list_subscription/")
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(1, len(result['subscription_list']))
-        self.assertEqual(u'栗子現場直播', result['subscription_list'][0]['title'])
-        self.assertEqual(subscription_id, result['subscription_list'][0]['id'])
-        
-        
+        for subscription in result['subscription_list']:
+            self.verify_subscription(subscription)
+
+        vm_subscription_1 = result['subscription_list'][0]
+        self.assertEqual(vm_subscription_0, vm_subscription_1)
+
+
     def test_j_subscription_set_enable(self):
 
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -133,8 +145,8 @@ class SimpleTest(TestCase):
         })
         content=response.content
         result = simplejson.loads(content)
-        self.assertIn('subscription_id', result)
-        subscription_id = result['subscription_id']
+        vm_subscription = result['subscription']
+        subscription_id = result['subscription']['id']
         
         response = client.post("/feed/j_subscription_set_enable/",{
             'subscription_id': subscription_id,
@@ -161,7 +173,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(1, len(result['subscription_list']))
-        self.assertEqual(subscription_id, result['subscription_list'][0]['id'])
+        self.assertEqual(vm_subscription, result['subscription_list'][0])
 
 
     def test_j_subscription_list_item(self):
@@ -194,11 +206,17 @@ class SimpleTest(TestCase):
         })
         content=response.content
         result = simplejson.loads(content)
+
+        for vm_item in result['item_list']:
+            self.verify_item(vm_item)
         
-        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
-        self.assertIn('id', result['item_list'][0])
-        self.assertEqual(1364789700000, result['item_list'][0]['published'])
-        self.assertEqual('http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html', result['item_list'][0]['link'])
+        vm_item = result['item_list'][0]
+        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
+        self.assertEqual(1364789700000, vm_item['published'])
+        self.assertEqual(
+            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
+            vm_item['link']
+        )
 
 
 #    def j_subscription_item_show(self):
@@ -249,4 +267,39 @@ class SimpleTest(TestCase):
 #
 #        self.assertEqual(u'もう誰にも頼らない', result['title'])
 #        self.assertEqual(item_id, result['id'])
-        
+
+
+    def verify_subscription(self,vm_subscription):
+
+        self.assertIn('id', vm_subscription)
+        self.assertIn('title', vm_subscription)
+        self.assertIn('link', vm_subscription)
+        self.assertIn('enable', vm_subscription)
+
+
+    def verify_subscription_detail(self,vm_subscription_detail):
+
+        self.verify_subscription(vm_subscription_detail)
+        self.assertIn('user', vm_subscription_detail)
+        self.assertIn('feed_id', vm_subscription_detail)
+        self.assertIn('url', vm_subscription_detail)
+        self.assertIn('last_poll', vm_subscription_detail)
+        self.assertIn('last_detail_update', vm_subscription_detail)
+
+
+    def verify_item(self,vm_item):
+
+        self.assertIn('id', vm_item)
+        self.assertIn('title', vm_item)
+        self.assertIn('published', vm_item)
+        self.assertIn('link', vm_item)
+
+
+    def verify_item_detail(self,vm_item_detail):
+
+        self.verify_item_detail(vm_item_detail)
+        self.assertIn('feed_id', vm_item_detail)
+        self.assertIn('last_poll', vm_item_detail)
+        self.assertIn('updated', vm_item_detail)
+        self.assertIn('content', vm_item_detail)
+        self.assertIn('last_detail_update', vm_item_detail)
