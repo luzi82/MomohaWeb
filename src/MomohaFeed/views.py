@@ -173,5 +173,6 @@ def j_subscription_item_detail(request,form):
 
 @u403
 @json
-def j_subscription_item_set_readdone(request,subscription_id,item_id,value):
+@post_form(MomohaFeed.forms.SubscriptionItemSetReaddoneForm)
+def j_subscription_item_set_readdone(request,form):
     pass

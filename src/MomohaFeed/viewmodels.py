@@ -29,6 +29,10 @@ class VmItem(object):
         self.title = db_item.title
         self.published = db_item.published
         self.link = db_item.link
+        if hasattr(db_item, 'readdone'):
+            self.readdone = db_item.readdone
+        else:
+            self.readdone = None
 
 
 class VmItemDetail(VmItem):
