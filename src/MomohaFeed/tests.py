@@ -199,7 +199,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
-        subscription_id = result['subscription_id']
+        subscription_id = result['subscription']['id']
         
         response = client.post("/feed/j_subscription_list_item/",{
             'subscription_id': subscription_id
