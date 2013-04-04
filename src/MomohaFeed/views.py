@@ -161,7 +161,7 @@ def j_subscription_list_item(request,form):
 
 @u403
 @json
-def j_subscription_item_show(request,subscription_id,item_id):
+def j_subscription_item_show(request):
     pass
 
 @u403

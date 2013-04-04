@@ -219,54 +219,65 @@ class SimpleTest(TestCase):
         )
 
 
-#    def j_subscription_item_show(self):
-#        
-#        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
-#        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
-#
-#        feed = open(MY_DIR+"/test/luzi82.xml").read()
-#        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-#        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
-#        httpServer.server_activate()
-#        
-#        User.objects.create_user("user",password="pass")
-#        
-#        client = Client()
-#        client.login(username="user",password="pass")
-#
-#        
-#        thread = Thread(target=httpServer.handle_request)
-#        thread.start()
-#
-#        response = client.post("/feed/j_add_subscription/",{
-#            'url':url
-#        })
-#        content=response.content
-#        result = simplejson.loads(content)
-#
-#        self.assertEqual(True, result['success'])
-#        subscription_id = result['subscription_id']
-#
-#
-#        response = client.post("/feed/j_subscription_list_item/",{
-#            'subscription_id': subscription_id
-#        })
-#        content=response.content
-#        result = simplejson.loads(content)
-#
-#        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
-#        item_id = result['item_list'][0]['id']
-#
-#
-#        response = client.post("/feed/j_subscription_item_show/",{
-#            'subscription_id': subscription_id,
-#            'item_id': item_id
-#        })
-#        content=response.content
-#        result = simplejson.loads(content)
-#
-#        self.assertEqual(u'もう誰にも頼らない', result['title'])
-#        self.assertEqual(item_id, result['id'])
+    def test_j_subscription_item_show(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
+        item_id = result['item_list'][0]['id']
+
+
+        response = client.post("/feed/j_subscription_item_show/",{
+            'subscription_id': subscription_id,
+            'item_id': item_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertIn('item_detail',result)
+        self.verify_item_detail(result['item_detail'])
+
+        vm_item_detail = result['item_detail']
+        self.assertEqual(u'もう誰にも頼らない', vm_item_detail['title'])
+        self.assertEqual(1364789700000, vm_item_detail['published'])
+        self.assertEqual(
+            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
+            vm_item_detail['link']
+        )
+        self.assertEqual(1364789887000, vm_item_detail['updated'])
+        self.assertTrue(vm_item_detail['content'].startswith(u'<p>舊聞：Google 要放棄 Reader'))
+        self.assertTrue(vm_item_detail['content'].endswith("/>"))
 
 
     def verify_subscription(self,vm_subscription):
