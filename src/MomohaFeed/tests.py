@@ -308,7 +308,7 @@ class SimpleTest(TestCase):
 
     def verify_item_detail(self,vm_item_detail):
 
-        self.verify_item_detail(vm_item_detail)
+        self.verify_item(vm_item_detail)
         self.assertIn('feed_id', vm_item_detail)
         self.assertIn('last_poll', vm_item_detail)
         self.assertIn('updated', vm_item_detail)

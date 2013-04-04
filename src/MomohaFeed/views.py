@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 import MomohaFeed
 from django.http import HttpResponse
 import simplejson
-from MomohaFeed.viewmodels import VmSubscription, VmItem
+from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
 
 def json(f):
     def ff(request,*args,**kwargs):
@@ -161,8 +161,15 @@ def j_subscription_list_item(request,form):
 
 @u403
 @json
-def j_subscription_item_show(request):
-    pass
+@post_form(MomohaFeed.forms.SubscriptionItemShowForm)
+def j_subscription_item_show(request,form):
+    
+    item_id = form.cleaned_data["item_id"]
+    
+    db_item = Item.objects.get(id=item_id)
+    
+    return { 'item_detail': VmItemDetail(db_item).__dict__ }
+
 
 @u403
 @json
