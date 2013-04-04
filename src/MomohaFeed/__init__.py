@@ -92,26 +92,6 @@ def subscription_add(db_user,url):
 
 def subscription_list_content(db_subscription):
 
-    # db_item_list = Item.objects.filter(feed=db_subscription.feed)
-#    db_item_list = Item.objects.raw(
-#        '''
-#            SELECT * FROM MomohaFeed_item
-#            WHERE
-#                feed_id = %s AND
-#                NOT EXISTS (
-#                    SELECT * FROM MomohaFeed_itemread
-#                    WHERE
-#                        subscription_id = %s AND
-#                        item_id = MomohaFeed_item.id AND
-#                        enable
-#                )
-#            ORDER BY published DESC
-#        ''',
-#        [
-#            db_subscription.id , db_subscription.feed.id
-#        ]
-#    )
-
     db_item_list = Item.objects.raw(
         '''
             SELECT
