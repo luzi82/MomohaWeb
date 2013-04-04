@@ -23,6 +23,7 @@ class SubscriptionItemDetailForm (django.forms.Form):
 class SubscriptionItemSetReaddoneForm (django.forms.Form):
     subscription_id = django.forms.IntegerField()
     item_id = django.forms.IntegerField()
+    value = django.forms.BooleanField(required = False)
 
 
 class post_form(object):

@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import AddSubscriptionForm, post_form
-from MomohaFeed.models import Subscription, Item
+from MomohaFeed.models import Subscription, Item, ItemRead
 from django.core.exceptions import PermissionDenied
 import MomohaFeed
 from django.http import HttpResponse
 import simplejson
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
+from MomohaFeed import now64
 
 def json(f):
     def ff(request,*args,**kwargs):
@@ -177,4 +178,28 @@ def j_subscription_item_detail(request,form):
 @json
 @post_form(MomohaFeed.forms.SubscriptionItemSetReaddoneForm)
 def j_subscription_item_set_readdone(request,form):
-    pass
+
+    subscription_id = form.cleaned_data["subscription_id"]
+    item_id = form.cleaned_data["item_id"]
+    value = form.cleaned_data["value"]
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+    
+    db_item = Item.objects.get(id=item_id)
+
+    if value:
+        ItemRead.objects.get_or_create(
+            subscription = db_subscription,
+            item = db_item,
+            enable = True,
+            defaults = {'time': now64()}
+        )
+    else:
+        ItemRead.objects.filter(
+            subscription = db_subscription,
+            item = db_item
+        ).update(enable = False)
+
+    return { 'success' : True }
