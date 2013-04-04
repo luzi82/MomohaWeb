@@ -105,10 +105,7 @@ def j_list_subscription(request):
     
     subscription_list = []
     for db_subscription in db_subscription_list:
-        subscription = {}
-        subscription['title'] = db_subscription.feed.title
-        subscription['id'] = db_subscription.id
-        subscription_list.append(subscription)
+        subscription_list.append(VmSubscription(db_subscription).__dict__)
     
     return {
         'subscription_list' : subscription_list

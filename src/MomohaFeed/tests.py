@@ -109,7 +109,7 @@ class SimpleTest(TestCase):
         })
         content=response.content
         result = simplejson.loads(content)
-        vm_subscription_0 = result['subscription'][0]
+        vm_subscription_0 = result['subscription']
 #        subscription_id = result['subscription']['id']
 
         response = client.get("/feed/j_list_subscription/")
