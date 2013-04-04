@@ -199,3 +199,54 @@ class SimpleTest(TestCase):
         self.assertIn('id', result['item_list'][0])
         self.assertEqual(1364789700000, result['item_list'][0]['published'])
         self.assertEqual('http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html', result['item_list'][0]['link'])
+
+
+#    def j_subscription_item_show(self):
+#        
+#        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+#        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+#
+#        feed = open(MY_DIR+"/test/luzi82.xml").read()
+#        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+#        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+#        httpServer.server_activate()
+#        
+#        User.objects.create_user("user",password="pass")
+#        
+#        client = Client()
+#        client.login(username="user",password="pass")
+#
+#        
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+#
+#        response = client.post("/feed/j_add_subscription/",{
+#            'url':url
+#        })
+#        content=response.content
+#        result = simplejson.loads(content)
+#
+#        self.assertEqual(True, result['success'])
+#        subscription_id = result['subscription_id']
+#
+#
+#        response = client.post("/feed/j_subscription_list_item/",{
+#            'subscription_id': subscription_id
+#        })
+#        content=response.content
+#        result = simplejson.loads(content)
+#
+#        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
+#        item_id = result['item_list'][0]['id']
+#
+#
+#        response = client.post("/feed/j_subscription_item_show/",{
+#            'subscription_id': subscription_id,
+#            'item_id': item_id
+#        })
+#        content=response.content
+#        result = simplejson.loads(content)
+#
+#        self.assertEqual(u'もう誰にも頼らない', result['title'])
+#        self.assertEqual(item_id, result['id'])
+        
