@@ -164,9 +164,11 @@ def j_subscription_list_item(request,form):
 @post_form(MomohaFeed.forms.SubscriptionItemDetailForm)
 def j_subscription_item_detail(request,form):
     
+    subscription_id = form.cleaned_data["subscription_id"]
     item_id = form.cleaned_data["item_id"]
     
-    db_item = Item.objects.get(id=item_id)
+    # db_item = Item.objects.get(id=item_id)
+    db_item = MomohaFeed.subscription_item_detail(subscription_id, item_id)
     
     return { 'item_detail': VmItemDetail(db_item).__dict__ }
 

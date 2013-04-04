@@ -113,11 +113,43 @@ def subscription_list_content(db_subscription):
                 MomohaFeed_item.published DESC
         ''',
         [
-            db_subscription.id, db_subscription.feed.id
+            db_subscription.id,
+            db_subscription.feed.id
         ]
     )
 
     return db_item_list;
+
+
+def subscription_item_detail(subscription_id, item_id):
+    
+#    db_item = Item.objects.get(id=item_id)
+    db_item_list = Item.objects.raw(
+        '''
+            SELECT
+                MomohaFeed_item.*,
+                (Count(MomohaFeed_itemread.enable)>0) readdone
+            FROM
+                MomohaFeed_item
+                LEFT JOIN MomohaFeed_itemread
+                    ON (
+                        MomohaFeed_itemread.item_id = MomohaFeed_item.id AND
+                        MomohaFeed_itemread.subscription_id = %s AND
+                        MomohaFeed_itemread.enable
+                    )
+            WHERE
+                MomohaFeed_item.id = %s
+            ORDER BY
+                MomohaFeed_item.published DESC
+        ''',
+        [
+            subscription_id,
+            item_id
+        ]
+    )
+    
+    return db_item_list[0]
+
 
 def subscription_item_mark_read(db_subscription,db_item):
 
