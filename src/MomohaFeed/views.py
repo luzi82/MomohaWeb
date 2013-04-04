@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 import MomohaFeed
 from django.http import HttpResponse
 import simplejson
+from MomohaFeed.viewmodels import VmSubscription
 
 def json(f):
     def ff(request,*args,**kwargs):
@@ -122,7 +123,7 @@ def j_add_subscription(request,form):
     MomohaFeed.feed_poll(db_feed)
     return {
         'success': True,
-        'subscription_id' : db_subscription.id
+        'subscription' : VmSubscription(db_subscription).__dict__
     }
 
 @u403
