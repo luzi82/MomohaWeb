@@ -1,0 +1,26 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+div#header,
+div#menu,
+div#content {
+	position: absolute;
+	margin: 0; padding: 0;
+}
+
+div#header {
+	background-color: #222222;
+	overflow: hidden;
+}
+
+div#menu {
+	background-color: #EEEEEE;
+	overflow: auto;
+}
+
+div#content {
+	background-color: #FFFFFF;
+	overflow: auto;
+}
