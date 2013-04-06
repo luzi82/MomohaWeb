@@ -220,6 +220,52 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item['readdone'])
 
 
+    def test_j_subscription_list_item_detail(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post("/feed/j_subscription_list_item_detail/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        for vm_item_detail in result['item_detail_list']:
+            self.verify_item_detail(vm_item_detail)
+        
+        vm_item_detail = result['item_detail_list'][0]
+        self.assertEqual(u'もう誰にも頼らない', vm_item_detail['title'])
+        self.assertEqual(1364789700000, vm_item_detail['published'])
+        self.assertEqual(
+            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
+            vm_item_detail['link']
+        )
+        self.assertTrue(vm_item_detail['content'].startswith(u'<p>舊聞：Google 要放棄 Reader'))
+        self.assertTrue(vm_item_detail['content'].endswith("/>"))
+        self.assertEqual(False,vm_item_detail['readdone'])
+
+
     def test_j_subscription_item_detail(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
