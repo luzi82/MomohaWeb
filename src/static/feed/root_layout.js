@@ -4,18 +4,18 @@ var root_layout = (function(){
 	var MIN_HEIGHT = 480;
 	
 	var HEADER_H = 36;
+	var MENU_H = 48;
 	var SUBSCRIPTION_LIST_AREA_W = 240;
 	
 	var init = function(){
-		$(window).resize(
-			maintain
-		);
-		maintain();
+		$(window).resize(body_maintain);
+		$("#subscription_list_area").resize(subscription_list_area_maintain);
+		$("#subscription_area").resize(subscription_area_maintain);
+		
+		body_maintain();
 	}
 	
-	var tmp=0;
-	
-	var maintain = function(){
+	var body_maintain = function(){
 		window_w = $(window).width();
 		window_h = $(window).height();
 		
@@ -76,11 +76,54 @@ var root_layout = (function(){
 			'width': subscription_area_w,
 			'height': subscription_area_h,
 		});
+		
+		subscription_list_area_maintain();
+		subscription_area_maintain();
 	};
 	
+	var subscription_list_area_maintain = function(){
+		area_maintain(
+			$('#subscription_list_area'),
+			$('#subscription_list_menu'),
+			$('#subscription_list_main')
+		);
+	};
+	
+	var subscription_area_maintain = function(){
+		area_maintain(
+			$('#subscription_area'),
+			$('#subscription_menu'),
+			$('#subscription_main')
+		);
+	};
+	
+	var area_maintain = function(area, menu, main){
+		
+		area_w = area.width();
+		area_h = area.height();
+		
+		menu_x = 0;
+		menu_y = 0;
+		menu_w = area_w;
+		menu_h = MENU_H;
+		
+		main_x = 0;
+		main_y = menu_h;
+		main_w = area_w;
+		main_h = area_h-main_y;
+		
+		menu.css({
+			'left':  menu_x, 'top':    menu_y,
+			'width': menu_w, 'height': menu_h,
+		});
+		main.css({
+			'left':  main_x, 'top':    main_y,
+			'width': main_w, 'height': main_h,
+		});
+	}
+	
 	return {
-		init: init,
-		maintain: maintain
+		init: init
 	};
 	
 })();
