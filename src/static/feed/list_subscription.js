@@ -20,10 +20,12 @@ var module_list_subscription = (function(){
 					a = $('<a />');
 						a.text(subscription.title);
 						a.attr('href',"#");
+						a.data("subscription_id",subscription.id)
 						
 						a.click(function(){
-							console.log(subscription.id);
-							module_subscription.load(subscription.id);
+							subscription_id = $(this).data("subscription_id");
+							console.log(subscription_id);
+							module_subscription.load(subscription_id);
 						});
 						
 					li.append(a);
