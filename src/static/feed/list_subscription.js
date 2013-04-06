@@ -1,10 +1,10 @@
 var module_list_subscription = (function(){
 
 	var init = function(){
-		refresh();
+		refresh(null);
 	}
 	
-	var refresh = function(){
+	var refresh = function(done_callback){
 		list_subscription_ul = $('#list_subscription_ul');
 		list_subscription_ul.empty();
 		
@@ -24,19 +24,25 @@ var module_list_subscription = (function(){
 						
 						a.click(function(){
 							subscription_id = $(this).data("subscription_id");
-							console.log(subscription_id);
-							module_subscription.load(subscription_id);
+							select(subscription_id,null);
 						});
 						
 					li.append(a);
 				list_subscription_ul.append(li);
 			}
+			utils.cb(done_callback);
 		});
+	}
+	
+	var select = function(subscription_id,done_callback){
+		console.log("select "+subscription_id);
+		module_subscription.load(subscription_id,done_callback);
 	}
 
 	return {
 		init: init,
-		refresh: refresh
+		refresh: refresh,
+		select: select,
 	}
 	
 })();

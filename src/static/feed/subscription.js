@@ -2,7 +2,7 @@ var module_subscription = (function(){
 	
 	var subscription_instance = null;
 
-	var load = function(subscription_id){
+	var load = function(subscription_id,done_callback){
 		
 		subscription_instance = {
 			subscription_id: subscription_id,
@@ -102,6 +102,7 @@ var module_subscription = (function(){
 					}
 				});
 			}
+			utils.cb(done_callback);
 		});
 		
 	}

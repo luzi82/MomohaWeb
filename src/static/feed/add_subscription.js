@@ -28,7 +28,11 @@ var module_add_subscription = (function(){
 		}).done(function(j){
 			console.log(JSON.stringify(j));
 			if(j.success){
+				var subscription_id = j.subscription.id;
 				$("#add_subscription_modal").modal("hide");
+				module_list_subscription.refresh(function(){
+					module_list_subscription.select(subscription_id,null);
+				});
 			}
 		});
 		// $("#add_subscription_modal").modal("hide");
