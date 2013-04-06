@@ -49,3 +49,7 @@ div#subscription_area {
 	div#subscription_main {
 		overflow: auto;
 	}
+
+div.menu_padding {
+	padding: 10px;
+}
