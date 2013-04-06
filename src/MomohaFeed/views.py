@@ -167,6 +167,27 @@ def j_subscription_list_item(request,form):
 
     return { 'item_list' : item_list }
 
+
+@u403
+@json
+@post_form(MomohaFeed.forms.SubscriptionListItemForm)
+def j_subscription_list_item_detail(request,form):
+
+    subscription_id = form.cleaned_data["subscription_id"]
+    
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    
+    item_detail_list = []
+    for db_item in db_item_list:
+        item_detail_list.append(VmItemDetail(db_item).__dict__)
+
+    return { 'item_detail_list' : item_detail_list }
+
+
 @u403
 @json
 @post_form(MomohaFeed.forms.SubscriptionItemDetailForm)
