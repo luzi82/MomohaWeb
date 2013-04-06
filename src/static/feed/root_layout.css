@@ -22,6 +22,10 @@ div#header {
 	overflow: hidden;
 }
 
+	div#header a.brand {
+		margin-left: 0;
+	}
+
 
 div#subscription_list_area {
 	overflow: hidden;
