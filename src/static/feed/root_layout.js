@@ -4,7 +4,7 @@ var root_layout = (function(){
 	var MIN_HEIGHT = 480;
 	
 	var HEADER_H = 48;
-	var MENU_W = 240;
+	var SUBSCRIPTION_LIST_AREA_W = 240;
 	
 	var init = function(){
 		$(window).resize(
@@ -39,15 +39,15 @@ var root_layout = (function(){
 		header_w=body_w;
 		header_h=HEADER_H;
 		
-		menu_x=0;
-		menu_y=header_h;
-		menu_w=MENU_W;
-		menu_h=body_h-menu_y;
+		subscription_list_area_x=0;
+		subscription_list_area_y=header_h;
+		subscription_list_area_w=SUBSCRIPTION_LIST_AREA_W;
+		subscription_list_area_h=body_h-subscription_list_area_y;
 
-		content_x=menu_w;
-		content_y=header_h;
-		content_w=body_w-content_x;
-		content_h=body_h-content_y;
+		subscription_area_x=subscription_list_area_w;
+		subscription_area_y=header_h;
+		subscription_area_w=body_w-subscription_area_x;
+		subscription_area_h=body_h-subscription_area_y;
 
 		$('body').css({
 			'width': body_w,
@@ -63,18 +63,18 @@ var root_layout = (function(){
 			'height': header_h,
 		});
 		
-		$('#menu').css({
-			'left': menu_x,
-			'top': menu_y,
-			'width': menu_w,
-			'height': menu_h,
+		$('#subscription_list_area').css({
+			'left': subscription_list_area_x,
+			'top': subscription_list_area_y,
+			'width': subscription_list_area_w,
+			'height': subscription_list_area_h,
 		});
 		
-		$('#content').css({
-			'left': content_x,
-			'top': content_y,
-			'width': content_w,
-			'height': content_h,
+		$('#subscription_area').css({
+			'left': subscription_area_x,
+			'top': subscription_area_y,
+			'width': subscription_area_w,
+			'height': subscription_area_h,
 		});
 	};
 	

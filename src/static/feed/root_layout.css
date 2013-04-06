@@ -4,7 +4,7 @@ body {
 }
 
 div#header,
-div#menu,
+div#subscription_list_area,
 div#content {
 	position: absolute;
 	margin: 0; padding: 0;
@@ -15,12 +15,12 @@ div#header {
 	overflow: hidden;
 }
 
-div#menu {
+div#subscription_list_area {
 	background-color: #EEEEEE;
 	overflow: auto;
 }
 
-div#content {
+div#subscription_area {
 	background-color: #FFFFFF;
 	overflow: auto;
 }
