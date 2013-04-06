@@ -5,6 +5,7 @@ var module_subscription = (function(){
 	var load = function(subscription_id){
 		
 		subscription_instance = {
+			subscription_id: subscription_id,
 			opening_row_id: null,
 		};
 		
@@ -27,6 +28,7 @@ var module_subscription = (function(){
 				tr_brief = $('<tr />');
 					tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
 					tr_brief.data("row_id",i);
+					tr_brief.data("item_id",item.id);
 					tr_brief.css("cursor","pointer");
 					td = $('<td />');
 					
@@ -56,9 +58,22 @@ var module_subscription = (function(){
 				
 				tr_brief.click(function(){
 					row_id = $(this).data("row_id");
+					item_id = $(this).data("item_id");
 					console.log(row_id);
 					
 					opening_row_id = subscription_instance.opening_row_id;
+					
+					$.ajax({
+						type: "POST",
+						dataType: "json",
+						url: "/feed/j_subscription_item_set_readdone/",
+						data: {
+							csrfmiddlewaretoken: $.cookie('csrftoken'),
+							subscription_id: subscription_instance.subscription_id,
+							item_id: item_id,
+							value: true,
+						},
+					});
 					
 					if ( opening_row_id != null ){
 						tr_brief = $("#subscription_list_item_row_"+opening_row_id+"_brief");
