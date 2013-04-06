@@ -27,6 +27,7 @@ var module_subscription = (function(){
 				tr_brief = $('<tr />');
 					tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
 					tr_brief.data("row_id",i);
+					tr_brief.css("cursor","pointer");
 					td = $('<td />');
 					
 						td.text(item.title);
@@ -42,6 +43,8 @@ var module_subscription = (function(){
 					
 						title = $("<h4 />");
 						title.text(item.title);
+						title.css("cursor","pointer");
+						title.data("row_id",i);
 						td.append(title);
 						
 						d_content = $("<div />");
@@ -71,7 +74,7 @@ var module_subscription = (function(){
 					
 					subscription_instance.opening_row_id = row_id;
 				});
-				tr_detail.click(function(){
+				title.click(function(){
 					row_id = $(this).data("row_id");
 					
 					tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
