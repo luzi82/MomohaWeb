@@ -1,6 +1,12 @@
 var module_subscription = (function(){
+	
+	var subscription_instance = null;
 
 	var load = function(subscription_id){
+		
+		subscription_instance = {
+			opening_row_id: null,
+		};
 		
 		subscription_list_item_table = $("#subscription_list_item_table");
 		subscription_list_item_table.empty();
@@ -48,17 +54,34 @@ var module_subscription = (function(){
 				tr_brief.click(function(){
 					row_id = $(this).data("row_id");
 					console.log(row_id);
+					
+					opening_row_id = subscription_instance.opening_row_id;
+					
+					if ( opening_row_id != null ){
+						tr_brief = $("#subscription_list_item_row_"+opening_row_id+"_brief");
+						tr_detail = $("#subscription_list_item_row_"+opening_row_id+"_detail");
+						tr_brief.css("display","table-row");
+						tr_detail.css("display","none");
+					}
+					
 					tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
 					tr_detail = $("#subscription_list_item_row_"+row_id+"_detail");
 					tr_brief.css("display","none");
 					tr_detail.css("display","table-row");
+					
+					subscription_instance.opening_row_id = row_id;
 				});
 				tr_detail.click(function(){
 					row_id = $(this).data("row_id");
+					
 					tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
 					tr_detail = $("#subscription_list_item_row_"+row_id+"_detail");
 					tr_brief.css("display","table-row");
 					tr_detail.css("display","none");
+					
+					if ( row_id == subscription_instance.opening_row_id ){
+						subscription_instance.opening_row_id = null;
+					}
 				});
 			}
 		});
