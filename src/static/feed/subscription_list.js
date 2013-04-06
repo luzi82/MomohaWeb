@@ -23,6 +23,7 @@ var module_subscription_list = (function(){
 						
 						a.click(function(){
 							console.log(subscription.id);
+							module_subscription.load(subscription.id);
 						});
 						
 					li.append(a);
