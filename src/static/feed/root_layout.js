@@ -3,7 +3,7 @@ var root_layout = (function(){
 	var MIN_WIDTH = 640;
 	var MIN_HEIGHT = 480;
 	
-	var HEADER_H = 48;
+	var HEADER_H = 36;
 	var SUBSCRIPTION_LIST_AREA_W = 240;
 	
 	var init = function(){
