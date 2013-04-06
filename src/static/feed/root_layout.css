@@ -1,7 +1,7 @@
 div#header,
-div#subscription_list_area,
-div#subscription_list_menu,
-div#subscription_list_main,
+div#list_subscription_area,
+div#list_subscription_menu,
+div#list_subscription_main,
 div#subscription_area,
 div#subscription_menu,
 div#subscription_main {
@@ -26,15 +26,15 @@ div#header {
 	}
 
 
-div#subscription_list_area {
+div#list_subscription_area {
 	overflow: hidden;
 }
 
-	div#subscription_list_menu {
+	div#list_subscription_menu {
 		overflow: hidden;
 	}
 	
-	div#subscription_list_main {
+	div#list_subscription_main {
 		overflow: auto;
 	}
 

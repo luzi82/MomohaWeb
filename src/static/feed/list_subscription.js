@@ -1,12 +1,12 @@
-var module_subscription_list = (function(){
+var module_list_subscription = (function(){
 
 	var init = function(){
 		refresh();
 	}
 	
 	var refresh = function(){
-		subscription_list_ul = $('#subscription_list_ul');
-		subscription_list_ul.empty();
+		list_subscription_ul = $('#list_subscription_ul');
+		list_subscription_ul.empty();
 		
 		$.ajax({
 			dataType: "json",
@@ -27,7 +27,7 @@ var module_subscription_list = (function(){
 						});
 						
 					li.append(a);
-				subscription_list_ul.append(li);
+				list_subscription_ul.append(li);
 			}
 		});
 	}
@@ -39,4 +39,4 @@ var module_subscription_list = (function(){
 	
 })();
 
-$(module_subscription_list.init);
+$(module_list_subscription.init);

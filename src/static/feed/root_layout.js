@@ -9,7 +9,7 @@ var root_layout = (function(){
 	
 	var init = function(){
 		$(window).resize(body_maintain);
-		$("#subscription_list_area").resize(subscription_list_area_maintain);
+		$("#list_subscription_area").resize(list_subscription_area_maintain);
 		$("#subscription_area").resize(subscription_area_maintain);
 		
 		body_maintain();
@@ -39,12 +39,12 @@ var root_layout = (function(){
 		header_w=body_w;
 		header_h=HEADER_H;
 		
-		subscription_list_area_x=0;
-		subscription_list_area_y=header_h;
-		subscription_list_area_w=SUBSCRIPTION_LIST_AREA_W;
-		subscription_list_area_h=body_h-subscription_list_area_y;
+		list_subscription_area_x=0;
+		list_subscription_area_y=header_h;
+		list_subscription_area_w=SUBSCRIPTION_LIST_AREA_W;
+		list_subscription_area_h=body_h-list_subscription_area_y;
 
-		subscription_area_x=subscription_list_area_w;
+		subscription_area_x=list_subscription_area_w;
 		subscription_area_y=header_h;
 		subscription_area_w=body_w-subscription_area_x;
 		subscription_area_h=body_h-subscription_area_y;
@@ -63,11 +63,11 @@ var root_layout = (function(){
 			'height': header_h,
 		});
 		
-		$('#subscription_list_area').css({
-			'left': subscription_list_area_x,
-			'top': subscription_list_area_y,
-			'width': subscription_list_area_w,
-			'height': subscription_list_area_h,
+		$('#list_subscription_area').css({
+			'left': list_subscription_area_x,
+			'top': list_subscription_area_y,
+			'width': list_subscription_area_w,
+			'height': list_subscription_area_h,
 		});
 		
 		$('#subscription_area').css({
@@ -77,15 +77,15 @@ var root_layout = (function(){
 			'height': subscription_area_h,
 		});
 		
-		subscription_list_area_maintain();
+		list_subscription_area_maintain();
 		subscription_area_maintain();
 	};
 	
-	var subscription_list_area_maintain = function(){
+	var list_subscription_area_maintain = function(){
 		area_maintain(
-			$('#subscription_list_area'),
-			$('#subscription_list_menu'),
-			$('#subscription_list_main')
+			$('#list_subscription_area'),
+			$('#list_subscription_menu'),
+			$('#list_subscription_main')
 		);
 	};
 	
