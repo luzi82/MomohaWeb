@@ -40,7 +40,7 @@ div#list_subscription_area {
 
 
 div#subscription_area {
-	overflow: auto;
+	overflow: hidden;
 	background-color: #FFFFFF;
 }
 
