@@ -429,6 +429,67 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         self.assertEqual(False, result['item_detail']['readdone'])
+        
+    
+    def test_j_subscription_poll (self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.server_activate()
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/j_add_subscription/",{
+            'url':url
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][2]
+        self.assertEqual(u'將軍澳醫院疑似H7N9個案測試結果呈陰性', vm_item['title'])
+
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/j_subscription_poll/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][2]
+        self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
     def verify_subscription(self,vm_subscription):
