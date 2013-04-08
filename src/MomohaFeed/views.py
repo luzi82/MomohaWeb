@@ -231,3 +231,21 @@ def j_subscription_item_set_readdone(request,form):
         ).update(enable = False)
 
     return { 'success' : True }
+
+
+@u403
+@json
+@post_form(MomohaFeed.forms.SubscriptionPollForm)
+def j_subscription_poll(request,form):
+
+    subscription_id = form.cleaned_data["subscription_id"]
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    MomohaFeed.feed_poll(db_subscription.feed)
+
+    return {
+        'success': True,
+    }

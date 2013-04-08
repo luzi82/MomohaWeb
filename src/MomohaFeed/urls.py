@@ -20,4 +20,5 @@ urlpatterns = patterns(
     url(r'^j_subscription_list_item_detail/$','j_subscription_list_item_detail'),
     url(r'^j_subscription_item_detail/$','j_subscription_item_detail'),
     url(r'^j_subscription_item_set_readdone/$','j_subscription_item_set_readdone'),
+    url(r'^j_subscription_poll/$','j_subscription_poll'),
 )
