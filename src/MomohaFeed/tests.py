@@ -532,6 +532,21 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
+
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+
+        # if poll happen, it may block
+        MomohaFeed.update_feed_pool(1000)
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': subscription_id
+        })
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][2]
+        self.assertEqual(u'將軍澳醫院疑似H7N9個案測試結果呈陰性', vm_item['title'])
         
         time.sleep(1500.0/1000.0)
 
