@@ -8,13 +8,13 @@ import calendar
 import HTMLParser
 
 def feed_poll(db_feed):
-    now = now64()
     
     htmlparser = HTMLParser.HTMLParser()
     
     url = db_feed.url
     parse_result = feedparser.parse(url)
     
+    now = now64()
     db_feed.last_poll = now
     
     feed_title = parse_result.feed.title
@@ -167,6 +167,17 @@ def subscription_item_mark_read(db_subscription,db_item):
         enable = True,
         defaults = {'time': now64()}
     )
+    
+    
+def update_feed_pool(ms):
+    
+    last_poll_max = now64()-ms
+    
+    db_feed_list = Feed.objects.filter(last_poll__lte = last_poll_max)
+    
+    for db_feed in db_feed_list:
+        feed_poll(db_feed)
+    
 
 def now64():
     
