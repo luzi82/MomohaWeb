@@ -173,7 +173,7 @@ def update_feed_pool(ms):
     
     last_poll_max = now64()-ms
     
-    db_feed_list = Feed.objects.filter(last_poll__lte = last_poll_max)
+    db_feed_list = Feed.objects.filter(last_poll__lte = last_poll_max).order_by('last_poll')
     
     for db_feed in db_feed_list:
         feed_poll(db_feed)
