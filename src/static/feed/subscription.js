@@ -1,6 +1,25 @@
 var module_subscription = (function(){
 	
 	var subscription_instance = null;
+	
+	var init = function(){
+		subscription_poll_btn = $("#subscription_poll_btn");
+		subscription_poll_btn.click(function(){
+			if(subscription_instance==null)
+				return;
+			$.ajax({
+				type: "POST",
+				dataType: "json",
+				url: "/feed/j_subscription_poll/",
+				data: {
+					csrfmiddlewaretoken: $.cookie('csrftoken'),
+					subscription_id: subscription_instance.subscription_id,
+				},
+			}).done(function(j){
+				load(subscription_instance.subscription_id,null);
+			});
+		});
+	}
 
 	var load = function(subscription_id,done_callback){
 		
@@ -108,7 +127,10 @@ var module_subscription = (function(){
 	}
 
 	return {
-		load: load
+		init: init,
+		load: load,
 	}
 	
 })();
+
+$(module_subscription.init);
