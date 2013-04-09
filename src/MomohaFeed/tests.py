@@ -36,6 +36,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -95,6 +96,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -131,6 +133,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -184,6 +187,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -228,6 +232,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -274,6 +279,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -336,6 +342,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -438,6 +445,7 @@ class SimpleTest(TestCase):
         url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -499,6 +507,7 @@ class SimpleTest(TestCase):
         TEST_URL = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
