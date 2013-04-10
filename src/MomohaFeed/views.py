@@ -2,16 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from MomohaFeed.forms import AddSubscriptionForm, post_form
 from MomohaFeed.models import Subscription, Item, ItemRead
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 import MomohaFeed
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 import simplejson
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
 from MomohaFeed import now64
 
 def json(f):
     def ff(request,*args,**kwargs):
-        ret = f(request,*args,**kwargs)
+        try:
+            ret = f(request,*args,**kwargs)
+        except ObjectDoesNotExist:
+            raise Http404
         return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
     return ff
 
@@ -21,6 +24,7 @@ def u403(f):
             raise PermissionDenied
         return f(request,*args,**kwargs)
     return ff
+
 
 # Create your views here.
 
@@ -147,6 +151,7 @@ def j_subscription_set_enable(request,form):
     db_subscription.save()
     
     return { 'success' : True }
+
 
 @u403
 @json
