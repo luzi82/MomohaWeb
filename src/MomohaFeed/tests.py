@@ -20,13 +20,28 @@ class SimpleTest(TestCase):
     TMP_HTTP_PORT = 10080
     
     def test_feedreader(self):
+
+        parse_result = feedparser.parse(MY_DIR+"/test/akibablog.xml")
+        self.assertEqual(u"アキバBlog（秋葉原ブログ）",parse_result.feed.title)
+        self.assertEqual(u"http://blog.livedoor.jp/geek/",parse_result.feed.link)
+        self.assertEqual(15,len(parse_result.entries))
+        entry=parse_result.entries[0]
+        self.assertEqual(u"くそみそテクニック阿部さんの金玉クッキー“あべたま”　「一度食べたらクセになる！」",entry.title)
+        self.assertEqual(u"http://blog.livedoor.jp/geek/archives/51389467.html",entry.link)
+        self.assertEqual(u"http://blog.livedoor.jp/geek/archives/51389467.html",entry.id)
+        self.assertTrue(entry.content[0].value.startswith("<a href"));
+        self.assertTrue(entry.content[0].value.endswith(" />"));
+        entry=parse_result.entries[len(parse_result.entries)-1]
+        self.assertEqual(u"フォトカノYour Eyes Only２巻  「主人公の変態性が増していくｗ」",entry.title)
+        self.assertEqual(u"http://blog.livedoor.jp/geek/archives/51389231.html",entry.link)
+        self.assertEqual(u"http://blog.livedoor.jp/geek/archives/51389231.html",entry.id)
+        self.assertTrue(entry.content[0].value.startswith("<a href"));
+        self.assertTrue(entry.content[0].value.endswith(" />"));
         
         parse_result = feedparser.parse(MY_DIR+"/test/luzi82.xml")
-        
         entry = parse_result.entries[0]
         entry_updated = entry.updated_parsed
         self.assertEqual(4, entry_updated.tm_hour)
-        #print entry_updated
         
 
     def test_j_add_subscription(self):
