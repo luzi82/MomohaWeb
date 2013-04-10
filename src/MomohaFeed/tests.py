@@ -574,6 +574,32 @@ class SimpleTest(TestCase):
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
+    def test_j_subscription_list_item_404(self):
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        response = client.post("/feed/j_subscription_list_item/",{
+            'subscription_id': 123
+        })
+        self.assertEqual(404,response.status_code)
+
+
+    def test_j_subscription_list_item_detail_404(self):
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        response = client.post("/feed/j_subscription_list_item_detail/",{
+            'subscription_id': 123
+        })
+        self.assertEqual(404,response.status_code)
+
+
     def verify_subscription(self,vm_subscription):
 
         self.assertIn('id', vm_subscription)
