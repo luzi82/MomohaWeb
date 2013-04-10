@@ -19,6 +19,7 @@ def periodic_update_feed_pool():
 
     if acquire_lock():
         try:
+            logger.info("update_feed_pool");
             MomohaFeed.update_feed_pool(UPDATE_TIMEOUT)
         finally:
             release_lock()
