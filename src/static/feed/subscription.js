@@ -70,7 +70,44 @@ var module_subscription = (function(){
 						
 						d_content = $("<div />");
 						d_content.html(item.content);
+						d_content.css("margin-bottom","10px");
 						td.append(d_content);
+						
+						d_share = $("<div />");
+							share_btn = $("<img />")
+								share_btn.data("link",item.link);
+								share_btn.data("title",item.title);
+								share_btn.attr({
+									"class":"subscription_share_btn",
+									"src":"/static/feed/img/share/facebook-16.png",
+								});
+								share_btn.click(function(){
+									module_share.share_facebook($(this).data("link"),$(this).data("title"));
+								});
+							d_share.append(share_btn);
+							share_btn = $("<img />")
+								share_btn.data("link",item.link);
+								share_btn.data("title",item.title);
+								share_btn.attr({
+									"class":"subscription_share_btn",
+									"src":"/static/feed/img/share/twitter-16.png",
+								});
+								share_btn.click(function(){
+									module_share.share_twitter($(this).data("link"),$(this).data("title"));
+								});
+							d_share.append(share_btn);
+							share_btn = $("<img />")
+								share_btn.data("link",item.link);
+								share_btn.data("title",item.title);
+								share_btn.attr({
+									"class":"subscription_share_btn",
+									"src":"/static/feed/img/share/gplus-16.png",
+								});
+								share_btn.click(function(){
+									module_share.share_gplus($(this).data("link"),$(this).data("title"));
+								});
+							d_share.append(share_btn);
+						td.append(d_share);
 					
 					tr_detail.append(td);
 				subscription_list_item_table.append(tr_detail);
