@@ -7,17 +7,28 @@ var module_subscription = (function(){
 		subscription_poll_btn.click(function(){
 			if(subscription_instance==null)
 				return;
-			$.ajax({
-				type: "POST",
-				dataType: "json",
-				url: "/feed/j_subscription_poll/",
-				data: {
-					csrfmiddlewaretoken: $.cookie('csrftoken'),
+
+			// $.ajax({
+				// type: "POST",
+				// dataType: "json",
+				// url: "/feed/j_subscription_poll/",
+				// data: {
+					// csrfmiddlewaretoken: $.cookie('csrftoken'),
+					// subscription_id: subscription_instance.subscription_id,
+				// },
+			// }).done(function(j){
+				// load(subscription_instance.subscription_id,null);
+			// });
+		
+			utils.remote(
+				'subscription_poll',
+				{
 					subscription_id: subscription_instance.subscription_id,
 				},
-			}).done(function(j){
-				load(subscription_instance.subscription_id,null);
-			});
+				function(j){
+					load(subscription_instance.subscription_id,null);
+				}
+			);
 		});
 	}
 
@@ -31,15 +42,21 @@ var module_subscription = (function(){
 		subscription_list_item_table = $("#subscription_list_item_table");
 		subscription_list_item_table.empty();
 		
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "/feed/j_subscription_list_item_detail/",
-			data: {
-				csrfmiddlewaretoken: $.cookie('csrftoken'),
+		// $.ajax({
+			// type: "POST",
+			// dataType: "json",
+			// url: "/feed/j_subscription_list_item_detail/",
+			// data: {
+				// csrfmiddlewaretoken: $.cookie('csrftoken'),
+				// subscription_id: subscription_id,
+			// },
+		// }).done(
+		utils.remote(
+			'subscription_list_item_detail',
+			{
 				subscription_id: subscription_id,
 			},
-		}).done(function(j){
+			function(j){
 			console.log(JSON.stringify(j));
 			for(i=0;i<j.item_detail_list.length;++i){
 				item = j.item_detail_list[i];
@@ -119,17 +136,26 @@ var module_subscription = (function(){
 					
 					opening_row_id = subscription_instance.opening_row_id;
 					
-					$.ajax({
-						type: "POST",
-						dataType: "json",
-						url: "/feed/j_subscription_item_set_readdone/",
-						data: {
-							csrfmiddlewaretoken: $.cookie('csrftoken'),
+					// $.ajax({
+						// type: "POST",
+						// dataType: "json",
+						// url: "/feed/j_subscription_item_set_readdone/",
+						// data: {
+							// csrfmiddlewaretoken: $.cookie('csrftoken'),
+							// subscription_id: subscription_instance.subscription_id,
+							// item_id: item_id,
+							// value: true,
+						// },
+					// });
+					utils.remote(
+						'subscription_item_set_readdone',
+						{
 							subscription_id: subscription_instance.subscription_id,
 							item_id: item_id,
 							value: true,
 						},
-					});
+						null
+					);
 					
 					if ( opening_row_id != null ){
 						tr_brief = $("#subscription_list_item_row_"+opening_row_id+"_brief");

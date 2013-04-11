@@ -17,24 +17,40 @@ var module_add_subscription = (function(){
 	
 	var add_subscription_submit_btn = function(){
 		input_url = $("#add_subscription_url_input").val();
-		$.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "/feed/j_add_subscription/",
-			data: {
-				csrfmiddlewaretoken: $.cookie('csrftoken'),
+		// $.ajax({
+			// type: "POST",
+			// dataType: "json",
+			// url: "/feed/j_add_subscription/",
+			// data: {
+				// csrfmiddlewaretoken: $.cookie('csrftoken'),
+				// url: input_url,
+			// },
+		// }).done(function(j){
+			// console.log(JSON.stringify(j));
+			// if(j.success){
+				// var subscription_id = j.subscription.id;
+				// $("#add_subscription_modal").modal("hide");
+				// module_list_subscription.refresh(function(){
+					// module_list_subscription.select(subscription_id,null);
+				// });
+			// }
+		// });
+		utils.remote(
+			'add_subscription',
+			{
 				url: input_url,
 			},
-		}).done(function(j){
-			console.log(JSON.stringify(j));
-			if(j.success){
-				var subscription_id = j.subscription.id;
-				$("#add_subscription_modal").modal("hide");
-				module_list_subscription.refresh(function(){
-					module_list_subscription.select(subscription_id,null);
-				});
+			function(j){
+				console.log(JSON.stringify(j));
+				if(j.success){
+					var subscription_id = j.subscription.id;
+					$("#add_subscription_modal").modal("hide");
+					module_list_subscription.refresh(function(){
+						module_list_subscription.select(subscription_id,null);
+					});
+				}
 			}
-		});
+		);
 		// $("#add_subscription_modal").modal("hide");
 	}
 	
