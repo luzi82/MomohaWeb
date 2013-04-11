@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from MomohaFeed.forms import AddSubscriptionForm, post_form
+from MomohaFeed.forms import JsonForm
 from MomohaFeed.models import Subscription, Item, ItemRead
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 import MomohaFeed
@@ -8,22 +8,24 @@ from django.http import HttpResponse, Http404
 import simplejson
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
 from MomohaFeed import now64
+import django.core.exceptions
+import MomohaFeed.cmds
 
-def json(f):
-    def ff(request,*args,**kwargs):
-        try:
-            ret = f(request,*args,**kwargs)
-        except ObjectDoesNotExist:
-            raise Http404
-        return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
-    return ff
+#def json(f):
+#    def ff(request,*args,**kwargs):
+#        try:
+#            ret = f(request,*args,**kwargs)
+#        except ObjectDoesNotExist:
+#            raise Http404
+#        return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
+#    return ff
 
-def u403(f):
-    def ff(request,*args,**kwargs):
-        if request.user == None:
-            raise PermissionDenied
-        return f(request,*args,**kwargs)
-    return ff
+#def u403(f):
+#    def ff(request,*args,**kwargs):
+#        if request.user == None:
+#            raise PermissionDenied
+#        return f(request,*args,**kwargs)
+#    return ff
 
 
 # Create your views here.
@@ -106,151 +108,177 @@ def index(request):
     return render(request,"MomohaFeed/index.html")
 
 
-@u403
-@json
-def j_list_subscription(request):
+def json(request):
     
-    db_subscription_list = Subscription.objects.filter(
-        user__exact = request.user,
-        enable__exact = True
-    ).select_related("feed")
+    if request.method != "POST":
+        raise django.core.exceptions.ValidationError("not POST")
     
-    subscription_list = []
-    for db_subscription in db_subscription_list:
-        subscription_list.append(VmSubscription(db_subscription).__dict__)
+    form = JsonForm(request.POST)
+    if not form.is_valid():
+        raise django.core.exceptions.ValidationError(form.errors)
     
-    return {
-        'subscription_list' : subscription_list
-    }
-
-@u403
-@json
-@post_form(AddSubscriptionForm)
-def j_add_subscription(request,form):
-    url = form.cleaned_data["url"]
-    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
-    MomohaFeed.feed_poll(db_feed)
-    return {
-        'success': True,
-        'subscription' : VmSubscription(db_subscription).__dict__
-    }
-
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionSetEnableForm)
-def j_subscription_set_enable(request,form):
-
-    subscription_id = form.cleaned_data["subscription_id"]
-    value = form.cleaned_data["value"]
+    json = form.cleaned_data["json"]
+    json = simplejson.loads(json)
     
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
+    f = getattr(MomohaFeed.cmds,"cmd_"+json['cmd'])
+    if f == None:
+        raise Http404
     
-    db_subscription.enable = value
-    db_subscription.save()
-    
-    return { 'success' : True }
+    try:
+        if 'argv' in json:
+            ret = f(request,**(json['argv']))
+        else:
+            ret = f(request)
+    except ObjectDoesNotExist:
+        raise Http404
 
+    return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
 
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionListItemForm)
-def j_subscription_list_item(request,form):
-
-    subscription_id = form.cleaned_data["subscription_id"]
-    
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
-
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
-    
-    item_list = []
-    for db_item in db_item_list:
-        item_list.append(VmItem(db_item).__dict__)
-
-    return { 'item_list' : item_list }
-
-
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionListItemForm)
-def j_subscription_list_item_detail(request,form):
-
-    subscription_id = form.cleaned_data["subscription_id"]
-    
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
-
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
-    
-    item_detail_list = []
-    for db_item in db_item_list:
-        item_detail_list.append(VmItemDetail(db_item).__dict__)
-
-    return { 'item_detail_list' : item_detail_list }
-
-
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionItemDetailForm)
-def j_subscription_item_detail(request,form):
-    
-    subscription_id = form.cleaned_data["subscription_id"]
-    item_id = form.cleaned_data["item_id"]
-    
-    # db_item = Item.objects.get(id=item_id)
-    db_item = MomohaFeed.subscription_item_detail(subscription_id, item_id)
-    
-    return { 'item_detail': VmItemDetail(db_item).__dict__ }
-
-
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionItemSetReaddoneForm)
-def j_subscription_item_set_readdone(request,form):
-
-    subscription_id = form.cleaned_data["subscription_id"]
-    item_id = form.cleaned_data["item_id"]
-    value = form.cleaned_data["value"]
-
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
-    
-    db_item = Item.objects.get(id=item_id)
-
-    if value:
-        ItemRead.objects.get_or_create(
-            subscription = db_subscription,
-            item = db_item,
-            enable = True,
-            defaults = {'time': now64()}
-        )
-    else:
-        ItemRead.objects.filter(
-            subscription = db_subscription,
-            item = db_item
-        ).update(enable = False)
-
-    return { 'success' : True }
-
-
-@u403
-@json
-@post_form(MomohaFeed.forms.SubscriptionPollForm)
-def j_subscription_poll(request,form):
-
-    subscription_id = form.cleaned_data["subscription_id"]
-
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
-
-    MomohaFeed.feed_poll(db_subscription.feed)
-
-    return {
-        'success': True,
-    }
+#@u403
+#@json
+#def j_list_subscription(request):
+#    
+#    db_subscription_list = Subscription.objects.filter(
+#        user__exact = request.user,
+#        enable__exact = True
+#    ).select_related("feed")
+#    
+#    subscription_list = []
+#    for db_subscription in db_subscription_list:
+#        subscription_list.append(VmSubscription(db_subscription).__dict__)
+#    
+#    return {
+#        'subscription_list' : subscription_list
+#    }
+#
+#@u403
+#@json
+#@post_form(AddSubscriptionForm)
+#def j_add_subscription(request,form):
+#    url = form.cleaned_data["url"]
+#    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
+#    MomohaFeed.feed_poll(db_feed)
+#    return {
+#        'success': True,
+#        'subscription' : VmSubscription(db_subscription).__dict__
+#    }
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionSetEnableForm)
+#def j_subscription_set_enable(request,form):
+#
+#    subscription_id = form.cleaned_data["subscription_id"]
+#    value = form.cleaned_data["value"]
+#    
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#    
+#    db_subscription.enable = value
+#    db_subscription.save()
+#    
+#    return { 'success' : True }
+#
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionListItemForm)
+#def j_subscription_list_item(request,form):
+#
+#    subscription_id = form.cleaned_data["subscription_id"]
+#    
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#
+#    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+#    
+#    item_list = []
+#    for db_item in db_item_list:
+#        item_list.append(VmItem(db_item).__dict__)
+#
+#    return { 'item_list' : item_list }
+#
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionListItemForm)
+#def j_subscription_list_item_detail(request,form):
+#
+#    subscription_id = form.cleaned_data["subscription_id"]
+#    
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#
+#    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+#    
+#    item_detail_list = []
+#    for db_item in db_item_list:
+#        item_detail_list.append(VmItemDetail(db_item).__dict__)
+#
+#    return { 'item_detail_list' : item_detail_list }
+#
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionItemDetailForm)
+#def j_subscription_item_detail(request,form):
+#    
+#    subscription_id = form.cleaned_data["subscription_id"]
+#    item_id = form.cleaned_data["item_id"]
+#    
+#    # db_item = Item.objects.get(id=item_id)
+#    db_item = MomohaFeed.subscription_item_detail(subscription_id, item_id)
+#    
+#    return { 'item_detail': VmItemDetail(db_item).__dict__ }
+#
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionItemSetReaddoneForm)
+#def j_subscription_item_set_readdone(request,form):
+#
+#    subscription_id = form.cleaned_data["subscription_id"]
+#    item_id = form.cleaned_data["item_id"]
+#    value = form.cleaned_data["value"]
+#
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#    
+#    db_item = Item.objects.get(id=item_id)
+#
+#    if value:
+#        ItemRead.objects.get_or_create(
+#            subscription = db_subscription,
+#            item = db_item,
+#            enable = True,
+#            defaults = {'time': now64()}
+#        )
+#    else:
+#        ItemRead.objects.filter(
+#            subscription = db_subscription,
+#            item = db_item
+#        ).update(enable = False)
+#
+#    return { 'success' : True }
+#
+#
+#@u403
+#@json
+#@post_form(MomohaFeed.forms.SubscriptionPollForm)
+#def j_subscription_poll(request,form):
+#
+#    subscription_id = form.cleaned_data["subscription_id"]
+#
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#
+#    MomohaFeed.feed_poll(db_subscription.feed)
+#
+#    return {
+#        'success': True,
+#    }

@@ -13,12 +13,15 @@ urlpatterns = patterns(
 
     url(r'^$','index'),
     
-    url(r'^j_list_subscription/$','j_list_subscription'),
-    url(r'^j_add_subscription/$','j_add_subscription'),
-    url(r'^j_subscription_set_enable/$','j_subscription_set_enable'),
-    url(r'^j_subscription_list_item/$','j_subscription_list_item'),
-    url(r'^j_subscription_list_item_detail/$','j_subscription_list_item_detail'),
-    url(r'^j_subscription_item_detail/$','j_subscription_item_detail'),
-    url(r'^j_subscription_item_set_readdone/$','j_subscription_item_set_readdone'),
-    url(r'^j_subscription_poll/$','j_subscription_poll'),
+#    url(r'^j_list_subscription/$','j_list_subscription'),
+#    url(r'^j_add_subscription/$','j_add_subscription'),
+#    url(r'^j_subscription_set_enable/$','j_subscription_set_enable'),
+#    url(r'^j_subscription_list_item/$','j_subscription_list_item'),
+#    url(r'^j_subscription_list_item_detail/$','j_subscription_list_item_detail'),
+#    url(r'^j_subscription_item_detail/$','j_subscription_item_detail'),
+#    url(r'^j_subscription_item_set_readdone/$','j_subscription_item_set_readdone'),
+#    url(r'^j_subscription_poll/$','j_subscription_poll'),
+
+    url(r'^json/$','json')
+
 )
