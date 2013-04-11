@@ -63,8 +63,11 @@ class SimpleTest(TestCase):
         thread = Thread(target=httpServer.handle_request)
         thread.start()
         # time0 = MomohaFeed.now64()
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
         })
         # time1 = MomohaFeed.now64()
         content=response.content
@@ -122,15 +125,20 @@ class SimpleTest(TestCase):
         
         thread = Thread(target=httpServer.handle_request)
         thread.start()
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         vm_subscription_0 = result['subscription']
 #        subscription_id = result['subscription']['id']
 
-        response = client.get("/feed/j_list_subscription/")
+        response = client.post("/feed/json/",{
+            'cmd':'list_subscription',
+        })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(1, len(result['subscription_list']))
@@ -159,36 +167,49 @@ class SimpleTest(TestCase):
         
         thread = Thread(target=httpServer.handle_request)
         thread.start()
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         vm_subscription = result['subscription']
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/j_subscription_set_enable/",{
-            'subscription_id': subscription_id,
-            'value': False
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_set_enable',
+            'argv':{
+                'subscription_id': subscription_id,
+                'value': False
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         
-        response = client.get("/feed/j_list_subscription/")
+        response = client.post("/feed/json/",{
+            'cmd':'list_subscription',
+        })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(0, len(result['subscription_list']))
 
-        response = client.post("/feed/j_subscription_set_enable/",{
-            'subscription_id': subscription_id,
-            'value': True
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_set_enable',
+            'argv':{
+                'subscription_id': subscription_id,
+                'value': True
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         
-        response = client.get("/feed/j_list_subscription/")
+        response = client.post("/feed/json/",{
+            'cmd':'list_subscription',
+        })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(1, len(result['subscription_list']))
@@ -213,16 +234,22 @@ class SimpleTest(TestCase):
         
         thread = Thread(target=httpServer.handle_request)
         thread.start()
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -258,16 +285,22 @@ class SimpleTest(TestCase):
         
         thread = Thread(target=httpServer.handle_request)
         thread.start()
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/j_subscription_list_item_detail/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -307,8 +340,11 @@ class SimpleTest(TestCase):
         thread = Thread(target=httpServer.handle_request)
         thread.start()
 
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -317,8 +353,11 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
 
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -327,9 +366,12 @@ class SimpleTest(TestCase):
         item_id = result['item_list'][0]['id']
 
 
-        response = client.post("/feed/j_subscription_item_detail/",{
-            'subscription_id': subscription_id,
-            'item_id': item_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -369,8 +411,11 @@ class SimpleTest(TestCase):
         thread = Thread(target=httpServer.handle_request)
         thread.start()
 
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -379,8 +424,11 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
         
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -390,10 +438,13 @@ class SimpleTest(TestCase):
         item_id = vm_item['id']
         
 
-        response = client.post("/feed/j_subscription_item_set_readdone/",{
-            'subscription_id': subscription_id,
-            'item_id': item_id,
-            'value': True
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_item_set_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+                'value': True,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -402,8 +453,11 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -434,8 +488,11 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         
         
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -444,9 +501,12 @@ class SimpleTest(TestCase):
         self.assertEqual(item_id, result['item_list'][0]['id'])
 
 
-        response = client.post("/feed/j_subscription_item_detail/",{
-            'subscription_id': subscription_id,
-            'item_id': item_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -474,8 +534,11 @@ class SimpleTest(TestCase):
         thread = Thread(target=httpServer.handle_request)
         thread.start()
 
-        response = client.post("/feed/j_add_subscription/",{
-            'url':url
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -483,8 +546,11 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -506,8 +572,11 @@ class SimpleTest(TestCase):
 
         self.assertEqual(True, result['success'])
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -536,8 +605,11 @@ class SimpleTest(TestCase):
         thread = Thread(target=httpServer.handle_request)
         thread.start()
 
-        response = client.post("/feed/j_add_subscription/",{
-            'url':TEST_URL
+        response = client.post("/feed/json/",{
+            'cmd':'add_subscription',
+            'argv':{
+                'url':TEST_URL,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -545,8 +617,11 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -563,8 +638,11 @@ class SimpleTest(TestCase):
         # if poll happen, it may block
         MomohaFeed.update_feed_pool(1000)
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -579,8 +657,11 @@ class SimpleTest(TestCase):
 
         MomohaFeed.update_feed_pool(1000)
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': subscription_id
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
         })
         content=response.content
         result = simplejson.loads(content)
@@ -596,8 +677,11 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
 
-        response = client.post("/feed/j_subscription_list_item/",{
-            'subscription_id': 123
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': 123,
+            },
         })
         self.assertEqual(404,response.status_code)
 
@@ -609,8 +693,11 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
 
-        response = client.post("/feed/j_subscription_list_item_detail/",{
-            'subscription_id': 123
+        response = client.post("/feed/json/",{
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': 123,
+            },
         })
         self.assertEqual(404,response.status_code)
 
