@@ -25,7 +25,10 @@ def json(request):
     json = form.cleaned_data["json"]
     json = simplejson.loads(json)
     
-    f = getattr(MomohaFeed.cmds,"cmd_"+json['cmd'])
+    if json['cmd'] not in MomohaFeed.cmds.cmd_dict:
+        raise Http404
+    
+    f = MomohaFeed.cmds.cmd_dict[json['cmd']]
     if f == None:
         raise Http404
     
@@ -39,3 +42,7 @@ def json(request):
 
     return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
 
+
+def cmd_js(request):
+
+    return render(request,"MomohaFeed/cmd.js.tmpl",{"cmd_list":MomohaFeed.cmds.cmd_list},content_type="application/javascript")

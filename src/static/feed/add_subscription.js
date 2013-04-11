@@ -35,22 +35,16 @@ var module_add_subscription = (function(){
 				// });
 			// }
 		// });
-		utils.remote(
-			'add_subscription',
-			{
-				url: input_url,
-			},
-			function(j){
-				console.log(JSON.stringify(j));
-				if(j.success){
-					var subscription_id = j.subscription.id;
-					$("#add_subscription_modal").modal("hide");
-					module_list_subscription.refresh(function(){
-						module_list_subscription.select(subscription_id,null);
-					});
-				}
+		module_momohafeed.add_subscription(input_url,function(j){
+			console.log(JSON.stringify(j));
+			if(j.success){
+				var subscription_id = j.subscription.id;
+				$("#add_subscription_modal").modal("hide");
+				module_list_subscription.refresh(function(){
+					module_list_subscription.select(subscription_id,null);
+				});
 			}
-		);
+		});
 		// $("#add_subscription_modal").modal("hide");
 	}
 	

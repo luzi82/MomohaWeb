@@ -3,6 +3,21 @@ from MomohaFeed.models import Subscription, Item, ItemRead
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
 import MomohaFeed
 from MomohaFeed import now64
+import inspect
+
+
+cmd_list = []
+cmd_dict = {}
+
+def cmd(f):
+    argv = inspect.getargspec(f)[0]
+    argv = argv[1:]
+    cmd_list.append({
+         'name': f.func_name,
+         'argv': argv,
+    })
+    cmd_dict[f.func_name]=f
+    return f
 
 
 def u403(f):
@@ -14,7 +29,8 @@ def u403(f):
 
 
 @u403
-def cmd_list_subscription(request):
+@cmd
+def list_subscription(request):
     
     db_subscription_list = Subscription.objects.filter(
         user__exact = request.user,
@@ -31,7 +47,8 @@ def cmd_list_subscription(request):
 
 
 @u403
-def cmd_add_subscription(request,url):
+@cmd
+def add_subscription(request,url):
 
     db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
     MomohaFeed.feed_poll(db_feed)
@@ -42,7 +59,8 @@ def cmd_add_subscription(request,url):
 
 
 @u403
-def cmd_subscription_set_enable(request,subscription_id,value):
+@cmd
+def subscription_set_enable(request,subscription_id,value):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
@@ -55,7 +73,8 @@ def cmd_subscription_set_enable(request,subscription_id,value):
 
 
 @u403
-def cmd_subscription_list_item(request,subscription_id):
+@cmd
+def subscription_list_item(request,subscription_id):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
@@ -71,7 +90,8 @@ def cmd_subscription_list_item(request,subscription_id):
 
 
 @u403
-def cmd_subscription_list_item_detail(request,subscription_id):
+@cmd
+def subscription_list_item_detail(request,subscription_id):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
@@ -87,7 +107,8 @@ def cmd_subscription_list_item_detail(request,subscription_id):
 
 
 @u403
-def cmd_subscription_item_detail(request,subscription_id,item_id):
+@cmd
+def subscription_item_detail(request,subscription_id,item_id):
     
     # db_item = Item.objects.get(id=item_id)
     db_item = MomohaFeed.subscription_item_detail(subscription_id, item_id)
@@ -96,7 +117,8 @@ def cmd_subscription_item_detail(request,subscription_id,item_id):
 
 
 @u403
-def cmd_subscription_item_set_readdone(request,subscription_id,item_id,value):
+@cmd
+def subscription_item_set_readdone(request,subscription_id,item_id,value):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
@@ -121,7 +143,8 @@ def cmd_subscription_item_set_readdone(request,subscription_id,item_id,value):
 
 
 @u403
-def cmd_subscription_poll(request,subscription_id):
+@cmd
+def subscription_poll(request,subscription_id):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):

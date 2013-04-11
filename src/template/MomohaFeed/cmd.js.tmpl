@@ -1,0 +1,45 @@
+var module_momohafeed = (function(){
+
+	var __remote__ = function(cmd,argv,callback){
+		if(argv==null)argv={};
+		if(callback==null)callback=function(){};
+		$.ajax({
+			type: "POST",
+			dataType: "json",
+			url: "/feed/json/",
+			data: {
+				csrfmiddlewaretoken: $.cookie('csrftoken'),
+				json: JSON.stringify({
+					cmd: cmd,
+					argv: argv,
+				}),
+			},
+		}).done(callback);
+	}
+
+{% for cmd in cmd_list %}
+	var {{ cmd.name }} = function(
+		{% for arg in cmd.argv %}
+			{{ arg }} ,
+		{% endfor %}
+		callback
+	){
+		__remote__(
+			"{{ cmd.name }}",
+			{
+			{% for arg in cmd.argv %}
+				{{ arg }} : {{ arg }} ,
+			{% endfor %}
+			},
+			callback
+		);
+	}
+{% endfor %}
+
+	return {
+		{% for cmd in cmd_list %}
+			{{ cmd.name }} : {{ cmd.name }} ,
+		{% endfor %}
+	};
+	
+})();
