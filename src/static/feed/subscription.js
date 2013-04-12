@@ -8,19 +8,20 @@ var module_subscription = (function(){
 			if(subscription_instance==null)
 				return;
 
-			// $.ajax({
-				// type: "POST",
-				// dataType: "json",
-				// url: "/feed/j_subscription_poll/",
-				// data: {
-					// csrfmiddlewaretoken: $.cookie('csrftoken'),
-					// subscription_id: subscription_instance.subscription_id,
-				// },
-			// }).done(function(j){
-				// load(subscription_instance.subscription_id,null);
-			// });
-		
 			module_momohafeed.subscription_poll(
+				subscription_instance.subscription_id,
+				function(j){
+					load(subscription_instance.subscription_id,null);
+				}
+			);
+		});
+
+		var subscription_all_readdone_btn = $("#subscription_all_readdone_btn");
+		subscription_all_readdone_btn.click(function(){
+			if(subscription_instance==null)
+				return;
+
+			module_momohafeed.subscription_all_readdone(
 				subscription_instance.subscription_id,
 				function(j){
 					load(subscription_instance.subscription_id,null);
