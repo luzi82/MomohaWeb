@@ -679,6 +679,72 @@ class SimpleTest(TestCase):
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
+    def test_subscription_all_readdone (self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.server_activate()
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertGreater(len(result['item_list']), 0)
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_all_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(0, len(result['item_list']))
+
+
     def test_j_subscription_list_item_404(self):
 
         User.objects.create_user("user",password="pass")
