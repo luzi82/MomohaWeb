@@ -155,3 +155,25 @@ def subscription_poll(request,subscription_id):
     return {
         'success': True,
     }
+
+
+@u403
+@cmd
+def subscription_all_readdone(request,subscription_id):
+    
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    now = now64()
+
+    for db_item in db_item_list:
+        ItemRead.objects.get_or_create(
+            subscription = db_subscription,
+            item = db_item,
+            enable = True,
+            defaults = {'time': now}
+        )
+
+    return { 'success' : True }
