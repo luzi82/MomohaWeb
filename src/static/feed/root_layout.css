@@ -30,10 +30,6 @@ div#list_subscription_area {
 	overflow: hidden;
 }
 
-	div#list_subscription_menu {
-		overflow: hidden;
-	}
-	
 	div#list_subscription_main {
 		overflow: auto;
 	}
@@ -44,10 +40,6 @@ div#subscription_area {
 	background-color: #FFFFFF;
 }
 
-	div#subscription_menu {
-		overflow: hidden;
-	}
-	
 	div#subscription_main {
 		overflow: auto;
 	}

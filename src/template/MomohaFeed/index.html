@@ -44,9 +44,20 @@
 <div id="subscription_area">
 	<div id="subscription_menu">
 		<div class="menu_padding">
-			<div class="btn-group">
-				<button id="subscription_poll_btn" class="btn"><i class="icon-refresh"></i>Poll</button>
-				<button id="subscription_all_readdone_btn" class="btn"><i class="icon-check"></i>All read</button>
+			<div id="subscription_menu_toolbar" class="btn-toolbar">
+				<div class="btn-group">
+					<button id="subscription_poll_btn" class="btn"><i class="icon-refresh"></i> Poll</button>
+					<button id="subscription_all_readdone_btn" class="btn"><i class="icon-check"></i> All read</button>
+				</div>
+				<div class="btn-group">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						<i id="subscription_filter_btn_icon"></i> <span id="subscription_filter_btn_txt"></span> <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="#" id="subscription_filter_showall_btn"><i class="icon-list-alt"></i> Show ALL</a></li>
+						<li><a href="#" id="subscription_filter_shownew_btn"><i class="icon-filter"></i> Show NEW</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

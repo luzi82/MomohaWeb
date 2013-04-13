@@ -2,6 +2,8 @@ var module_subscription = (function(){
 	
 	var subscription_instance = null;
 	
+	var show_all = false;
+	
 	var init = function(){
 		var subscription_poll_btn = $("#subscription_poll_btn");
 		subscription_poll_btn.click(function(){
@@ -28,6 +30,25 @@ var module_subscription = (function(){
 				}
 			);
 		});
+		
+		var subscription_filter_showall_btn = $("#subscription_filter_showall_btn");
+		subscription_filter_showall_btn.click(function(){
+			if(subscription_instance==null)
+				return;
+			show_all = true;
+			ui_update_subscription_filter_btn();
+			load(subscription_instance.subscription_id,null);
+		});
+
+		var subscription_filter_shownew_btn = $("#subscription_filter_shownew_btn");
+		subscription_filter_shownew_btn.click(function(){
+			if(subscription_instance==null)
+				return;
+			show_all = false;
+			ui_update_subscription_filter_btn();
+			load(subscription_instance.subscription_id,null);
+		});
+		ui_update_subscription_filter_btn();
 	}
 
 	var load = function(subscription_id,done_callback){
@@ -44,7 +65,7 @@ var module_subscription = (function(){
 		
 		module_momohafeed.subscription_list_item_detail(
 			subscription_id,
-			false,
+			show_all,
 			function(j){
 				console.log(JSON.stringify(j));
 				subscription_instance.vm_item_detail_list = j.item_detail_list;
@@ -185,6 +206,18 @@ var module_subscription = (function(){
 		var row_data = subscription_instance.row_data_dict[row_id];
 
 		row_data.tr_brief.toggleClass("subscription_readdone",row_data.readdone);
+	}
+	
+	var ui_update_subscription_filter_btn = function(){
+		var subscription_filter_btn_icon = $("#subscription_filter_btn_icon");
+		var subscription_filter_btn_txt = $("#subscription_filter_btn_txt");
+		if(show_all){
+			subscription_filter_btn_icon.attr("class","icon-list-alt");
+			subscription_filter_btn_txt.text("Show ALL");
+		}else{
+			subscription_filter_btn_icon.attr("class","icon-filter");
+			subscription_filter_btn_txt.text("Show NEW");
+		}
 	}
 
 	return {

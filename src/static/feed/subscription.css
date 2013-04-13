@@ -6,3 +6,8 @@ img.subscription_share_btn {
 .subscription_readdone {
 	background-color: #EEEEEE;
 }
+
+#subscription_menu_toolbar{
+	margin: 0px;
+	padding: 0px;
+}
