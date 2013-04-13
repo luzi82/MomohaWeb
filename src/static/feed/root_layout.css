@@ -2,11 +2,15 @@ div#header,
 div#list_subscription_area,
 div#list_subscription_menu,
 div#list_subscription_main,
-div#subscription_area,
+.mainarea,
 div#subscription_menu,
 div#subscription_main {
 	position: absolute;
 	margin: 0; padding: 0;
+}
+
+.mainarea {
+	display: none;
 }
 
 /* /////////////////// */

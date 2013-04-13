@@ -1,5 +1,6 @@
 var module_subscription = (function(){
 	
+	var subscription_area;
 	var subscription_progress_bar;
 	var subscription_progress;
 	var subscription_list_item_table
@@ -10,6 +11,7 @@ var module_subscription = (function(){
 	
 	var init = function(){
 		
+		subscription_area = $("#subscription_area");
 		subscription_progress = $("#subscription_progress");
 		subscription_progress_bar = $("#subscription_progress_bar");
 		subscription_list_item_table = $("#subscription_list_item_table");
@@ -64,6 +66,8 @@ var module_subscription = (function(){
 	}
 
 	var load = function(subscription_id,done_callback){
+		
+		subscription_area.show();
 		
 		subscription_instance = {
 			subscription_id: subscription_id,

@@ -122,8 +122,13 @@ var root_layout = (function(){
 		});
 	}
 	
+	var hide_mainarea = function(){
+		$(".mainarea").hide();
+	}
+	
 	return {
-		init: init
+		init: init,
+		hide_mainarea: hide_mainarea,
 	};
 	
 })();
