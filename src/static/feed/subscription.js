@@ -3,7 +3,7 @@ var module_subscription = (function(){
 	var subscription_instance = null;
 	
 	var init = function(){
-		subscription_poll_btn = $("#subscription_poll_btn");
+		var subscription_poll_btn = $("#subscription_poll_btn");
 		subscription_poll_btn.click(function(){
 			if(subscription_instance==null)
 				return;
@@ -39,18 +39,9 @@ var module_subscription = (function(){
 			row_data_dict: {},
 		};
 		
-		subscription_list_item_table = $("#subscription_list_item_table");
+		var subscription_list_item_table = $("#subscription_list_item_table");
 		subscription_list_item_table.empty();
 		
-		// $.ajax({
-			// type: "POST",
-			// dataType: "json",
-			// url: "/feed/j_subscription_list_item_detail/",
-			// data: {
-				// csrfmiddlewaretoken: $.cookie('csrftoken'),
-				// subscription_id: subscription_id,
-			// },
-		// }).done(
 		module_momohafeed.subscription_list_item_detail(
 			subscription_id,
 			function(j){
@@ -59,15 +50,20 @@ var module_subscription = (function(){
 				for(var i=0;i<j.item_detail_list.length;++i){
 					var item = j.item_detail_list[i];
 					
-					subscription_instance.row_data_dict[i]={
+					var row_data = {
 						vm_item: item,
 						readdone: (item["readdone"]!=0),
-					}
+						tr_brief: null,
+						tr_detail: null,
+					};
+					subscription_instance.row_data_dict[i] = row_data;
 					
-					tr_brief = $('<tr />');
-						tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
+					var td;
+					
+					var tr_brief = $('<tr />'); row_data.tr_brief = tr_brief;
+						// tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
 						tr_brief.data("row_id",i);
-						tr_brief.data("item_id",item.id);
+						// tr_brief.data("item_id",item.id);
 						tr_brief.css("cursor","pointer");
 						td = $('<td />');
 						
@@ -76,24 +72,25 @@ var module_subscription = (function(){
 						tr_brief.append(td);
 					subscription_list_item_table.append(tr_brief);
 					
-					tr_detail = $('<tr />');
-						tr_detail.attr("id","subscription_list_item_row_"+i+"_detail");
+					var tr_detail = $('<tr />'); row_data.tr_detail = tr_detail;
+						// tr_detail.attr("id","subscription_list_item_row_"+i+"_detail");
 						tr_detail.data("row_id",i);
 						tr_detail.css("display","none");
 						td = $('<td />');
 						
-							title = $("<h4 />");
-							title.text(item.title);
-							title.css("cursor","pointer");
-							title.data("row_id",i);
-							td.append(title);
+							var detail_title = $("<h4 />");
+								detail_title.text(item.title);
+								detail_title.css("cursor","pointer");
+								detail_title.data("row_id",i);
+							td.append(detail_title);
 							
-							d_content = $("<div />");
-							d_content.html(item.content);
-							d_content.css("margin-bottom","10px");
-							td.append(d_content);
+							var detail_content = $("<div />");
+								detail_content.html(item.content);
+								detail_content.css("margin-bottom","10px");
+							td.append(detail_content);
 							
-							d_share = $("<div />");
+							var detail_share = $("<div />");
+								var share_btn;
 								share_btn = $("<img />")
 									share_btn.data("link",item.link);
 									share_btn.data("title",item.title);
@@ -104,7 +101,7 @@ var module_subscription = (function(){
 									share_btn.click(function(){
 										module_share.share_facebook($(this).data("link"),$(this).data("title"));
 									});
-								d_share.append(share_btn);
+								detail_share.append(share_btn);
 								share_btn = $("<img />")
 									share_btn.data("link",item.link);
 									share_btn.data("title",item.title);
@@ -115,7 +112,7 @@ var module_subscription = (function(){
 									share_btn.click(function(){
 										module_share.share_twitter($(this).data("link"),$(this).data("title"));
 									});
-								d_share.append(share_btn);
+								detail_share.append(share_btn);
 								share_btn = $("<img />")
 									share_btn.data("link",item.link);
 									share_btn.data("title",item.title);
@@ -126,25 +123,23 @@ var module_subscription = (function(){
 									share_btn.click(function(){
 										module_share.share_gplus($(this).data("link"),$(this).data("title"));
 									});
-								d_share.append(share_btn);
-							td.append(d_share);
+								detail_share.append(share_btn);
+							td.append(detail_share);
 						
 						tr_detail.append(td);
 					subscription_list_item_table.append(tr_detail);
 					
 					tr_brief.click(function(){
 						var row_id = $(this).data("row_id");
-						var item_id = $(this).data("item_id");
-						console.log(row_id);
-						
 						var row_data = subscription_instance.row_data_dict[row_id];
+						
 						var opening_row_id = subscription_instance.opening_row_id;
 						
 						row_data.readdone = true;
 						
 						module_momohafeed.subscription_item_set_readdone(
 							subscription_instance.subscription_id,
-							item_id,
+							row_data.vm_item.id,
 							true,
 							null
 						);
@@ -153,28 +148,24 @@ var module_subscription = (function(){
 						var tr_detail;
 						
 						if ( opening_row_id != null ){
-							tr_brief = $("#subscription_list_item_row_"+opening_row_id+"_brief");
-							tr_detail = $("#subscription_list_item_row_"+opening_row_id+"_detail");
-							tr_brief.css("display","table-row");
-							tr_detail.css("display","none");
+							var opening_row_data = subscription_instance.row_data_dict[opening_row_id];
+							opening_row_data.tr_brief.css("display","table-row");
+							opening_row_data.tr_detail.css("display","none");
 						}
 						
-						tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
-						tr_detail = $("#subscription_list_item_row_"+row_id+"_detail");
-						tr_brief.css("display","none");
-						tr_detail.css("display","table-row");
+						row_data.tr_brief.css("display","none");
+						row_data.tr_detail.css("display","table-row");
 						
 						ui_update_subscription_list_item_row_X_brief(row_id);
 						
 						subscription_instance.opening_row_id = row_id;
 					});
-					title.click(function(){
-						row_id = $(this).data("row_id");
+					detail_title.click(function(){
+						var row_id = $(this).data("row_id");
+						var row_data = subscription_instance.row_data_dict[row_id];
 						
-						tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
-						tr_detail = $("#subscription_list_item_row_"+row_id+"_detail");
-						tr_brief.css("display","table-row");
-						tr_detail.css("display","none");
+						row_data.tr_brief.css("display","table-row");
+						row_data.tr_detail.css("display","none");
 						
 						if ( row_id == subscription_instance.opening_row_id ){
 							subscription_instance.opening_row_id = null;
@@ -191,9 +182,8 @@ var module_subscription = (function(){
 	
 	var ui_update_subscription_list_item_row_X_brief = function(row_id){
 		var row_data = subscription_instance.row_data_dict[row_id];
-		var tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
 
-		tr_brief.toggleClass("subscription_readdone",row_data.readdone);
+		row_data.tr_brief.toggleClass("subscription_readdone",row_data.readdone);
 	}
 
 	return {
