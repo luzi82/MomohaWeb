@@ -74,13 +74,13 @@ def subscription_set_enable(request,subscription_id,value):
 
 @u403
 @cmd
-def subscription_list_item(request,subscription_id):
+def subscription_list_item(request,subscription_id,show_readdone):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone)
     
     item_list = []
     for db_item in db_item_list:
@@ -91,13 +91,13 @@ def subscription_list_item(request,subscription_id):
 
 @u403
 @cmd
-def subscription_list_item_detail(request,subscription_id):
+def subscription_list_item_detail(request,subscription_id,show_readdone):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone)
     
     item_detail_list = []
     for db_item in db_item_list:
@@ -165,7 +165,7 @@ def subscription_all_readdone(request,subscription_id):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,False)
     now = now64()
 
     for db_item in db_item_list:

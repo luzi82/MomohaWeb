@@ -90,8 +90,8 @@ def subscription_add(db_user,url):
     
     return db_feed,db_subscription
 
-def subscription_list_content(db_subscription):
-
+def subscription_list_content(db_subscription,show_readdone):
+    
     db_item_list = Item.objects.raw(
         '''
             SELECT
@@ -116,13 +116,14 @@ def subscription_list_content(db_subscription):
                         MomohaFeed_item.id
                 ) AS I
             WHERE
-                NOT I.readdone
+                ( %s OR ( NOT I.readdone ) )
             ORDER BY
                 I.published DESC
         ''',
         [
             db_subscription.id,
-            db_subscription.feed.id
+            db_subscription.feed.id,
+            show_readdone,
         ]
     )
 

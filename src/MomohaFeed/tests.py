@@ -249,6 +249,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -300,6 +301,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -357,6 +359,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -428,6 +431,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -457,6 +461,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -498,6 +503,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -556,6 +562,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -585,6 +592,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -630,6 +638,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -651,6 +660,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -670,6 +680,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -715,6 +726,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -737,6 +749,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
+                'show_readdone'  : False,
             },
         })})
         content=response.content
@@ -744,6 +757,128 @@ class SimpleTest(TestCase):
         
         self.assertEqual(0, len(result['item_list']))
 
+
+    def subscription_list_item_show_readdone(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
+        item_id = vm_item['id']
+        
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_item_set_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+                'value': True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertIn('success', result)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list'][0])
+        self.assertNotEqual(item_id, result['item_list'][0]['id'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list'][0])
+        self.assertEqual(item_id, result['item_list'][0]['id'])
+        self.assertEqual(True, result['item_list'][0]['readdone'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list_detail'][0])
+        self.assertNotEqual(item_id, result['item_list_detail'][0]['id'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('id',result['item_list_detail'][0])
+        self.assertEqual(item_id, result['item_list_detail'][0]['id'])
+        self.assertEqual(True, result['item_list_detail'][0]['readdone'])
+
+
+    ##########
 
     def test_j_subscription_list_item_404(self):
 
@@ -756,6 +891,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': 123,
+                'show_readdone'  : False,
             },
         })})
         self.assertEqual(404,response.status_code)
@@ -772,6 +908,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': 123,
+                'show_readdone'  : False,
             },
         })})
         self.assertEqual(404,response.status_code)

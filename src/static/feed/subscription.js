@@ -44,6 +44,7 @@ var module_subscription = (function(){
 		
 		module_momohafeed.subscription_list_item_detail(
 			subscription_id,
+			false,
 			function(j){
 				console.log(JSON.stringify(j));
 				subscription_instance.vm_item_detail_list = j.item_detail_list;
