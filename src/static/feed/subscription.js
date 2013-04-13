@@ -246,7 +246,7 @@ var module_subscription = (function(){
 			subscription_filter_btn_icon.attr("class","icon-list-alt");
 			subscription_filter_btn_txt.text("Show ALL");
 		}else{
-			subscription_filter_btn_icon.attr("class","icon-filter");
+			subscription_filter_btn_icon.attr("class","icon-asterisk");
 			subscription_filter_btn_txt.text("Show NEW");
 		}
 	}
