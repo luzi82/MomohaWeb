@@ -1,6 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from MomohaFeed.models import Subscription, Item, ItemRead
-from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail
+from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail,\
+    VmSubscriptionDetail
 import MomohaFeed
 from MomohaFeed import now64
 import inspect
@@ -177,3 +178,14 @@ def subscription_all_readdone(request,subscription_id):
         )
 
     return { 'success' : True }
+
+
+@u403
+@cmd
+def subscription_detail(request,subscription_id):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    return { 'subscription_detail' : VmSubscriptionDetail(db_subscription).__dict__ }

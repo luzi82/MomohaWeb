@@ -1,3 +1,4 @@
+import time
 class VmSubscription(object):
 
     def __init__(self,db_subscription):
@@ -17,7 +18,7 @@ class VmSubscriptionDetail(VmSubscription):
         self.user = db_subscription.user.id
         self.feed_id = db_subscription.feed.id
         self.url = db_subscription.feed.url
-        self.last_poll = db_subscription.feed.last_poll
+        self.last_poll = time.strftime("%Y-%m-%d %H:%M", time.localtime(db_subscription.feed.last_poll/1000))
         self.last_detail_update = db_subscription.feed.last_detail_update
 
 

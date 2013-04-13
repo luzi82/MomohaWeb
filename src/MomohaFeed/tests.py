@@ -878,6 +878,58 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['item_list_detail'][0]['readdone'])
 
 
+    def test_subscription_detail(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertIn('success', result)
+        self.verify_subscription(result['subscription'])
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.verify_subscription_detail(result['subscription_detail'])
+
+        vm_subscription_detail = result['subscription_detail']
+        self.assertEqual(u'栗子現場直播', vm_subscription_detail['title'])
+        self.assertEqual(u'http://blog.luzi82.com/', vm_subscription_detail['link'])
+        self.assertEqual(True, vm_subscription_detail['enable'])
+        self.assertEqual(url, vm_subscription_detail['url'])
+
+
     ##########
 
     def test_j_subscription_list_item_404(self):

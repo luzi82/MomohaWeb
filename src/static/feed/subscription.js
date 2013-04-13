@@ -87,11 +87,25 @@ var module_subscription = (function(){
 			opening_row_id: null,
 			vm_item_detail_list: null,
 			row_data_dict: {},
+			vm_subscription_detail: null,
 		};
-		
+
+		$("#subscription_main_title").hide();
 		subscription_list_item_table.empty();
-		
 		load_bar(90);
+		
+		module_momohafeed.subscription_detail(
+			subscription_id,
+			function(j){
+				vm_subscription_detail = j.subscription_detail;
+				subscription_instance.vm_subscription_detail = vm_subscription_detail;
+				$("#subscription_main_title_link").text(vm_subscription_detail.title);
+				$("#subscription_main_title_link").attr("href",vm_subscription_detail.link);
+				$("#subscription_main_title_sub").text("Poll: "+vm_subscription_detail.last_poll);
+
+				$("#subscription_main_title").show();
+			}
+		);
 		
 		module_momohafeed.subscription_list_item_detail(
 			subscription_id,
