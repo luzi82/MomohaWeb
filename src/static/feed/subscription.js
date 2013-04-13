@@ -4,6 +4,7 @@ var module_subscription = (function(){
 	var subscription_progress_bar;
 	var subscription_progress;
 	var subscription_list_item_table
+	var subscription_show_rm_modal_btn;
 	
 	var subscription_instance = null;
 	
@@ -15,6 +16,7 @@ var module_subscription = (function(){
 		subscription_progress = $("#subscription_progress");
 		subscription_progress_bar = $("#subscription_progress_bar");
 		subscription_list_item_table = $("#subscription_list_item_table");
+		subscription_show_rm_modal_btn = $("subscription_show_rm_modal_btn");
 		
 		var subscription_poll_btn = $("#subscription_poll_btn");
 		subscription_poll_btn.click(function(){
@@ -62,6 +64,17 @@ var module_subscription = (function(){
 			ui_update_subscription_filter_btn();
 			load(subscription_instance.subscription_id,null);
 		});
+
+		var import_div = $('<div id="module_subscription" />');
+		$("#import").append(import_div);
+		import_div=$("#module_subscription");
+		
+		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
+
+		import_div.load("/static/feed/subscription.html #subscription_import",function(){
+			$("#subscription_rm_modal_submit_btn").click(subscription_rm_modal_submit_btn_click);
+		});
+
 		ui_update_subscription_filter_btn();
 	}
 
@@ -245,6 +258,34 @@ var module_subscription = (function(){
 		}else{
 			subscription_progress.hide();
 		}
+	}
+	
+	var subscription_show_rm_modal_btn_click = function(e){
+		if(subscription_instance==null){
+			e.preventDefault();
+			return;
+		}
+		$("#subscription_rm_modal_progress").hide();
+	}
+	
+	var subscription_rm_modal_submit_btn_click = function(){
+		if(subscription_instance==null)
+			return;
+		
+		$("#subscription_rm_modal_progress_bar").css("width","10%");
+		$("#subscription_rm_modal_progress").show();
+		
+		module_momohafeed.subscription_set_enable(
+			subscription_instance.subscription_id,
+			false,
+			function(){
+				$("#subscription_rm_modal_progress_bar").css("width","90%");
+				module_list_subscription.refresh(function(){
+					root_layout.hide_mainarea();
+					$("#subscription_rm_modal").modal("hide");
+				});
+			}
+		);
 	}
 	
 	return {

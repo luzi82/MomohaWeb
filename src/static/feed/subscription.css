@@ -15,3 +15,8 @@ img.subscription_share_btn {
 #subscription_progress{
 	display: none;
 }
+
+#subscription_rm_modal_progress {
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
