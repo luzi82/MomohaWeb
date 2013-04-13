@@ -102,6 +102,7 @@ var module_subscription = (function(){
 				$("#subscription_main_title_link").text(vm_subscription_detail.title);
 				$("#subscription_main_title_link").attr("href",vm_subscription_detail.link);
 				$("#subscription_main_title_sub").text("Poll: "+vm_subscription_detail.last_poll);
+				$("#subscription_main_title_icon_a").attr("href",vm_subscription_detail.link);
 
 				$("#subscription_main_title").show();
 			}
