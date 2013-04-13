@@ -59,7 +59,7 @@ var module_add_subscription = (function(){
 					add_subscription_progress_bar.css("width","90%");
 					module_list_subscription.select(subscription_id,function(){
 						busy=false;
-						$("#add_subscription_modal").modal("hide");
+						add_subscription_modal.modal("hide");
 					});
 				});
 			}else{
