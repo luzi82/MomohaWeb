@@ -1,15 +1,25 @@
 var module_subscription = (function(){
 	
+	var subscription_progress_bar;
+	var subscription_progress;
+	var subscription_list_item_table
+	
 	var subscription_instance = null;
 	
 	var show_all = false;
 	
 	var init = function(){
+		
+		subscription_progress = $("#subscription_progress");
+		subscription_progress_bar = $("#subscription_progress_bar");
+		subscription_list_item_table = $("#subscription_list_item_table");
+		
 		var subscription_poll_btn = $("#subscription_poll_btn");
 		subscription_poll_btn.click(function(){
 			if(subscription_instance==null)
 				return;
-
+			subscription_list_item_table.empty();
+			load_bar(10);
 			module_momohafeed.subscription_poll(
 				subscription_instance.subscription_id,
 				function(j){
@@ -22,7 +32,7 @@ var module_subscription = (function(){
 		subscription_all_readdone_btn.click(function(){
 			if(subscription_instance==null)
 				return;
-
+			load_bar(10);
 			module_momohafeed.subscription_all_readdone(
 				subscription_instance.subscription_id,
 				function(j){
@@ -35,6 +45,7 @@ var module_subscription = (function(){
 		subscription_filter_showall_btn.click(function(){
 			if(subscription_instance==null)
 				return;
+			subscription_list_item_table.empty();
 			show_all = true;
 			ui_update_subscription_filter_btn();
 			load(subscription_instance.subscription_id,null);
@@ -44,6 +55,7 @@ var module_subscription = (function(){
 		subscription_filter_shownew_btn.click(function(){
 			if(subscription_instance==null)
 				return;
+			subscription_list_item_table.empty();
 			show_all = false;
 			ui_update_subscription_filter_btn();
 			load(subscription_instance.subscription_id,null);
@@ -60,8 +72,9 @@ var module_subscription = (function(){
 			row_data_dict: {},
 		};
 		
-		var subscription_list_item_table = $("#subscription_list_item_table");
 		subscription_list_item_table.empty();
+		
+		load_bar(90);
 		
 		module_momohafeed.subscription_list_item_detail(
 			subscription_id,
@@ -196,6 +209,7 @@ var module_subscription = (function(){
 					
 					ui_update_subscription_list_item_row_X_brief(i);
 				} // for(i=0;i<j.item_detail_list.length;++i)
+				load_bar(100);
 				utils.cb(done_callback);
 			} // function(j)
 		);
@@ -219,7 +233,16 @@ var module_subscription = (function(){
 			subscription_filter_btn_txt.text("Show NEW");
 		}
 	}
-
+	
+	var load_bar = function(percent){
+		if(percent<100){
+			subscription_progress_bar.css("width",percent+"%");
+			subscription_progress.show();
+		}else{
+			subscription_progress.hide();
+		}
+	}
+	
 	return {
 		init: init,
 		load: load,
