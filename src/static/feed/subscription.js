@@ -35,6 +35,8 @@ var module_subscription = (function(){
 		subscription_instance = {
 			subscription_id: subscription_id,
 			opening_row_id: null,
+			vm_item_detail_list: null,
+			row_data_dict: {},
 		};
 		
 		subscription_list_item_table = $("#subscription_list_item_table");
@@ -53,8 +55,14 @@ var module_subscription = (function(){
 			subscription_id,
 			function(j){
 				console.log(JSON.stringify(j));
-				for(i=0;i<j.item_detail_list.length;++i){
-					item = j.item_detail_list[i];
+				subscription_instance.vm_item_detail_list = j.item_detail_list;
+				for(var i=0;i<j.item_detail_list.length;++i){
+					var item = j.item_detail_list[i];
+					
+					subscription_instance.row_data_dict[i]={
+						vm_item: item,
+						readdone: (item["readdone"]!=0),
+					}
 					
 					tr_brief = $('<tr />');
 						tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
@@ -125,29 +133,24 @@ var module_subscription = (function(){
 					subscription_list_item_table.append(tr_detail);
 					
 					tr_brief.click(function(){
-						row_id = $(this).data("row_id");
-						item_id = $(this).data("item_id");
+						var row_id = $(this).data("row_id");
+						var item_id = $(this).data("item_id");
 						console.log(row_id);
 						
-						opening_row_id = subscription_instance.opening_row_id;
+						var row_data = subscription_instance.row_data_dict[row_id];
+						var opening_row_id = subscription_instance.opening_row_id;
 						
-						// $.ajax({
-							// type: "POST",
-							// dataType: "json",
-							// url: "/feed/j_subscription_item_set_readdone/",
-							// data: {
-								// csrfmiddlewaretoken: $.cookie('csrftoken'),
-								// subscription_id: subscription_instance.subscription_id,
-								// item_id: item_id,
-								// value: true,
-							// },
-						// });
+						row_data.readdone = true;
+						
 						module_momohafeed.subscription_item_set_readdone(
 							subscription_instance.subscription_id,
 							item_id,
 							true,
 							null
 						);
+						
+						var tr_brief;
+						var tr_detail;
 						
 						if ( opening_row_id != null ){
 							tr_brief = $("#subscription_list_item_row_"+opening_row_id+"_brief");
@@ -160,6 +163,8 @@ var module_subscription = (function(){
 						tr_detail = $("#subscription_list_item_row_"+row_id+"_detail");
 						tr_brief.css("display","none");
 						tr_detail.css("display","table-row");
+						
+						ui_update_subscription_list_item_row_X_brief(row_id);
 						
 						subscription_instance.opening_row_id = row_id;
 					});
@@ -175,11 +180,20 @@ var module_subscription = (function(){
 							subscription_instance.opening_row_id = null;
 						}
 					});
-				}
+					
+					ui_update_subscription_list_item_row_X_brief(i);
+				} // for(i=0;i<j.item_detail_list.length;++i)
 				utils.cb(done_callback);
-			}
+			} // function(j)
 		);
 		
+	}
+	
+	var ui_update_subscription_list_item_row_X_brief = function(row_id){
+		var row_data = subscription_instance.row_data_dict[row_id];
+		var tr_brief = $("#subscription_list_item_row_"+row_id+"_brief");
+
+		tr_brief.toggleClass("subscription_readdone",row_data.readdone);
 	}
 
 	return {
