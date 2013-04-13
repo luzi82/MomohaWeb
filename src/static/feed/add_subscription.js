@@ -6,6 +6,7 @@ var module_add_subscription = (function(){
 	var add_subscription_close_btn;
 	var add_subscription_url_input;
 	var add_subscription_progress_bar;
+	var add_subscription_progress;
 	
 	var busy = false;
 
@@ -21,6 +22,7 @@ var module_add_subscription = (function(){
 			add_subscription_close_btn = $("#add_subscription_close_btn");
 			add_subscription_url_input = $("#add_subscription_url_input");
 			add_subscription_progress_bar = $("#add_subscription_progress_bar");
+			add_subscription_progress = $("#add_subscription_progress");
 
 			add_subscription_modal.on("hide",function(e){
 				if(busy)e.preventDefault();
@@ -36,6 +38,7 @@ var module_add_subscription = (function(){
 		add_subscription_url_input.val("");
 		add_subscription_submit_btn.removeClass("disabled");
 		add_subscription_close_btn.removeClass("disabled");
+		add_subscription_progress.hide();
 		add_subscription_progress_bar.css("width","0%");
 	}
 	
@@ -47,6 +50,7 @@ var module_add_subscription = (function(){
 		add_subscription_submit_btn.addClass("disabled");
 		add_subscription_close_btn.addClass("disabled");
 		add_subscription_progress_bar.css("width","30%");
+		add_subscription_progress.show();
 
 		busy = true;
 
