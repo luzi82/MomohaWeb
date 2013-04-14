@@ -1,28 +1,15 @@
 var module_subscription = (function(){
 	
-	var subscription_area;
-	var subscription_progress_bar;
-	var subscription_progress;
-	var subscription_list_item_table
-	var subscription_show_rm_modal_btn;
-	
 	var subscription_instance = null;
 	
 	var show_all = false;
 	
 	var init = function(){
 		
-		subscription_area = $("#subscription_area");
-		subscription_progress = $("#subscription_progress");
-		subscription_progress_bar = $("#subscription_progress_bar");
-		subscription_list_item_table = $("#subscription_list_item_table");
-		subscription_show_rm_modal_btn = $("subscription_show_rm_modal_btn");
-		
-		var subscription_poll_btn = $("#subscription_poll_btn");
-		subscription_poll_btn.click(function(){
+		$("#subscription_poll_btn").click(function(){
 			if(subscription_instance==null)
 				return;
-			subscription_list_item_table.empty();
+			$("#subscription_list_item_table").empty();
 			load_bar(10);
 			module_momohafeed.subscription_poll(
 				subscription_instance.subscription_id,
@@ -32,8 +19,7 @@ var module_subscription = (function(){
 			);
 		});
 
-		var subscription_all_readdone_btn = $("#subscription_all_readdone_btn");
-		subscription_all_readdone_btn.click(function(){
+		$("#subscription_all_readdone_btn").click(function(){
 			if(subscription_instance==null)
 				return;
 			load_bar(10);
@@ -45,33 +31,28 @@ var module_subscription = (function(){
 			);
 		});
 		
-		var subscription_filter_showall_btn = $("#subscription_filter_showall_btn");
-		subscription_filter_showall_btn.click(function(){
+		$("#subscription_filter_showall_btn").click(function(){
 			if(subscription_instance==null)
 				return;
-			subscription_list_item_table.empty();
+			$("#subscription_list_item_table").empty();
 			show_all = true;
 			ui_update_subscription_filter_btn();
 			load(subscription_instance.subscription_id,null);
 		});
 
-		var subscription_filter_shownew_btn = $("#subscription_filter_shownew_btn");
-		subscription_filter_shownew_btn.click(function(){
+		$("#subscription_filter_shownew_btn").click(function(){
 			if(subscription_instance==null)
 				return;
-			subscription_list_item_table.empty();
+			$("#subscription_list_item_table").empty();
 			show_all = false;
 			ui_update_subscription_filter_btn();
 			load(subscription_instance.subscription_id,null);
 		});
 
-		var import_div = $('<div id="module_subscription" />');
-		$("#import").append(import_div);
-		import_div=$("#module_subscription");
-		
 		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
 
-		import_div.load("/static/feed/subscription.html #subscription_import",function(){
+		$("#import").append($('<div id="module_subscription" />'));
+		$("#module_subscription").load("/static/feed/subscription.html #subscription_import",function(){
 			$("#subscription_rm_modal_submit_btn").click(subscription_rm_modal_submit_btn_click);
 		});
 
@@ -80,7 +61,7 @@ var module_subscription = (function(){
 
 	var load = function(subscription_id,done_callback){
 		
-		subscription_area.show();
+		$("#subscription_area").show();
 		
 		subscription_instance = {
 			subscription_id: subscription_id,
@@ -91,7 +72,7 @@ var module_subscription = (function(){
 		};
 
 		$("#subscription_main_title").hide();
-		subscription_list_item_table.empty();
+		$("#subscription_list_item_table").empty();
 		load_bar(90);
 		
 		module_momohafeed.subscription_detail(
@@ -137,7 +118,7 @@ var module_subscription = (function(){
 							td.text(item.title);
 						
 						tr_brief.append(td);
-					subscription_list_item_table.append(tr_brief);
+					$("#subscription_list_item_table").append(tr_brief);
 					
 					var tr_detail = $('<tr />'); row_data.tr_detail = tr_detail;
 						// tr_detail.attr("id","subscription_list_item_row_"+i+"_detail");
@@ -194,7 +175,7 @@ var module_subscription = (function(){
 							td.append(detail_share);
 						
 						tr_detail.append(td);
-					subscription_list_item_table.append(tr_detail);
+					$("#subscription_list_item_table").append(tr_detail);
 					
 					tr_brief.click(function(){
 						var row_id = $(this).data("row_id");
@@ -255,23 +236,21 @@ var module_subscription = (function(){
 	}
 	
 	var ui_update_subscription_filter_btn = function(){
-		var subscription_filter_btn_icon = $("#subscription_filter_btn_icon");
-		var subscription_filter_btn_txt = $("#subscription_filter_btn_txt");
 		if(show_all){
-			subscription_filter_btn_icon.attr("class","icon-list-alt");
-			subscription_filter_btn_txt.text("Show ALL");
+			$("#subscription_filter_btn_icon").attr("class","icon-list-alt");
+			$("#subscription_filter_btn_txt").text("Show ALL");
 		}else{
-			subscription_filter_btn_icon.attr("class","icon-asterisk");
-			subscription_filter_btn_txt.text("Show NEW");
+			$("#subscription_filter_btn_icon").attr("class","icon-asterisk");
+			$("#subscription_filter_btn_txt").text("Show NEW");
 		}
 	}
 	
 	var load_bar = function(percent){
 		if(percent<100){
-			subscription_progress_bar.css("width",percent+"%");
-			subscription_progress.show();
+			$("#subscription_progress_bar").css("width",percent+"%");
+			$("#subscription_progress").show();
 		}else{
-			subscription_progress.hide();
+			$("#subscription_progress").hide();
 		}
 	}
 	
