@@ -1,3 +1,11 @@
 .alpha_low {
 	opacity: 0.382;
 }
+
+.module {
+	display: none;
+}
+
+.import_target {
+	display: none;
+}

@@ -44,3 +44,39 @@ img.subscription_share_btn {
 	text-align: right !important;
 	color: #b2b2b2;
 }
+
+.subscription_item {
+	border-top-width: 1px !important;
+}
+
+.click_open_detail,
+.click_close_detail {
+	cursor: pointer;
+}
+
+td.subscription_last_poll,
+td.subscription_item_published {
+	white-space: nowrap;
+	color: #b2b2b2;
+}
+
+td.subscription_item_title,
+td.subscription_item_brief_title {
+	width: 100%;
+}
+
+.subscription_item_detail h4 {
+	margin: 0px;
+}
+
+.subscription_item_detail .tr_cont td {
+	padding-top: 0px;
+}
+
+.subscription_item_detail td {
+	border: 0px none;	
+}
+
+.subscription_item {
+	display: none;
+}

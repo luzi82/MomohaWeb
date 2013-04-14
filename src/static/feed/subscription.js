@@ -75,17 +75,25 @@ var module_subscription = (function(){
 		$("#subscription_list_item_table").empty();
 		load_bar(90);
 		
+		var subscription_header = $("#subscription_header_template").clone();
+			subscription_header.attr("id","subscription_header");
+		$("#subscription_list_item_table").append(subscription_header);
+		
 		module_momohafeed.subscription_detail(
 			subscription_id,
 			function(j){
-				vm_subscription_detail = j.subscription_detail;
+				var vm_subscription_detail = j.subscription_detail;
 				subscription_instance.vm_subscription_detail = vm_subscription_detail;
-				$("#subscription_main_title_link").text(vm_subscription_detail.title);
-				$("#subscription_main_title_link").attr("href",vm_subscription_detail.link);
-				$("#subscription_main_title_sub").text(vm_subscription_detail.last_poll);
-				$("#subscription_main_title_icon_a").attr("href",vm_subscription_detail.link);
-
-				$("#subscription_main_title").show();
+				
+				var subscription_header = $("#subscription_header");
+				
+				$(".title_text",subscription_header).text(vm_subscription_detail.title);
+				$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll);
+				$(".link").attr({
+					"href": vm_subscription_detail.link,
+					"target": "_blank",
+				});
+				subscription_header.show();
 			}
 		);
 		
@@ -101,139 +109,25 @@ var module_subscription = (function(){
 					var row_data = {
 						vm_item: item,
 						readdone: (item["readdone"]!=0),
-						brief_tr: null,
-						tr_detail: null,
 					};
 					subscription_instance.row_data_dict[i] = row_data;
 					
-					var td;
-					var span;
-					var icon;
+					var brief_body = $("#subscription_item_brief_template").clone();
+						brief_body.attr("id","subscription_item_brief_"+i);
+						brief_body.data("row_id",i);
+						fill_subscription_item(brief_body,item);
+					$("#subscription_list_item_table").append(brief_body);
 					
-					var brief_tr = $('<tr />'); row_data.brief_tr = brief_tr;
-						brief_tr.data("row_id",i);
-						brief_tr.css("cursor","pointer");
-
-						td = $('<td />');
-							td.text(item.title);
-						brief_tr.append(td);
-						
-						td = $('<td />');
-							td.addClass("subscription_item_brief_info");
-							span = $('<span />')
-								span.text(item.published);
-							td.append(span);
-							icon = $('<i />')
-								icon.addClass('link_icon');
-								icon.addClass('icon-chevron-right');
-							td.append(icon);
-						brief_tr.append(td);
-
-					$("#subscription_list_item_table").append(brief_tr);
+					var detail_body = $("#subscription_item_detail_template").clone();
+						detail_body.attr("id","subscription_item_detail_"+i);
+						detail_body.data("row_id",i);
+						fill_subscription_item(detail_body,item);
+					$("#subscription_list_item_table").append(detail_body);
 					
-					var tr_detail = $('<tr />'); row_data.tr_detail = tr_detail;
-						tr_detail.data("row_id",i);
-						tr_detail.css("display","none");
-						td = $('<td />');
-							td.attr('colspan','2');
-						
-							var detail_title = $("<h4 />");
-								detail_title.text(item.title);
-								detail_title.css("cursor","pointer");
-								detail_title.data("row_id",i);
-							td.append(detail_title);
-							
-							var detail_content = $("<div />");
-								detail_content.html(item.content);
-								detail_content.css("margin-bottom","10px");
-							td.append(detail_content);
-							
-							var detail_share = $("<div />");
-								var share_btn;
-								share_btn = $("<img />")
-									share_btn.data("link",item.link);
-									share_btn.data("title",item.title);
-									share_btn.attr({
-										"class":"subscription_share_btn",
-										"src":"/static/feed/img/share/facebook-16.png",
-									});
-									share_btn.click(function(){
-										module_share.share_facebook($(this).data("link"),$(this).data("title"));
-									});
-								detail_share.append(share_btn);
-								share_btn = $("<img />")
-									share_btn.data("link",item.link);
-									share_btn.data("title",item.title);
-									share_btn.attr({
-										"class":"subscription_share_btn",
-										"src":"/static/feed/img/share/twitter-16.png",
-									});
-									share_btn.click(function(){
-										module_share.share_twitter($(this).data("link"),$(this).data("title"));
-									});
-								detail_share.append(share_btn);
-								share_btn = $("<img />")
-									share_btn.data("link",item.link);
-									share_btn.data("title",item.title);
-									share_btn.attr({
-										"class":"subscription_share_btn",
-										"src":"/static/feed/img/share/gplus-16.png",
-									});
-									share_btn.click(function(){
-										module_share.share_gplus($(this).data("link"),$(this).data("title"));
-									});
-								detail_share.append(share_btn);
-							td.append(detail_share);
-						
-						tr_detail.append(td);
-					$("#subscription_list_item_table").append(tr_detail);
+					ui_update_subscription_item_brief(i);
 					
-					brief_tr.click(function(){
-						var row_id = $(this).data("row_id");
-						var row_data = subscription_instance.row_data_dict[row_id];
-						
-						var opening_row_id = subscription_instance.opening_row_id;
-						
-						row_data.readdone = true;
-						
-						module_momohafeed.subscription_item_set_readdone(
-							subscription_instance.subscription_id,
-							row_data.vm_item.id,
-							true,
-							null
-						);
-						
-						var brief_tr;
-						var tr_detail;
-						
-						if ( opening_row_id != null ){
-							var opening_row_data = subscription_instance.row_data_dict[opening_row_id];
-							opening_row_data.brief_tr.css("display","table-row");
-							opening_row_data.tr_detail.css("display","none");
-						}
-						
-						row_data.brief_tr.css("display","none");
-						row_data.tr_detail.css("display","table-row");
-						
-						ui_update_subscription_list_item_row_X_brief(row_id);
-						
-						subscription_instance.opening_row_id = row_id;
-					});
-					
-					detail_title.click(function(){
-						var row_id = $(this).data("row_id");
-						var row_data = subscription_instance.row_data_dict[row_id];
-						
-						row_data.brief_tr.css("display","table-row");
-						row_data.tr_detail.css("display","none");
-						
-						if ( row_id == subscription_instance.opening_row_id ){
-							subscription_instance.opening_row_id = null;
-						}
-					});
-					
-					ui_update_subscription_list_item_row_X_brief(i);
 				} // for(i=0;i<j.item_detail_list.length;++i)
+				$(".subscription_item_brief").show();
 				load_bar(100);
 				utils.cb(done_callback);
 			} // function(j)
@@ -241,10 +135,9 @@ var module_subscription = (function(){
 		
 	}
 	
-	var ui_update_subscription_list_item_row_X_brief = function(row_id){
+	var ui_update_subscription_item_brief = function(row_id){
 		var row_data = subscription_instance.row_data_dict[row_id];
-
-		row_data.brief_tr.toggleClass("subscription_readdone",row_data.readdone);
+		$("#subscription_item_brief_"+row_id).toggleClass("subscription_readdone",row_data.readdone);
 	}
 	
 	var ui_update_subscription_filter_btn = function(){
@@ -292,6 +185,56 @@ var module_subscription = (function(){
 				});
 			}
 		);
+	}
+	
+	var fill_subscription_item = function(subscription_item,item) {
+		var row_id = subscription_item.data("row_id");
+		var row_data = subscription_instance.row_data_dict[row_id];
+		
+		$(".title_text",subscription_item).text(item.title);
+		$(".published_text",subscription_item).text(item.published);
+		$(".link",subscription_item).attr({
+			"href" : item.link,
+			"target" : "_blank",
+		});
+		$(".content",subscription_item).html(item.content);
+		
+		$(".click_open_detail",subscription_item).data("row_id", row_id);
+		$(".click_open_detail",subscription_item).click(click_open_detail);
+		$(".click_close_detail",subscription_item).data("row_id", row_id);
+		$(".click_close_detail",subscription_item).click(click_close_detail);
+		$(".subscription_share_btn",subscription_item).data("link",item.link);
+		$(".subscription_share_btn",subscription_item).data("title",item.title);
+		$(".subscription_share_btn",subscription_item).click(module_share.share_btn_click);
+	}
+	
+	var click_open_detail = function(){
+		var row_id = $(this).data("row_id");
+		var row_data = subscription_instance.row_data_dict[row_id];
+		
+		if(subscription_instance.opening_row_id!=null){
+			$("#subscription_item_brief_"+subscription_instance.opening_row_id).show();
+			$("#subscription_item_detail_"+subscription_instance.opening_row_id).hide();
+		}
+		$("#subscription_item_brief_"+row_id).hide();
+		$("#subscription_item_detail_"+row_id).show();
+		subscription_instance.opening_row_id = row_id;
+
+		row_data.readdone = true;
+		module_momohafeed.subscription_item_set_readdone(
+			subscription_instance.subscription_id,
+			row_data.vm_item.id,
+			true,
+			null
+		);
+		ui_update_subscription_item_brief(row_id);
+	}
+	
+	var click_close_detail = function(){
+		var row_id = $(this).data("row_id");
+		$("#subscription_item_brief_"+row_id).show();
+		$("#subscription_item_detail_"+row_id).hide();
+		subscription_instance.opening_row_id = null;
 	}
 	
 	return {

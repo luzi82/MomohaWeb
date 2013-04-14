@@ -5,7 +5,7 @@
 <head><title></title></head>
 
 <body>
-<div id="subscription_import">
+<div id="subscription_import" class="module">
 
 <div id="subscription_rm_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_rm_modal_label" aria-hidden="true">
 	<div class="modal-header">
@@ -24,7 +24,67 @@
 	</div>
 </div>
 
+<table>
+	<thead id="subscription_header_template" class="import_target">
+		<tr>
+			<td class="subscription_item_brief_title" colspan="2">
+				<a href="#" class="link"><h1><span class="title_text"></span></h1></a>
+			</td>
+			<td class="subscription_last_poll">
+				<span class="last_poll_text"></span>
+			</td>
+			<td>
+				<a href="#" class="link"><i class="link_icon icon-play"></i></a>
+			</td>
+		</tr>
+	</thead>
+	<tbody id="subscription_item_brief_template" class="subscription_item subscription_item_brief">
+		<tr>
+			<td class="click_open_detail">
+				<i class="link_icon icon-chevron-right"></i>
+			</td>
+			<td class="click_open_detail subscription_item_title">
+				<span class="title_text"></span>
+			</td>
+			<td class="click_open_detail subscription_item_published">
+				<span class="published_text"></span>
+			</td>
+			<td>
+				<a href="#" class="link"><i class="link_icon icon-play"></i></a>
+			</td>
+		</tr>
+	</tbody>
+	<tbody id="subscription_item_detail_template" class="subscription_item subscription_item_detail">
+		<tr>
+			<td class="click_close_detail">
+				<i class="link_icon icon-chevron-down"></i>
+			</td>
+			<td class="subscription_item_title">
+				<a href="#" class="link"><h4><span class="title_text"></span></h4></a>
+			</td>
+			<td class="subscription_item_published click_close_detail">
+				<span class="published_text"></span>
+			</td>
+			<td>
+				<a href="#" class="link"><i class="link_icon icon-play"></i></a>
+			</td>
+		</tr>
+		<tr class="tr_cont">
+			<td class="content" colspan="4">
+			</td>
+		</tr>
+		<tr class="tr_cont">
+			<td class="footer" colspan="4">
+				<img class="subscription_share_btn share_facebook" src="/static/feed/img/share/facebook-16.png" />
+				<img class="subscription_share_btn share_twitter"  src="/static/feed/img/share/twitter-16.png" />
+				<img class="subscription_share_btn share_gplus"    src="/static/feed/img/share/gplus-16.png" />
+			</td>
+		</tr>
+	</tbody>
+</table>
+
 </div>
+
 </body>
 
 </html>
