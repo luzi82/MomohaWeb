@@ -206,6 +206,7 @@ var module_subscription = (function(){
 		$(".subscription_share_btn",subscription_item).data("link",item.link);
 		$(".subscription_share_btn",subscription_item).data("title",item.title);
 		$(".subscription_share_btn",subscription_item).click(module_share.share_btn_click);
+		$(".stop_propagation",subscription_item).click(stop_propagation);
 	}
 	
 	var click_open_detail = function(){
@@ -235,6 +236,10 @@ var module_subscription = (function(){
 		$("#subscription_item_brief_"+row_id).show();
 		$("#subscription_item_detail_"+row_id).hide();
 		subscription_instance.opening_row_id = null;
+	}
+	
+	var stop_propagation = function(e){
+		e.stopPropagation();
 	}
 	
 	return {
