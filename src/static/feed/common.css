@@ -2,10 +2,6 @@
 	opacity: 0.382;
 }
 
-.module {
-	display: none;
-}
-
-.import_target {
+.template {
 	display: none;
 }
