@@ -88,7 +88,7 @@ var module_subscription = (function(){
 				var subscription_header = $("#subscription_header");
 				
 				$(".title_text",subscription_header).text(vm_subscription_detail.title);
-				$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll);
+				$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll_txt);
 				$(".link").attr({
 					"href": vm_subscription_detail.link,
 					"target": "_blank",
@@ -192,7 +192,7 @@ var module_subscription = (function(){
 		var row_data = subscription_instance.row_data_dict[row_id];
 		
 		$(".title_text",subscription_item).text(item.title);
-		$(".published_text",subscription_item).text(item.published);
+		$(".published_text",subscription_item).text(item.published_txt);
 		$(".link",subscription_item).attr({
 			"href" : item.link,
 			"target" : "_blank",
