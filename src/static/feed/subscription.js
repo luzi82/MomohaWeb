@@ -101,30 +101,41 @@ var module_subscription = (function(){
 					var row_data = {
 						vm_item: item,
 						readdone: (item["readdone"]!=0),
-						tr_brief: null,
+						brief_tr: null,
 						tr_detail: null,
 					};
 					subscription_instance.row_data_dict[i] = row_data;
 					
 					var td;
+					var span;
+					var icon;
 					
-					var tr_brief = $('<tr />'); row_data.tr_brief = tr_brief;
-						// tr_brief.attr("id","subscription_list_item_row_"+i+"_brief");
-						tr_brief.data("row_id",i);
-						// tr_brief.data("item_id",item.id);
-						tr_brief.css("cursor","pointer");
+					var brief_tr = $('<tr />'); row_data.brief_tr = brief_tr;
+						brief_tr.data("row_id",i);
+						brief_tr.css("cursor","pointer");
+
 						td = $('<td />');
-						
 							td.text(item.title);
+						brief_tr.append(td);
 						
-						tr_brief.append(td);
-					$("#subscription_list_item_table").append(tr_brief);
+						td = $('<td />');
+							td.addClass("subscription_item_brief_info");
+							span = $('<span />')
+								span.text(item.published);
+							td.append(span);
+							icon = $('<i />')
+								icon.addClass('link_icon');
+								icon.addClass('icon-chevron-right');
+							td.append(icon);
+						brief_tr.append(td);
+
+					$("#subscription_list_item_table").append(brief_tr);
 					
 					var tr_detail = $('<tr />'); row_data.tr_detail = tr_detail;
-						// tr_detail.attr("id","subscription_list_item_row_"+i+"_detail");
 						tr_detail.data("row_id",i);
 						tr_detail.css("display","none");
 						td = $('<td />');
+							td.attr('colspan','2');
 						
 							var detail_title = $("<h4 />");
 								detail_title.text(item.title);
@@ -177,7 +188,7 @@ var module_subscription = (function(){
 						tr_detail.append(td);
 					$("#subscription_list_item_table").append(tr_detail);
 					
-					tr_brief.click(function(){
+					brief_tr.click(function(){
 						var row_id = $(this).data("row_id");
 						var row_data = subscription_instance.row_data_dict[row_id];
 						
@@ -192,27 +203,28 @@ var module_subscription = (function(){
 							null
 						);
 						
-						var tr_brief;
+						var brief_tr;
 						var tr_detail;
 						
 						if ( opening_row_id != null ){
 							var opening_row_data = subscription_instance.row_data_dict[opening_row_id];
-							opening_row_data.tr_brief.css("display","table-row");
+							opening_row_data.brief_tr.css("display","table-row");
 							opening_row_data.tr_detail.css("display","none");
 						}
 						
-						row_data.tr_brief.css("display","none");
+						row_data.brief_tr.css("display","none");
 						row_data.tr_detail.css("display","table-row");
 						
 						ui_update_subscription_list_item_row_X_brief(row_id);
 						
 						subscription_instance.opening_row_id = row_id;
 					});
+					
 					detail_title.click(function(){
 						var row_id = $(this).data("row_id");
 						var row_data = subscription_instance.row_data_dict[row_id];
 						
-						row_data.tr_brief.css("display","table-row");
+						row_data.brief_tr.css("display","table-row");
 						row_data.tr_detail.css("display","none");
 						
 						if ( row_id == subscription_instance.opening_row_id ){
@@ -232,7 +244,7 @@ var module_subscription = (function(){
 	var ui_update_subscription_list_item_row_X_brief = function(row_id){
 		var row_data = subscription_instance.row_data_dict[row_id];
 
-		row_data.tr_brief.toggleClass("subscription_readdone",row_data.readdone);
+		row_data.brief_tr.toggleClass("subscription_readdone",row_data.readdone);
 	}
 	
 	var ui_update_subscription_filter_btn = function(){

@@ -39,3 +39,8 @@ img.subscription_share_btn {
 .link_icon:hover {
 	opacity: 1;
 }
+
+.subscription_item_brief_info {
+	text-align: right !important;
+	color: #b2b2b2;
+}
