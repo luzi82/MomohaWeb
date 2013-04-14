@@ -1,5 +1,5 @@
-from django.core.exceptions import PermissionDenied
-from MomohaFeed.models import Subscription, Item, ItemRead
+from django.core.exceptions import PermissionDenied, ValidationError
+from MomohaFeed.models import Subscription, Item, ItemRead, ItemStar
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail,\
     VmSubscriptionDetail
 import MomohaFeed
@@ -81,7 +81,7 @@ def subscription_list_item(request,subscription_id,show_readdone):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=show_readdone)
     
     item_list = []
     for db_item in db_item_list:
@@ -98,7 +98,7 @@ def subscription_list_item_detail(request,subscription_id,show_readdone):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=show_readdone)
     
     item_detail_list = []
     for db_item in db_item_list:
@@ -126,6 +126,8 @@ def subscription_item_set_readdone(request,subscription_id,item_id,value):
         raise PermissionDenied
     
     db_item = Item.objects.get(id=item_id)
+    if(db_item.feed != db_subscription.feed):
+        raise ValidationError
 
     if value:
         ItemRead.objects.get_or_create(
@@ -166,7 +168,7 @@ def subscription_all_readdone(request,subscription_id):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,False)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=False)
     now = now64()
 
     for db_item in db_item_list:
@@ -189,3 +191,31 @@ def subscription_detail(request,subscription_id):
         raise PermissionDenied
 
     return { 'subscription_detail' : VmSubscriptionDetail(db_subscription).__dict__ }
+
+
+@u403
+@cmd
+def subscription_item_set_star(request,subscription_id,item_id,value):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+
+    db_item = Item.objects.get(id=item_id)
+    if(db_item.feed != db_subscription.feed):
+        raise ValidationError
+
+    if value:
+        ItemStar.objects.get_or_create(
+            subscription = db_subscription,
+            item = db_item,
+            enable = True,
+            defaults = {'time': now64()}
+        )
+    else:
+        ItemStar.objects.filter(
+            subscription = db_subscription,
+            item = db_item
+        ).update(enable = False)
+
+    return { 'success' : True }

@@ -90,7 +90,7 @@ def subscription_add(db_user,url):
     
     return db_feed,db_subscription
 
-def subscription_list_content(db_subscription,show_readdone):
+def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=True):
     
     db_item_list = Item.objects.raw(
         '''
@@ -100,8 +100,9 @@ def subscription_list_content(db_subscription,show_readdone):
             FROM
                 (
                     SELECT
-                        MomohaFeed_item.*,
-                        (Count(MomohaFeed_itemread.enable)>0) readdone
+                        MomohaFeed_item.* ,
+                        (Count(MomohaFeed_itemread.enable)>0) readdone ,
+                        (Count(MomohaFeed_itemstar.enable)>0) star
                     FROM
                         MomohaFeed_item
                         LEFT JOIN MomohaFeed_itemread
@@ -110,20 +111,29 @@ def subscription_list_content(db_subscription,show_readdone):
                                 MomohaFeed_itemread.subscription_id = %s AND
                                 MomohaFeed_itemread.enable
                             )
+                        LEFT JOIN MomohaFeed_itemstar
+                            ON (
+                                MomohaFeed_itemstar.item_id = MomohaFeed_item.id AND
+                                MomohaFeed_itemstar.subscription_id = %s AND
+                                MomohaFeed_itemstar.enable
+                            )
                     WHERE
                         MomohaFeed_item.feed_id = %s
                     GROUP BY
                         MomohaFeed_item.id
                 ) AS I
             WHERE
-                ( %s OR ( NOT I.readdone ) )
+                ( %s OR ( NOT I.readdone ) ) AND
+                ( %s OR ( I.star ) )
             ORDER BY
                 I.published DESC
         ''',
         [
             db_subscription.id,
+            db_subscription.id,
             db_subscription.feed.id,
             show_readdone,
+            show_nonstar,
         ]
     )
 
@@ -136,8 +146,9 @@ def subscription_item_detail(subscription_id, item_id):
     db_item_list = Item.objects.raw(
         '''
             SELECT
-                MomohaFeed_item.*,
-                (Count(MomohaFeed_itemread.enable)>0) readdone
+                MomohaFeed_item.* ,
+                (Count(MomohaFeed_itemread.enable)>0) readdone ,
+                (Count(MomohaFeed_itemstar.enable)>0) star
             FROM
                 MomohaFeed_item
                 LEFT JOIN MomohaFeed_itemread
@@ -146,12 +157,19 @@ def subscription_item_detail(subscription_id, item_id):
                         MomohaFeed_itemread.subscription_id = %s AND
                         MomohaFeed_itemread.enable
                     )
+                LEFT JOIN MomohaFeed_itemstar
+                    ON (
+                        MomohaFeed_itemstar.item_id = MomohaFeed_item.id AND
+                        MomohaFeed_itemstar.subscription_id = %s AND
+                        MomohaFeed_itemstar.enable
+                    )
             WHERE
                 MomohaFeed_item.id = %s
             ORDER BY
                 MomohaFeed_item.published DESC
         ''',
         [
+            subscription_id,
             subscription_id,
             item_id
         ]

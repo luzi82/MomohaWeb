@@ -758,7 +758,7 @@ class SimpleTest(TestCase):
         self.assertEqual(0, len(result['item_list']))
 
 
-    def subscription_list_item_show_readdone(self):
+    def test_subscription_list_item_show_readdone(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
@@ -859,8 +859,8 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list_detail'][0])
-        self.assertNotEqual(item_id, result['item_list_detail'][0]['id'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertNotEqual(item_id, result['item_detail_list'][0]['id'])
 
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
@@ -873,9 +873,9 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list_detail'][0])
-        self.assertEqual(item_id, result['item_list_detail'][0]['id'])
-        self.assertEqual(True, result['item_list_detail'][0]['readdone'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertEqual(item_id, result['item_detail_list'][0]['id'])
+        self.assertEqual(True, result['item_detail_list'][0]['readdone'])
 
 
     def test_subscription_detail(self):
@@ -928,8 +928,141 @@ class SimpleTest(TestCase):
         self.assertEqual(u'http://blog.luzi82.com/', vm_subscription_detail['link'])
         self.assertEqual(True, vm_subscription_detail['enable'])
         self.assertEqual(url, vm_subscription_detail['url'])
+    
+    
+    def test_subscription_set_star(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
 
 
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        item_id = vm_item['id']
+        self.assertEqual(False, vm_item['star'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_item_set_star',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+                'value': True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('success', result)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        self.assertEqual(item_id, vm_item['id'])
+        self.assertEqual(True, vm_item['star'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id'        : item_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['item_detail']['star'])
+    
+    
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_item_set_star',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+                'value': False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('success', result)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        self.assertEqual(item_id, vm_item['id'])
+        self.assertEqual(False, vm_item['star'])
+
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id'        : item_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['item_detail']['star'])
+    
+    
     ##########
 
     def test_j_subscription_list_item_404(self):
@@ -991,6 +1124,7 @@ class SimpleTest(TestCase):
         self.assertIn('published', vm_item)
         self.assertIn('link', vm_item)
         self.assertIn('readdone', vm_item)
+        self.assertIn('star', vm_item)
 
 
     def verify_item_detail(self,vm_item_detail):
