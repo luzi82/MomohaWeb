@@ -109,6 +109,7 @@ var module_subscription = (function(){
 					var row_data = {
 						vm_item: item,
 						readdone: (item["readdone"]!=0),
+						star: (item["star"]!=0),
 					};
 					subscription_instance.row_data_dict[i] = row_data;
 					
@@ -124,7 +125,7 @@ var module_subscription = (function(){
 						fill_subscription_item(detail_body,item);
 					$("#subscription_list_item_table").append(detail_body);
 					
-					ui_update_subscription_item_brief(i);
+					ui_update_subscription_item(i);
 					
 				} // for(i=0;i<j.item_detail_list.length;++i)
 				$(".subscription_item_brief").show();
@@ -135,9 +136,16 @@ var module_subscription = (function(){
 		
 	}
 	
-	var ui_update_subscription_item_brief = function(row_id){
+	var ui_update_subscription_item = function(row_id){
 		var row_data = subscription_instance.row_data_dict[row_id];
-		$("#subscription_item_brief_"+row_id).toggleClass("subscription_readdone",row_data.readdone);
+		var subscription_item_brief  = $("#subscription_item_brief_" +row_id);
+		var subscription_item_detail = $("#subscription_item_detail_"+row_id);
+		
+		subscription_item_brief.toggleClass("subscription_readdone",row_data.readdone);
+		$(".subscription_star",subscription_item_brief ).toggleClass("icon-star-empty", !row_data.star);
+		$(".subscription_star",subscription_item_brief ).toggleClass("icon-star"      , row_data.star);
+		$(".subscription_star",subscription_item_detail).toggleClass("icon-star-empty", !row_data.star);
+		$(".subscription_star",subscription_item_detail).toggleClass("icon-star"      , row_data.star);
 	}
 	
 	var ui_update_subscription_filter_btn = function(){
@@ -207,6 +215,8 @@ var module_subscription = (function(){
 		$(".subscription_share_btn",subscription_item).data("title",item.title);
 		$(".subscription_share_btn",subscription_item).click(module_share.share_btn_click);
 		$(".stop_propagation",subscription_item).click(stop_propagation);
+		$(".subscription_star",subscription_item).data("row_id", row_id);
+		$(".subscription_star",subscription_item).click(subscription_star_click);
 	}
 	
 	var click_open_detail = function(){
@@ -228,7 +238,7 @@ var module_subscription = (function(){
 			true,
 			null
 		);
-		ui_update_subscription_item_brief(row_id);
+		ui_update_subscription_item(row_id);
 	}
 	
 	var click_close_detail = function(){
@@ -240,6 +250,22 @@ var module_subscription = (function(){
 	
 	var stop_propagation = function(e){
 		e.stopPropagation();
+	}
+	
+	var subscription_star_click = function(){
+		var row_id = $(this).data("row_id");
+		var row_data = subscription_instance.row_data_dict[row_id];
+		
+		row_data.star = !row_data.star;
+		
+		module_momohafeed.subscription_item_set_star(
+			subscription_instance.subscription_id,
+			row_data.vm_item.id,
+			row_data.star,
+			null
+		);
+		
+		ui_update_subscription_item(row_id);
 	}
 	
 	return {
