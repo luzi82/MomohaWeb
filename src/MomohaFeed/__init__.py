@@ -118,7 +118,8 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
                                 MomohaFeed_itemstar.enable
                             )
                     WHERE
-                        MomohaFeed_item.feed_id = %s
+                        ( MomohaFeed_item.feed_id = %s ) AND
+                        ( MomohaFeed_item.last_poll >= %s )
                     GROUP BY
                         MomohaFeed_item.id
                 ) AS I
@@ -132,6 +133,7 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
             db_subscription.id,
             db_subscription.id,
             db_subscription.feed.id,
+            db_subscription.start,
             show_readdone,
             show_nonstar,
         ]
