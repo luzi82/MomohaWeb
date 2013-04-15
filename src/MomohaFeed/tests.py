@@ -1063,6 +1063,124 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['item_detail']['star'])
     
     
+    def test_issue_34(self):
+        '''Item, show only Item.last_poll > Subscription.start'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.server_activate()
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        feed_id = result['subscription_detail']['feed_id']
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        exist = False
+        for item in result['item_list']:
+            exist = exist or ( item['title'] == u"年內查6500幢大廈消防" )
+        self.assertTrue(exist)
+    
+        exist = False
+        for item in result['item_list']:
+            exist = exist or ( item['title'] == u"六十五歲女子李瑞琼失蹤" )
+        self.assertTrue(exist)
+    
+        User.objects.create_user("user0",password="pass0")
+        
+        client = Client()
+        client.login(username="user0",password="pass0")
+
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        self.assertNotEqual(subscription_id, result['subscription']['id'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(feed_id, result['subscription_detail']['feed_id'])
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        exist = False
+        for item in result['item_list']:
+            exist = exist or ( item['title'] == u"年內查6500幢大廈消防" )
+        self.assertFalse(exist) # issue 34
+
+        exist = False
+        for item in result['item_list']:
+            exist = exist or ( item['title'] == u"六十五歲女子李瑞琼失蹤" )
+        self.assertTrue(exist)
+
+
     ##########
 
     def test_j_subscription_list_item_404(self):
