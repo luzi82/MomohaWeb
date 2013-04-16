@@ -3,8 +3,9 @@ from MomohaFeed.models import Subscription, Item, ItemRead, ItemStar
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail,\
     VmSubscriptionDetail
 import MomohaFeed
-from MomohaFeed import now64
+from MomohaFeed import now64, enum
 import inspect
+import urlparse
 
 
 cmd_list = []
@@ -51,6 +52,17 @@ def list_subscription(request):
 @cmd
 def add_subscription(request,url):
 
+    parse_result = urlparse.urlparse(url)
+    parse_good = True
+    parse_good = parse_good and (parse_result.scheme in ['http','https'])
+    parse_good = parse_good and (parse_result.netloc != "")
+        
+    if not parse_good:
+        return {
+            'success': False,
+            'fail_reason': enum.FailReason.BAD_URL,
+        }
+    
     db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
     MomohaFeed.feed_poll(db_feed)
     return {

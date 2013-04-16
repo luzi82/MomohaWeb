@@ -3,7 +3,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.test.client import Client
-from MomohaFeed.models import Feed, Item
 import simplejson
 import memhttpserver
 import os
@@ -11,6 +10,7 @@ from threading import Thread
 import MomohaFeed
 import feedparser
 import time
+import enum
 
 MY_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -1180,6 +1180,50 @@ class SimpleTest(TestCase):
             exist = exist or ( item['title'] == u"六十五歲女子李瑞琼失蹤" )
         self.assertTrue(exist)
 
+
+    def test_issue_21(self):
+        '''add subscription, bad URL handling'''
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':"invalid_url",
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':"http://",
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':"http:/www.google.com",
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
 
     ##########
 
