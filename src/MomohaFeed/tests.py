@@ -1225,6 +1225,107 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['success'])
         self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
 
+
+    def test_issue_23(self):
+        '''add subscription, non feed handling'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        # server not exist
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+        
+        # server timeout
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.server_activate()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+
+        # 404
+
+        httpServer.set_get_output('/test.xml', status=404)
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+        
+        # non-feed
+
+        feed = open(MY_DIR+"/test/year_wish.jpg").read()
+        httpServer.set_get_output('/test.xml', 'image/jpeg', feed)
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+        
+        # parse error
+        
+        feed = open(MY_DIR+"/test/luzi82.html").read()
+        httpServer.set_get_output('/test.xml', 'text/html', feed)
+        thread = Thread(target=httpServer.handle_request)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(False, result['success'])
+        self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+        
+
     ##########
 
     def test_j_subscription_list_item_404(self):
