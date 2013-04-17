@@ -56,15 +56,27 @@ def add_subscription(request,url):
     parse_good = True
     parse_good = parse_good and (parse_result.scheme in ['http','https'])
     parse_good = parse_good and (parse_result.netloc != "")
-        
+    
     if not parse_good:
         return {
             'success': False,
             'fail_reason': enum.FailReason.BAD_URL,
         }
     
-    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
+#    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
+#    MomohaFeed.feed_poll(db_feed)
+
+    db_feed = MomohaFeed.add_feed(url)
     MomohaFeed.feed_poll(db_feed)
+    
+    if not db_feed.verified:
+        return {
+            'success': False,
+            'fail_reason': enum.FailReason.BAD_FEED_SOURCE,
+        }
+    
+    db_subscription = MomohaFeed.add_subscription(request.user, db_feed)
+    
     return {
         'success': True,
         'subscription' : VmSubscription(db_subscription).__dict__

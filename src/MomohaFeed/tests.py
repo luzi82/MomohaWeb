@@ -1230,7 +1230,7 @@ class SimpleTest(TestCase):
         '''add subscription, non feed handling'''
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
-        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
         
         User.objects.create_user("user",password="pass")
         
@@ -1238,6 +1238,7 @@ class SimpleTest(TestCase):
         client.login(username="user",password="pass")
         
         # server not exist
+        print "server not exist"
         
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1252,6 +1253,7 @@ class SimpleTest(TestCase):
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
         
         # server timeout
+        print "server timeout"
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
         httpServer.timeout = 3
@@ -1270,6 +1272,7 @@ class SimpleTest(TestCase):
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
 
         # 404
+        print "404"
 
         httpServer.set_get_output('/test.xml', status=404)
         thread = Thread(target=httpServer.handle_request)
@@ -1288,6 +1291,7 @@ class SimpleTest(TestCase):
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
         
         # non-feed
+        print "non-feed"
 
         feed = open(MY_DIR+"/test/year_wish.jpg").read()
         httpServer.set_get_output('/test.xml', 'image/jpeg', feed)
@@ -1307,6 +1311,7 @@ class SimpleTest(TestCase):
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
         
         # parse error
+        print "parse error"
         
         feed = open(MY_DIR+"/test/luzi82.html").read()
         httpServer.set_get_output('/test.xml', 'text/html', feed)

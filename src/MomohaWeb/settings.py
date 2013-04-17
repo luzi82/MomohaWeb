@@ -1,6 +1,7 @@
 # Django settings for MomohaWeb project.
 import os
 import djcelery
+import socket
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -186,5 +187,9 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # date format
 DATETIME_FORMAT = 'Y-m-d H:i'
 DATE_FORMAT = 'Y-m-d'
+
+# socket timeout, sec
+#socket.setdefaulttimeout(10)
+socket.setdefaulttimeout(3)
 
 djcelery.setup_loader()
