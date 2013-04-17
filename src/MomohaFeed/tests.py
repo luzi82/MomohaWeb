@@ -1329,7 +1329,82 @@ class SimpleTest(TestCase):
 
         self.assertEqual(False, result['success'])
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+
+
+    def test_issue_22(self):
+        '''add subscription, web page handling'''
         
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test0.xml'.format(TMP_HTTP_PORT)
+        url2 = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 3
+        httpServer.server_activate()
+
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        def handle_request_2():
+            httpServer.handle_request()
+            httpServer.handle_request()
+
+        feed = open(MY_DIR+"/test/luzi82_blog_atom.html").read()
+        httpServer.set_get_output('/test0.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        thread = Thread(target=handle_request_2)
+        thread.start()
+
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(url2, result['subscription_detail']['url'])
+        self.assertEqual(u'栗子現場直播', result['subscription_detail']['title'])
+        self.assertEqual(u'http://blog.luzi82.com/', result['subscription_detail']['link'])
+        self.assertEqual(True, result['subscription_detail']['enable'])
+        
+        
+        response = client.post("/feed/json/",{'json':simplejson.dumps({
+            'cmd':'subscription_list_item',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        vm_item = result['item_list'][0]
+        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
+        self.assertEqual(1364789700000, vm_item['published'])
+        self.assertEqual(
+            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
+            vm_item['link']
+        )
+        self.assertEqual(False,vm_item['readdone'])
+
 
     ##########
 
