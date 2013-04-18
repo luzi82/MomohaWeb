@@ -1442,6 +1442,8 @@ class SimpleTest(TestCase):
         self.assertEqual(404,response.status_code)
 
 
+    ##########
+
     def verify_subscription(self,vm_subscription):
 
         self.assertIn('id', vm_subscription)

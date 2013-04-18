@@ -63,11 +63,8 @@ def add_subscription(request,url):
             'fail_reason': enum.FailReason.BAD_URL,
         }
     
-#    db_feed,db_subscription = MomohaFeed.subscription_add(request.user,url)
-#    MomohaFeed.feed_poll(db_feed)
-
     db_feed = MomohaFeed.add_feed(url)
-    MomohaFeed.feed_poll(db_feed)
+    MomohaFeed.feedpoll.feed_poll(db_feed)
     
     if not db_feed.verified:
         return {
@@ -177,7 +174,7 @@ def subscription_poll(request,subscription_id):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    MomohaFeed.feed_poll(db_subscription.feed)
+    MomohaFeed.feedpoll.feed_poll(db_subscription.feed)
 
     return {
         'success': True,
