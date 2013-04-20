@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^feed/', include('MomohaFeed.urls')),
+    url(r'^users/', include('KyubeyUser.urls')),
 )
