@@ -189,6 +189,8 @@ ACCOUNT_ACTIVATION_DAYS = 7
 DATETIME_FORMAT = 'Y-m-d H:i'
 DATE_FORMAT = 'Y-m-d'
 
+KYUBEYUSER_PASSWORD_LENGTH_MIN = 4
+
 # socket timeout, sec
 #socket.setdefaulttimeout(10)
 socket.setdefaulttimeout(3)
