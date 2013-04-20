@@ -51,29 +51,38 @@ def list_subscription(request):
 @u403
 @cmd
 def add_subscription(request,url):
-
-    parse_result = urlparse.urlparse(url)
-    parse_good = True
-    parse_good = parse_good and (parse_result.scheme in ['http','https'])
-    parse_good = parse_good and (parse_result.netloc != "")
     
-    if not parse_good:
+    now = MomohaFeed.now64()
+
+    urlparse_result = urlparse.urlparse(url)
+    urlparse_good = True
+    urlparse_good = urlparse_good and (urlparse_result.scheme in ['http','https'])
+    urlparse_good = urlparse_good and (urlparse_result.netloc != "")
+    
+    if not urlparse_good:
         return {
             'success': False,
             'fail_reason': enum.FailReason.BAD_URL,
         }
+        
+    db_feed = None
     
-    db_feed = MomohaFeed.add_feed(url)
-    MomohaFeed.feedpoll.feed_poll(db_feed)
+    if db_feed == None:
+        db_feed = MomohaFeed.feedpoll.poll_feed(url, now)
     
-    if not db_feed.verified:
+    if db_feed == None:
+        url2 = MomohaFeed.feedpoll.poll_html(url)
+        if url2 != None:
+            db_feed = MomohaFeed.feedpoll.poll_feed(url2, now)
+
+    if db_feed == None:
         return {
             'success': False,
             'fail_reason': enum.FailReason.BAD_FEED_SOURCE,
         }
-    
+        
     db_subscription = MomohaFeed.add_subscription(request.user, db_feed)
-    
+
     return {
         'success': True,
         'subscription' : VmSubscription(db_subscription).__dict__
@@ -174,7 +183,7 @@ def subscription_poll(request,subscription_id):
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    MomohaFeed.feedpoll.feed_poll(db_subscription.feed)
+    MomohaFeed.feedpoll.poll_feed(db_subscription.feed.url, now64())
 
     return {
         'success': True,

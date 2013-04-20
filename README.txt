@@ -25,6 +25,11 @@ pytz
 
 # pip install pytz
 
+lxml
+
+# apt-get install gcc libxml2-dev libxslt-dev
+# pip install lxml
+
 
 Get source code
 ===============

@@ -11,7 +11,6 @@ class Feed(models.Model):
     url = models.CharField(max_length=URL_LENGTH,db_index=True)
 
     last_poll = models.BigIntegerField(db_index=True,null=True)
-    verified = models.BooleanField(default=False)
 
     title = models.CharField(max_length=TITLE_LENGTH,null=True)
     link = models.CharField(max_length=URL_LENGTH,null=True)

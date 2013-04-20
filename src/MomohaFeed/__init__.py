@@ -146,12 +146,13 @@ def subscription_item_mark_read(db_subscription,db_item):
     
 def update_feed_pool(ms):
     
-    last_poll_max = now64()-ms
+    now = now64()
+    last_poll_max = now-ms
     
     db_feed_list = Feed.objects.filter(last_poll__lte = last_poll_max).order_by('last_poll')
     
     for db_feed in db_feed_list:
-        feedpoll.feed_poll(db_feed)
+        feedpoll.poll_feed(db_feed.url, now)
     
 
 def now64():

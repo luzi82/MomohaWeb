@@ -51,7 +51,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -60,8 +60,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
         # time0 = MomohaFeed.now64()
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -114,7 +115,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -123,8 +124,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+        self.start_server_loop(httpServer)
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
@@ -149,6 +151,7 @@ class SimpleTest(TestCase):
         self.assertEqual(vm_subscription_0, vm_subscription_1)
 
 
+#    @skip('skip')
     def test_j_subscription_set_enable(self):
 
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -156,7 +159,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -165,8 +168,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
@@ -216,6 +220,7 @@ class SimpleTest(TestCase):
         self.assertEqual(vm_subscription, result['subscription_list'][0])
 
 
+#    @skip('skip')
     def test_j_subscription_list_item(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -223,7 +228,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -232,8 +237,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
@@ -268,6 +274,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item['readdone'])
 
 
+#    @skip('skip')
     def test_j_subscription_list_item_detail(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -275,7 +282,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -284,8 +291,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
@@ -322,6 +330,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item_detail['readdone'])
 
 
+#    @skip('skip')
     def test_j_subscription_item_detail(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -329,7 +338,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -339,8 +348,9 @@ class SimpleTest(TestCase):
         client.login(username="user",password="pass")
 
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -395,6 +405,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item_detail['readdone'])
         
     
+#    @skip('skip')
     def test_j_subscription_item_set_readdone(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -402,7 +413,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -411,8 +422,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -526,13 +538,14 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['item_detail']['readdone'])
         
     
+#    @skip('skip')
     def test_j_subscription_poll (self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -543,8 +556,9 @@ class SimpleTest(TestCase):
         feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
 
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -574,8 +588,9 @@ class SimpleTest(TestCase):
         feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
 
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+#        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'subscription_poll',
@@ -602,13 +617,14 @@ class SimpleTest(TestCase):
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
+#    @skip('skip')
     def test_update_feed_pool (self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         TEST_URL = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -619,8 +635,9 @@ class SimpleTest(TestCase):
         feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
 
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -653,7 +670,6 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        # if poll happen, it may block
         MomohaFeed.update_feed_pool(1000)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
@@ -671,8 +687,8 @@ class SimpleTest(TestCase):
         
         time.sleep(1500.0/1000.0)
 
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
 
         MomohaFeed.update_feed_pool(1000)
 
@@ -690,13 +706,14 @@ class SimpleTest(TestCase):
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
+#    @skip('skip')
     def test_subscription_all_readdone (self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -707,8 +724,9 @@ class SimpleTest(TestCase):
         feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
 
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -758,6 +776,7 @@ class SimpleTest(TestCase):
         self.assertEqual(0, len(result['item_list']))
 
 
+#    @skip('skip')
     def test_subscription_list_item_show_readdone(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -765,7 +784,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -774,8 +793,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -878,6 +898,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['item_detail_list'][0]['readdone'])
 
 
+#    @skip('skip')
     def test_subscription_detail(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -885,7 +906,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -894,8 +915,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -930,6 +952,7 @@ class SimpleTest(TestCase):
         self.assertEqual(url, vm_subscription_detail['url'])
     
     
+#    @skip('skip')
     def test_subscription_set_star(self):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
@@ -937,7 +960,7 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
         httpServer.server_activate()
         
@@ -946,8 +969,9 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1063,6 +1087,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['item_detail']['star'])
     
     
+#    @skip('skip')
     def test_issue_34(self):
         '''Item, show only Item.last_poll > Subscription.start'''
         
@@ -1070,7 +1095,7 @@ class SimpleTest(TestCase):
         url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -1080,8 +1105,9 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1133,8 +1159,8 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1181,6 +1207,7 @@ class SimpleTest(TestCase):
         self.assertTrue(exist)
 
 
+#    @skip('skip')
     def test_issue_21(self):
         '''add subscription, bad URL handling'''
         
@@ -1226,6 +1253,7 @@ class SimpleTest(TestCase):
         self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
 
 
+#    @skip('skip')
     def test_issue_23(self):
         '''add subscription, non feed handling'''
         
@@ -1256,7 +1284,7 @@ class SimpleTest(TestCase):
         print "server timeout"
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
@@ -1274,9 +1302,12 @@ class SimpleTest(TestCase):
         # 404
         print "404"
 
-        httpServer.set_get_output('/test.xml', status=404)
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        server_thread = self.start_server_loop(httpServer)
+
+#        httpServer.set_get_output('/test.xml', status=404)
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1295,8 +1326,8 @@ class SimpleTest(TestCase):
 
         feed = open(MY_DIR+"/test/year_wish.jpg").read()
         httpServer.set_get_output('/test.xml', 'image/jpeg', feed)
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1315,8 +1346,8 @@ class SimpleTest(TestCase):
         
         feed = open(MY_DIR+"/test/luzi82.html").read()
         httpServer.set_get_output('/test.xml', 'text/html', feed)
-        thread = Thread(target=httpServer.handle_request)
-        thread.start()
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1329,8 +1360,11 @@ class SimpleTest(TestCase):
 
         self.assertEqual(False, result['success'])
         self.assertEqual(enum.FailReason.BAD_FEED_SOURCE, result['fail_reason'])
+        
+#        server_thread.join()
 
 
+#    @skip('skip')
     def test_issue_22(self):
         '''add subscription, web page handling'''
         
@@ -1339,7 +1373,7 @@ class SimpleTest(TestCase):
         url2 = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 3
+        httpServer.timeout = 1
         httpServer.server_activate()
 
         User.objects.create_user("user",password="pass")
@@ -1347,16 +1381,11 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
         
-        def handle_request_2():
-            httpServer.handle_request()
-            httpServer.handle_request()
-
         feed = open(MY_DIR+"/test/luzi82_blog_atom.html").read()
-        httpServer.set_get_output('/test0.xml', 'text/rss', feed)
+        httpServer.set_get_output('/test0.xml', 'text/html', feed)
         feed = open(MY_DIR+"/test/luzi82.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
-        thread = Thread(target=handle_request_2)
-        thread.start()
+        self.start_server_loop(httpServer)
 
         response = client.post("/feed/json/",{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -1406,8 +1435,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item['readdone'])
 
 
-    ##########
-
+#    @skip('skip')
     def test_j_subscription_list_item_404(self):
 
         User.objects.create_user("user",password="pass")
@@ -1425,6 +1453,7 @@ class SimpleTest(TestCase):
         self.assertEqual(404,response.status_code)
 
 
+#    @skip('skip')
     def test_j_subscription_list_item_detail_404(self):
 
         User.objects.create_user("user",password="pass")
@@ -1440,6 +1469,40 @@ class SimpleTest(TestCase):
             },
         })})
         self.assertEqual(404,response.status_code)
+
+    ##########
+    
+    def now64(self):
+        ret = time.time()
+        ret *= 1000
+        ret = int(ret)
+        return ret
+    
+
+    def start_server_loop(self, httpServer):
+        self.server_run = True
+        def loop():
+            while(self.server_run):
+                try:
+                    httpServer.handle_request()
+                except:
+                    pass
+        thread = Thread(target=loop)
+        thread.start()
+        self.server_thread = thread
+        return thread
+    
+    
+    def setUp(self):
+        self.server_run = False
+        self.server_thread = None
+
+    
+    def tearDown(self):
+        self.server_run = False
+        if self.server_thread != None :
+            self.server_thread.join()
+            self.server_thread = None
 
 
     ##########
