@@ -75,6 +75,24 @@ def login(request, username, password):
     return {'success':True}
 
 
+@cmd
+def verify_login(request):
+    user = request.user
+    
+    if ( user is None ) or ( user.username == "" ) :
+        return {'success':False, 'reason': 'not login'}
+    
+    if not user.is_active:
+        return {'success':False, 'reason': "user not active"}
+    
+    return {
+        'success': True,
+        'user': {
+            'username': user.username,
+        },
+    }
+
+
 @u403
 @cmd
 def logout(request):
@@ -94,3 +112,4 @@ def user_set_password(request, old_password, new_password):
     request.user.set_password(new_password)
     request.user.save()
     return {'success':True}
+
