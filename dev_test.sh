@@ -6,6 +6,7 @@ cd src
 
 if [ "$#" = "0" ]; then
 	python manage.py test MomohaFeed
-elif [ "$#" = "1" ]; then
-	python manage.py test MomohaFeed.SimpleTest.${1}
+	python manage.py test KyubeyUser
+elif [ "$#" = "2" ]; then
+	python manage.py test ${1}.SimpleTest.${2}
 fi
