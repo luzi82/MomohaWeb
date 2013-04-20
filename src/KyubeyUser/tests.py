@@ -173,6 +173,45 @@ class SimpleTest(TestCase):
         self.assertIn('_auth_user_id', client.session)
 
 
+    def test_verify_login(self):
+        
+        User.objects.create_user(
+            SimpleTest.TEST_USERNAME,
+            password=SimpleTest.TEST_PASSWORD
+        )
+        
+        
+        client = Client()
+        
+        
+        response = client.post("/users/json/",{'json':simplejson.dumps({
+            'cmd':'verify_login',
+        })})
+        self.assertEqual(200, response.status_code)
+        content = response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(False, result['success'])
+        self.assertEqual('not login', result['reason'])
+        
+        
+        client.login(
+            username=SimpleTest.TEST_USERNAME,
+            password=SimpleTest.TEST_PASSWORD
+        )
+
+
+        response = client.post("/users/json/",{'json':simplejson.dumps({
+            'cmd':'verify_login',
+        })})
+        self.assertEqual(200, response.status_code)
+        content = response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(True, result['success'])
+        self.assertEqual(SimpleTest.TEST_USERNAME, result['user']['username'])
+
+
     ###
 
     def test_double_reg_acc(self):
