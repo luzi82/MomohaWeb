@@ -7,7 +7,6 @@ import MomohaFeed.cmds
 import django.core.exceptions
 import simplejson
 
-@login_required
 def index(request):
 
     return render(request,"MomohaFeed/index.html")
