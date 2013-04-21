@@ -1,4 +1,16 @@
-var module_subscription = (function(){
+define([
+	"jquery",
+	"momohafeed",
+	"feed_share",
+	"feed_utils",
+], function(
+	$
+	, momohafeed
+	, feed_share
+	, feed_utils
+) {
+
+// var module_subscription = (function(){
 	
 	var subscription_instance = null;
 	
@@ -11,7 +23,7 @@ var module_subscription = (function(){
 				return;
 			$("#subscription_list_item_table").empty();
 			load_bar(10);
-			module_momohafeed.subscription_poll(
+			momohafeed.subscription_poll(
 				subscription_instance.subscription_id,
 				function(j){
 					load(subscription_instance.subscription_id,null);
@@ -23,7 +35,7 @@ var module_subscription = (function(){
 			if(subscription_instance==null)
 				return;
 			load_bar(10);
-			module_momohafeed.subscription_all_readdone(
+			momohafeed.subscription_all_readdone(
 				subscription_instance.subscription_id,
 				function(j){
 					load(subscription_instance.subscription_id,null);
@@ -79,7 +91,7 @@ var module_subscription = (function(){
 			subscription_header.attr("id","subscription_header");
 		$("#subscription_list_item_table").append(subscription_header);
 		
-		module_momohafeed.subscription_detail(
+		momohafeed.subscription_detail(
 			subscription_id,
 			function(j){
 				var vm_subscription_detail = j.subscription_detail;
@@ -97,7 +109,7 @@ var module_subscription = (function(){
 			}
 		);
 		
-		module_momohafeed.subscription_list_item_detail(
+		momohafeed.subscription_list_item_detail(
 			subscription_id,
 			show_all,
 			function(j){
@@ -130,7 +142,7 @@ var module_subscription = (function(){
 				} // for(i=0;i<j.item_detail_list.length;++i)
 				$(".subscription_item_brief").show();
 				load_bar(100);
-				utils.cb(done_callback);
+				feed_utils.cb(done_callback);
 			} // function(j)
 		);
 		
@@ -182,14 +194,24 @@ var module_subscription = (function(){
 		$("#subscription_rm_modal_progress_bar").css("width","10%");
 		$("#subscription_rm_modal_progress").show();
 		
-		module_momohafeed.subscription_set_enable(
+		momohafeed.subscription_set_enable(
 			subscription_instance.subscription_id,
 			false,
 			function(){
-				$("#subscription_rm_modal_progress_bar").css("width","90%");
-				module_list_subscription.refresh(function(){
-					root_layout.hide_mainarea();
-					$("#subscription_rm_modal").modal("hide");
+				// TODO: issue 73:
+				// subscription_rm_modal_submit_btn_click: should call rm-listener instead of calling outer module
+				require([
+					"feed_list_subscription",
+					"feed_root_layout",
+				], function(
+					feed_list_subscription ,
+					feed_root_layout
+				){
+					$("#subscription_rm_modal_progress_bar").css("width","90%");
+					feed_list_subscription.refresh(function(){
+						feed_root_layout.hide_mainarea();
+						$("#subscription_rm_modal").modal("hide");
+					});
 				});
 			}
 		);
@@ -213,7 +235,7 @@ var module_subscription = (function(){
 		$(".click_close_detail",subscription_item).click(click_close_detail);
 		$(".subscription_share_btn",subscription_item).data("link",item.link);
 		$(".subscription_share_btn",subscription_item).data("title",item.title);
-		$(".subscription_share_btn",subscription_item).click(module_share.share_btn_click);
+		$(".subscription_share_btn",subscription_item).click(feed_share.share_btn_click);
 		$(".stop_propagation",subscription_item).click(stop_propagation);
 		$(".subscription_star",subscription_item).data("row_id", row_id);
 		$(".subscription_star",subscription_item).click(subscription_star_click);
@@ -232,7 +254,7 @@ var module_subscription = (function(){
 		subscription_instance.opening_row_id = row_id;
 
 		row_data.readdone = true;
-		module_momohafeed.subscription_item_set_readdone(
+		momohafeed.subscription_item_set_readdone(
 			subscription_instance.subscription_id,
 			row_data.vm_item.id,
 			true,
@@ -258,7 +280,7 @@ var module_subscription = (function(){
 		
 		row_data.star = !row_data.star;
 		
-		module_momohafeed.subscription_item_set_star(
+		momohafeed.subscription_item_set_star(
 			subscription_instance.subscription_id,
 			row_data.vm_item.id,
 			row_data.star,
@@ -268,11 +290,15 @@ var module_subscription = (function(){
 		ui_update_subscription_item(row_id);
 	}
 	
+	init();
+	
 	return {
-		init: init,
+		// init: init,
 		load: load,
 	}
 	
-})();
+// })();
+// 
+// $(module_subscription.init);
 
-$(module_subscription.init);
+});

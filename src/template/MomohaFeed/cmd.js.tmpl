@@ -1,4 +1,12 @@
-var module_momohafeed = (function(){
+define([
+	"jquery",
+	"cookie",
+], function(
+	$
+	, _cookie
+) {
+
+//var module_momohafeed = (function(){
 
 	var __remote__ = function(cmd,argv,callback){
 		if(argv==null)argv={};
@@ -42,4 +50,6 @@ var module_momohafeed = (function(){
 		{% endfor %}
 	};
 	
-})();
+// })();
+
+});

@@ -1,4 +1,10 @@
-var root_layout = (function(){
+define([
+	"jquery"
+], function(
+	$
+) {
+
+// var root_layout = (function(){
 	
 	var MIN_WIDTH = 640;
 	var MIN_HEIGHT = 480;
@@ -126,11 +132,15 @@ var root_layout = (function(){
 		$(".mainarea").hide();
 	}
 	
+	init();
+	
 	return {
-		init: init,
+		// init: init,
 		hide_mainarea: hide_mainarea,
 	};
 	
-})();
+});
+	
+// })();
 
-$(root_layout.init);
+// $(root_layout.init);

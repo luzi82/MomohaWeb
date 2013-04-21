@@ -1,4 +1,12 @@
-var module_add_subscription = (function(){
+define([
+	"jquery",
+	"momohafeed",
+], function(
+	$
+	, momohafeed
+) {
+
+// var module_add_subscription = (function(){
 	
 	var add_subscription_modal;
 	
@@ -54,31 +62,41 @@ var module_add_subscription = (function(){
 
 		busy = true;
 
-		module_momohafeed.add_subscription(input_url,function(j){
-			console.log(JSON.stringify(j));
-			if(j.success){
-				add_subscription_progress_bar.css("width","60%");
-				var subscription_id = j.subscription.id;
-				module_list_subscription.refresh(function(){
-					add_subscription_progress_bar.css("width","90%");
-					module_list_subscription.select(subscription_id,function(){
-						busy=false;
-						add_subscription_modal.modal("hide");
+		require([
+			"feed_list_subscription"
+		], function(
+			feed_list_subscription
+		) {
+			momohafeed.add_subscription(input_url,function(j){
+				console.log(JSON.stringify(j));
+				if(j.success){
+					add_subscription_progress_bar.css("width","60%");
+					var subscription_id = j.subscription.id;
+					feed_list_subscription.refresh(function(){
+						add_subscription_progress_bar.css("width","90%");
+						feed_list_subscription.select(subscription_id,function(){
+							busy=false;
+							add_subscription_modal.modal("hide");
+						});
 					});
-				});
-			}else{
-				busy = false;
-				add_subscription_submit_btn.removeClass("disabled");
-				add_subscription_close_btn.removeClass("disabled");
-				add_subscription_progress_bar.css("width","0%");
-			}
+				}else{
+					busy = false;
+					add_subscription_submit_btn.removeClass("disabled");
+					add_subscription_close_btn.removeClass("disabled");
+					add_subscription_progress_bar.css("width","0%");
+				}
+			});
 		});
 	}
+
+	init();	
 	
 	return {
-		init: init
+		// init: init
 	};
-	
-})();
 
-$(module_add_subscription.init);
+});
+
+// })();
+// 
+// $(module_add_subscription.init);

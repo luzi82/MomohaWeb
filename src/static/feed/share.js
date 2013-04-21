@@ -1,4 +1,10 @@
-var module_share = (function(){
+define([
+	"jquery",
+], function(
+	$
+) {
+
+// var module_share = (function(){
 
 	var share_facebook = function(link,title){
 		var shareurl = "http://www.facebook.com/sharer/sharer.php?u=" + encodeURI(link);
@@ -31,4 +37,6 @@ var module_share = (function(){
 		share_btn_click : share_btn_click ,
 	}
 	
-})();
+// })();
+
+});

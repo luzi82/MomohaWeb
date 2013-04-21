@@ -1,5 +1,9 @@
-var utils = (function(){
-	
+define([
+	"jquery"
+], function(
+	$
+) {
+
 	var cb = function(callback){
 		if(callback!=null){
 			callback();
@@ -22,10 +26,10 @@ var utils = (function(){
 			},
 		}).done(callback);
 	}
-	
+		
 	return {
 		cb: cb,
 		remote: remote,
 	};
-	
-})();
+
+});
