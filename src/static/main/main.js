@@ -6,6 +6,7 @@ requirejs.config({
         cookie: 'cookie/jquery.cookie',
         json: 'json/json2',
 
+		feed_ui: 'feed/ui',
         feed_utils: 'feed/utils',
 		feed_root_layout: 'feed/root_layout',
 		feed_add_subscription: 'feed/add_subscription',
@@ -31,6 +32,7 @@ require([
 	"users",
 	"users_ui",
 	"feed_root_layout",
+	"feed_ui",
 	
 	"bootstrap",
 	"cookie",
@@ -48,6 +50,7 @@ require([
 	, users
 	, users_ui
 	, feed_root_layout
+	, feed_ui
 ) {
 	console.log("main");
 	
@@ -56,8 +59,10 @@ require([
 	};
 	
 	var login_done = function(){
-		
+		feed_ui.show();
 	};
+
+	$("body").on("login_done",login_done);
 	
 	users.verify_login(function(success){
 		console.log("verify_login: "+success);

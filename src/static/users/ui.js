@@ -14,6 +14,16 @@ define([
 		import_div=$("#module_users");
 		
 		import_div.load("/static/users/ui.html #users_import",function(){
+			$('#users_auth_login_btn').click(function(){
+				var username = $('#users_auth_login_username').val();
+				var password = $('#users_auth_login_password').val();
+				users.login(username, password, function(success, reason){
+					console.log("success "+success);
+					if(!success){
+					}
+				});
+			});
+			
 			feed_root_layout.body_maintain();
 		});
 	};
