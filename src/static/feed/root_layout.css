@@ -13,6 +13,10 @@ div#subscription_main {
 	display: none;
 }
 
+.listarea {
+	display: none;
+}
+
 /* /////////////////// */
 
 body {

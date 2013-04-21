@@ -10,9 +10,9 @@ define([
 
 // var module_list_subscription = (function(){
 
-	var init = function(){
-		refresh(null);
-	}
+	// var init = function(){
+		// refresh(null);
+	// }
 	
 	var refresh = function(done_callback){
 		list_subscription_ul = $('#list_subscription_ul');
@@ -52,7 +52,7 @@ define([
 		});
 	}
 	
-	init();
+	// init();
 
 	return {
 		// init: init,
