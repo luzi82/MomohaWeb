@@ -6,7 +6,7 @@ cd src
 
 if [ "$#" = "0" ]; then
 	python manage.py test MomohaFeed
-	python manage.py test KyubeyUser
+	python manage.py test KyubeyAuth
 elif [ "$#" = "1" ]; then
 	python manage.py test ${1}
 elif [ "$#" = "2" ]; then

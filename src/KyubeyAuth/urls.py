@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns(
-    'KyubeyUser.views',
+    'KyubeyAuth.views',
 
 #    url(r'^$','index'),
     

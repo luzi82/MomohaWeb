@@ -130,7 +130,7 @@ INSTALLED_APPS = (
     'MomohaFeed',
     'djcelery',
     'kombu.transport.django',
-    'KyubeyUser',
+    'KyubeyAuth',
 )
 
 # A sample logging configuration. The only tangible logging
