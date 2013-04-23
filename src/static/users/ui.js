@@ -31,8 +31,7 @@ define([
 	var load_login_ui_done = false;
 	var load_login_ui = function(callback){
 		if(!load_login_ui_done){
-			var import_div=$("#module_users");
-			import_div.load("/static/users/ui.html #users_import",function(){
+			$("#module_users").load("/static/users/ui.html #users_import",function(){
 				$('#users_auth_login_btn').click(function(){
 					var username = $('#users_auth_login_username').val();
 					var password = $('#users_auth_login_password').val();
@@ -52,6 +51,30 @@ define([
 						users_auth_login_progress(100);
 					});
 				});
+				$('#users_auth_reg_btn').click(function(){
+					var password0 = $('#users_auth_reg_password0').val();
+					var password1 = $('#users_auth_reg_password1').val();
+					if(password0!=password1){
+						return;
+					}
+					var username = $('#users_auth_reg_username').val();
+					var password = password0;
+					$("#users_auth_reg_username").prop('disabled', true);
+					$("#users_auth_reg_password").prop('disabled', true);
+					$('#users_auth_reg_btn').prop('disabled', true);
+					users_auth_reg_progress(30);
+					users.add_user(username, password, function(success, reason){
+						console.log("success "+success);
+						if(!success){
+							$("#users_auth_reg_progress").hide();
+							$("#users_auth_reg_username").prop('disabled', false);
+							$("#users_auth_reg_password").prop('disabled', false);
+							$('#users_auth_reg_btn').prop('disabled', false);
+							return;
+						}
+						users_auth_reg_progress(100);
+					});
+				});
 				
 				feed_root_layout.body_maintain();
 				if(callback){callback();}
@@ -67,10 +90,16 @@ define([
 			$(".app").hide();
 			
 			$("#users_auth").show();
+
 			$("#users_auth_login_progress").hide();
 			$("#users_auth_login_username").prop('disabled', false);
 			$("#users_auth_login_password").prop('disabled', false);
 			$('#users_auth_login_btn').prop('disabled', false);
+			
+			$("#users_auth_reg_progress").hide();
+			$("#users_auth_reg_username").prop('disabled', false);
+			$("#users_auth_reg_password").prop('disabled', false);
+			$('#users_auth_reg_btn').prop('disabled', false);
 			
 			$("#users_app").show();
 		});
@@ -79,6 +108,11 @@ define([
 	var users_auth_login_progress = function(val){
 		$("#users_auth_login_progress").show();
 		$("#users_auth_login_progress_bar").css("width",""+val+"%");
+	};
+	
+	var users_auth_reg_progress = function(val){
+		$("#users_auth_reg_progress").show();
+		$("#users_auth_reg_progress_bar").css("width",""+val+"%");
 	};
 	
 	var login_true = function(){

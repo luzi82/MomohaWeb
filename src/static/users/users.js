@@ -8,6 +8,21 @@ define([
 	, feed_utils
 ) {
 	
+	var add_user = function(username, password, callback){
+		kyubeyuser.add_user(
+			username, password,
+			function(j){
+				if(j.success){
+					$("body").trigger("login_done");
+				}
+				if(callback){
+					var reason = j.success?null:(j.reason);
+					callback(j.success, reason);
+				}
+			}
+		);
+	};
+	
 	var login = function(username, password, callback){
 		kyubeyuser.login(
 			username, password,
@@ -45,7 +60,7 @@ define([
 	return {
 		login: login,
 		logout: logout,
-		// register: register,
+		add_user: add_user,
 		verify_login: verify_login,
 	};
 
