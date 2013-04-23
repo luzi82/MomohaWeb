@@ -26,6 +26,9 @@ define([
 	};
 	
 	var header_auth_chpwd_click = function(){
+		load_login_ui(function(){
+			$("#users_auth_chpwd_modal").modal("show");
+		});
 	}
 	
 	var load_login_ui_done = false;

@@ -7,6 +7,42 @@
 <body>
 <div id="users_import">
 
+<div id="users_auth_chpwd_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="users_auth_chpwd_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="users_auth_chpwd_modal_label">Change password</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="users_auth_chpwd_old_password_input">Old password</label>
+				<div class="controls">
+					<input type="text" id="users_auth_chpwd_old_password_input" placeholder="old password" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="users_auth_chpwd_password0_input">New password</label>
+				<div class="controls">
+					<input type="text" id="users_auth_chpwd_password0_input" placeholder="new password" />
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="users_auth_chpwd_password1_input">Repeat new password</label>
+				<div class="controls">
+					<input type="text" id="users_auth_chpwd_password1_input" placeholder="repeat new password" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button id="users_auth_chpwd_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="users_auth_chpwd_submit_btn" class="btn btn-primary">Change</button>
+		<div id="users_auth_chpwd_progress" class="progress progress-striped active">
+			<div id="users_auth_chpwd_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
+
 <div id="users_app" class="app hide">
 	<div id="users_auth" class="phibox hide">
 		<div class="tabbable">
