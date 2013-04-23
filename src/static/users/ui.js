@@ -24,7 +24,10 @@ define([
 				users.login(username, password, function(success, reason){
 					console.log("success "+success);
 					if(!success){
-						// TODO
+						$("#users_auth_login_progress").hide();
+						$("#users_auth_login_username").prop('disabled', false);
+						$("#users_auth_login_password").prop('disabled', false);
+						$('#users_auth_login_btn').prop('disabled', false);
 						return;
 					}
 					users_auth_login_progress(100);
