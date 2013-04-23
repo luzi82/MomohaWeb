@@ -54,22 +54,26 @@ require([
 ) {
 	console.log("main");
 	
-	var show_login = function(){
+	var login_true = function(){
+		feed_ui.show();
+	};
+	
+	var login_false = function(){
+		feed_ui.hide();
 		users_ui.show_login();
 	};
 	
-	var login_done = function(){
-		feed_ui.show();
-	};
-
-	$("body").on("login_done",login_done);
+	$("body").on("login_done",login_true);
+	$("body").on("start_verify_login_done",login_true);
+	$("body").on("logout_done",login_false);
+	$("body").on("start_verify_login_fail",login_false);
 	
 	users.verify_login(function(success){
-		console.log("verify_login: "+success);
+		// console.log("verify_login: "+success);
 		if(success){
-			login_done();
+			$("body").trigger("start_verify_login_done");
 		}else{
-			show_login();
+			$("body").trigger("start_verify_login_fail");
 		}
 	});
 });

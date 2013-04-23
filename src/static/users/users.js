@@ -23,6 +23,15 @@ define([
 		);
 	};
 	
+	var logout = function(callback){
+		kyubeyuser.logout(
+			function(j){
+				$("body").trigger("logout_done");
+				if(callback){callback();}
+			}
+		);
+	};
+	
 	var verify_login = function(callback){
 		kyubeyuser.verify_login(
 			function(j){
@@ -35,6 +44,7 @@ define([
 	
 	return {
 		login: login,
+		logout: logout,
 		// register: register,
 		verify_login: verify_login,
 	};
