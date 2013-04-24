@@ -1,15 +1,15 @@
 define([
 	"jquery",
-	"kyubeyuser",
+	"kyubeyauth",
 	"feed_utils",
 ], function(
 	$
-	, kyubeyuser
+	, kyubeyauth
 	, feed_utils
 ) {
 	
 	var add_user = function(username, password, callback){
-		kyubeyuser.add_user(
+		kyubeyauth.add_user(
 			username, password,
 			function(j){
 				if(j.success){
@@ -24,7 +24,7 @@ define([
 	};
 	
 	var login = function(username, password, callback){
-		kyubeyuser.login(
+		kyubeyauth.login(
 			username, password,
 			function(j){
 				if(j.success){
@@ -39,7 +39,7 @@ define([
 	};
 	
 	var logout = function(callback){
-		kyubeyuser.logout(
+		kyubeyauth.logout(
 			function(j){
 				$("body").trigger("logout_done");
 				if(callback){callback();}
@@ -48,7 +48,7 @@ define([
 	};
 
 	var set_password = function(old_password, new_password, callback){
-		kyubeyuser.user_set_password(
+		kyubeyauth.user_set_password(
 			old_password, new_password,
 			function(j){
 				if(callback){
@@ -60,7 +60,7 @@ define([
 	};
 	
 	var verify_login = function(callback){
-		kyubeyuser.verify_login(
+		kyubeyauth.verify_login(
 			function(j){
 				if(callback){
 					callback(j.success);

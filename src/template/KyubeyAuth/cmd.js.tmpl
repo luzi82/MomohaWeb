@@ -14,7 +14,7 @@ define([
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: "/users/json/",
+			url: "/auth/json/",
 			data: {
 				csrfmiddlewaretoken: $.cookie('csrftoken'),
 				json: JSON.stringify({

@@ -14,11 +14,11 @@ requirejs.config({
 		feed_subscription: 'feed/subscription',
 		feed_share: 'feed/share',
 		
-		users: 'users/users',
-		users_ui:	'users/ui',
+		auth: 'auth/auth',
+		auth_ui:	'auth/ui',
 
 		momohafeed: '/feed/cmd',
-		kyubeyuser: '/users/cmd',
+		kyubeyauth: '/auth/cmd',
     },
     shim: {
         'bootstrap': {deps: ['jquery']},
@@ -29,8 +29,8 @@ requirejs.config({
 
 require([
 	"jquery",
-	"users",
-	"users_ui",
+	"auth",
+	"auth_ui",
 	"feed_root_layout",
 	"feed_ui",
 	
@@ -47,8 +47,8 @@ require([
 	"momohafeed",
 ], function(
 	$
-	, users
-	, users_ui
+	, auth
+	, auth_ui
 	, feed_root_layout
 	, feed_ui
 ) {
@@ -60,7 +60,7 @@ require([
 	
 	var login_false = function(){
 		feed_ui.hide();
-		users_ui.show_login();
+		auth_ui.show_login();
 	};
 	
 	$("body").on("login_done",login_true);
@@ -68,7 +68,7 @@ require([
 	$("body").on("logout_done",login_false);
 	$("body").on("start_verify_login_fail",login_false);
 	
-	users.verify_login(function(success){
+	auth.verify_login(function(success){
 		// console.log("verify_login: "+success);
 		if(success){
 			$("body").trigger("start_verify_login_done");

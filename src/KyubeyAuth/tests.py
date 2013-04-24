@@ -16,7 +16,7 @@ class SimpleTest(TestCase):
         
         self.assertNotIn('_auth_user_id', client.session)
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -36,7 +36,7 @@ class SimpleTest(TestCase):
 
         client = Client()
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -54,7 +54,7 @@ class SimpleTest(TestCase):
         
         self.assertNotIn('_auth_user_id', client.session)
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'login',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -77,7 +77,7 @@ class SimpleTest(TestCase):
         self.assertNotIn('_auth_user_id', client.session)
         
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -91,7 +91,7 @@ class SimpleTest(TestCase):
         self.assertTrue(result['success'])
 
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'logout',
         })})
         self.assertEqual(200, response.status_code)
@@ -111,7 +111,7 @@ class SimpleTest(TestCase):
         self.assertNotIn('_auth_user_id', client.session)
         
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -125,7 +125,7 @@ class SimpleTest(TestCase):
         self.assertTrue(result['success'])
 
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'user_set_password',
             'argv':{
                 'old_password': SimpleTest.TEST_PASSWORD,
@@ -143,7 +143,7 @@ class SimpleTest(TestCase):
         self.assertNotIn('_auth_user_id', client.session)
 
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'login',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -157,7 +157,7 @@ class SimpleTest(TestCase):
         self.assertFalse(result['success'])
 
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'login',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -184,7 +184,7 @@ class SimpleTest(TestCase):
         client = Client()
         
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'verify_login',
         })})
         self.assertEqual(200, response.status_code)
@@ -201,7 +201,7 @@ class SimpleTest(TestCase):
         )
 
 
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'verify_login',
         })})
         self.assertEqual(200, response.status_code)
@@ -220,7 +220,7 @@ class SimpleTest(TestCase):
         
         self.assertNotIn('_auth_user_id', client.session)
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -238,7 +238,7 @@ class SimpleTest(TestCase):
         
         self.assertNotIn('_auth_user_id', client.session)
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -257,7 +257,7 @@ class SimpleTest(TestCase):
         
         client = Client()
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'add_user',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -276,7 +276,7 @@ class SimpleTest(TestCase):
         
         client = Client()
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'login',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -299,7 +299,7 @@ class SimpleTest(TestCase):
         
         client = Client()
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'login',
             'argv':{
                 'username': SimpleTest.TEST_USERNAME,
@@ -325,7 +325,7 @@ class SimpleTest(TestCase):
             password=SimpleTest.TEST_PASSWORD
         )
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'user_set_password',
             'argv':{
                 'old_password': SimpleTest.TEST_PASSWORD+'x',
@@ -351,7 +351,7 @@ class SimpleTest(TestCase):
             password=SimpleTest.TEST_PASSWORD
         )
         
-        response = client.post("/users/json/",{'json':simplejson.dumps({
+        response = client.post("/auth/json/",{'json':simplejson.dumps({
             'cmd':'user_set_password',
             'argv':{
                 'old_password': SimpleTest.TEST_PASSWORD,
