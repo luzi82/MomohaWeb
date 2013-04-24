@@ -26,6 +26,10 @@ lxml
 # apt-get install gcc libxml2-dev libxslt-dev
 # pip install lxml
 
+south
+
+# easy_install South
+
 
 Get source code
 ===============

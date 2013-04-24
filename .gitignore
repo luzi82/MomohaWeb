@@ -1,3 +1,6 @@
 *.pyc
 sqlite.db
 src/celerybeat-schedule
+/.settings/
+*~
+
