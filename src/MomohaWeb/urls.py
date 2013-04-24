@@ -15,7 +15,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+#    url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^feed/', include('MomohaFeed.urls')),
     url(r'^users/', include('KyubeyAuth.urls')),
 )
