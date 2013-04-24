@@ -5,3 +5,8 @@
 .template {
 	display: none;
 }
+
+.modal-footer .progress {
+	margin-bottom: 0px;
+	margin-top: 10px;
+}

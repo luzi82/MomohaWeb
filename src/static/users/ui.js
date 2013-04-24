@@ -26,14 +26,20 @@ define([
 	};
 	
 	var header_auth_chpwd_click = function(){
-		load_login_ui(function(){
+		load_ui(function(){
+			$("#users_auth_chpwd_progress").hide();
+			$("#users_auth_chpwd_old_password_input").prop('disabled', false);
+			$("#users_auth_chpwd_password0_input").prop('disabled', false);
+			$("#users_auth_chpwd_password1_input").prop('disabled', false);
+			$('#users_auth_chpwd_submit_btn').prop('disabled', false);
+
 			$("#users_auth_chpwd_modal").modal("show");
 		});
 	}
 	
-	var load_login_ui_done = false;
-	var load_login_ui = function(callback){
-		if(!load_login_ui_done){
+	var load_ui_done = false;
+	var load_ui = function(callback){
+		if(!load_ui_done){
 			$("#module_users").load("/static/users/ui.html #users_import",function(){
 				$('#users_auth_login_btn').click(function(){
 					var username = $('#users_auth_login_username').val();
@@ -54,6 +60,7 @@ define([
 						users_auth_login_progress(100);
 					});
 				});
+				
 				$('#users_auth_reg_btn').click(function(){
 					var password0 = $('#users_auth_reg_password0').val();
 					var password1 = $('#users_auth_reg_password1').val();
@@ -79,6 +86,32 @@ define([
 					});
 				});
 				
+				$('#users_auth_chpwd_submit_btn').click(function(){
+					var old_password = $('#users_auth_chpwd_old_password_input').val();
+					var password0 = $('#users_auth_chpwd_password0_input').val();
+					var password1 = $('#users_auth_chpwd_password1_input').val();
+					if(password0!=password1){
+						return;
+					}
+					$("#users_auth_chpwd_old_password_input").prop('disabled', true);
+					$("#users_auth_chpwd_password0_input").prop('disabled', true);
+					$("#users_auth_chpwd_password1_input").prop('disabled', true);
+					$('#users_auth_chpwd_submit_btn').prop('disabled', true);
+					users_auth_chpwd_progress(30);
+					users.set_password(old_password, password0, function(success, reason){
+						console.log("success "+success);
+						if(!success){
+							$("#users_auth_chpwd_progress").hide();
+							$("#users_auth_chpwd_old_password_input").prop('disabled', false);
+							$("#users_auth_chpwd_password0_input").prop('disabled', false);
+							$("#users_auth_chpwd_password1_input").prop('disabled', false);
+							$('#users_auth_chpwd_submit_btn').prop('disabled', false);
+							return;
+						}
+						users_auth_chpwd_progress(100);
+					});
+				});
+				
 				feed_root_layout.body_maintain();
 				if(callback){callback();}
 			});
@@ -89,7 +122,7 @@ define([
 	
 	var show_login = function(){
 		console.log("show_login");
-		load_login_ui(function(){
+		load_ui(function(){
 			$(".app").hide();
 			
 			$("#users_auth").show();
@@ -107,6 +140,11 @@ define([
 			$("#users_app").show();
 		});
 	};
+	
+	var users_auth_chpwd_progress = function(val){
+		$("#users_auth_chpwd_progress").show();
+		$("#users_auth_chpwd_progress_bar").css("width",""+val+"%");
+	}
 	
 	var users_auth_login_progress = function(val){
 		$("#users_auth_login_progress").show();

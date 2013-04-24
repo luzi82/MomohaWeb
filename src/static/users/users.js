@@ -46,6 +46,18 @@ define([
 			}
 		);
 	};
+
+	var set_password = function(old_password, new_password, callback){
+		kyubeyuser.user_set_password(
+			old_password, new_password,
+			function(j){
+				if(callback){
+					var reason = j.success?null:(j.reason);
+					callback(j.success, reason);
+				}
+			}
+		);
+	};
 	
 	var verify_login = function(callback){
 		kyubeyuser.verify_login(
@@ -61,6 +73,7 @@ define([
 		login: login,
 		logout: logout,
 		add_user: add_user,
+		set_password: set_password,
 		verify_login: verify_login,
 	};
 
