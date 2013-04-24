@@ -2,107 +2,107 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
-<head><title>users ui</title></head>
+<head><title>auth ui</title></head>
 
 <body>
-<div id="users_import">
+<div id="auth_import">
 
-<div id="users_auth_chpwd_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="users_auth_chpwd_modal_label" aria-hidden="true">
+<div id="auth_chpwd_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="auth_chpwd_modal_label" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="users_auth_chpwd_modal_label">Change password</h3>
+		<h3 id="auth_chpwd_modal_label">Change password</h3>
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal">
 			<div class="control-group">
-				<label class="control-label" for="users_auth_chpwd_old_password_input">Old password</label>
+				<label class="control-label" for="auth_chpwd_old_password_input">Old password</label>
 				<div class="controls">
-					<input type="password" id="users_auth_chpwd_old_password_input" placeholder="old password" />
+					<input type="password" id="auth_chpwd_old_password_input" placeholder="old password" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="users_auth_chpwd_password0_input">New password</label>
+				<label class="control-label" for="auth_chpwd_password0_input">New password</label>
 				<div class="controls">
-					<input type="password" id="users_auth_chpwd_password0_input" placeholder="new password" />
+					<input type="password" id="auth_chpwd_password0_input" placeholder="new password" />
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="users_auth_chpwd_password1_input">Repeat new password</label>
+				<label class="control-label" for="auth_chpwd_password1_input">Repeat new password</label>
 				<div class="controls">
-					<input type="password" id="users_auth_chpwd_password1_input" placeholder="repeat new password" />
+					<input type="password" id="auth_chpwd_password1_input" placeholder="repeat new password" />
 				</div>
 			</div>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button id="users_auth_chpwd_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		<button id="users_auth_chpwd_submit_btn" class="btn btn-primary">Change</button>
-		<div id="users_auth_chpwd_progress" class="progress progress-striped active">
-			<div id="users_auth_chpwd_progress_bar" class="bar"></div>
+		<button id="auth_chpwd_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="auth_chpwd_submit_btn" class="btn btn-primary">Change</button>
+		<div id="auth_chpwd_progress" class="progress progress-striped active">
+			<div id="auth_chpwd_progress_bar" class="bar"></div>
 		</div>
 	</div>
 </div>
 
-<div id="users_app" class="app hide">
-	<div id="users_auth" class="phibox hide">
+<div id="auth_app" class="app hide">
+	<div id="auth" class="phibox hide">
 		<div class="tabbable">
 			<ul class="nav nav-tabs">
-				<li class="active"><a href="#users_auth_login" data-toggle="tab">Login</a></li>
-				<li><a href="#users_auth_reg" data-toggle="tab">Register</a></li>
+				<li class="active"><a href="#auth_login" data-toggle="tab">Login</a></li>
+				<li><a href="#auth_reg" data-toggle="tab">Register</a></li>
 			</ul>
 			<div class="tab-content">
-				<div class="tab-pane active" id="users_auth_login">
+				<div class="tab-pane active" id="auth_login">
 					<div class="form-horizontal">
 						<div class="control-group">
-							<label class="control-label" for="users_auth_login_username">Username</label>
+							<label class="control-label" for="auth_login_username">Username</label>
 							<div class="controls">
-								<input type="text" id="users_auth_login_username" placeholder="username" />
+								<input type="text" id="auth_login_username" placeholder="username" />
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="users_auth_login_password">Password</label>
+							<label class="control-label" for="auth_login_password">Password</label>
 							<div class="controls">
-								<input type="password" id="users_auth_login_password" placeholder="password" />
+								<input type="password" id="auth_login_password" placeholder="password" />
 							</div>
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<button class="btn btn-primary" id="users_auth_login_btn">Login</button>
+								<button class="btn btn-primary" id="auth_login_btn">Login</button>
 							</div>
 						</div>
 					</div>
-					<div id="users_auth_login_progress" class="progress progress-striped active">
-						<div id="users_auth_login_progress_bar" class="bar"></div>
+					<div id="auth_login_progress" class="progress progress-striped active">
+						<div id="auth_login_progress_bar" class="bar"></div>
 					</div>
 				</div>
-				<div class="tab-pane" id="users_auth_reg">
+				<div class="tab-pane" id="auth_reg">
 					<div class="form-horizontal">
 						<div class="control-group">
-							<label class="control-label" for="users_auth_reg_username">Username</label>
+							<label class="control-label" for="auth_reg_username">Username</label>
 							<div class="controls">
-								<input type="text" id="users_auth_reg_username" placeholder="username" />
+								<input type="text" id="auth_reg_username" placeholder="username" />
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="users_auth_reg_password0">Password</label>
+							<label class="control-label" for="auth_reg_password0">Password</label>
 							<div class="controls">
-								<input type="password" id="users_auth_reg_password0" placeholder="password" />
+								<input type="password" id="auth_reg_password0" placeholder="password" />
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="users_auth_reg_password1">Repeat Password</label>
+							<label class="control-label" for="auth_reg_password1">Repeat Password</label>
 							<div class="controls">
-								<input type="password" id="users_auth_reg_password1" placeholder="repeat password" />
+								<input type="password" id="auth_reg_password1" placeholder="repeat password" />
 							</div>
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<button class="btn btn-primary" id="users_auth_reg_btn">Register</button>
+								<button class="btn btn-primary" id="auth_reg_btn">Register</button>
 							</div>
 						</div>
 					</div>
-					<div id="users_auth_reg_progress" class="progress progress-striped active">
-						<div id="users_auth_reg_progress_bar" class="bar"></div>
+					<div id="auth_reg_progress" class="progress progress-striped active">
+						<div id="auth_reg_progress_bar" class="bar"></div>
 					</div>
 				</div>
 			</div>
