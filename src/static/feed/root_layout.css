@@ -43,6 +43,14 @@ div#header {
 		padding-left: 20px;
 		padding-right: 20px;
 	}
+	
+	div#header span.brand {
+		cursor: default;
+	}
+
+	div#header span.brand:hover {
+		color: #999999;
+	}
 
 div#list_subscription_area {
 	overflow: hidden;
