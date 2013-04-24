@@ -4,3 +4,4 @@ src/celerybeat-schedule
 /.settings/
 *~
 
+src/MomohaWeb/secret.py

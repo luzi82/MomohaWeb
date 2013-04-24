@@ -2,6 +2,7 @@
 import os
 import djcelery
 import socket
+import secret
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -84,7 +85,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '6mzgytp0bn$tkg!q_6rjn9&amp;7j_m_5rbr$$04ss2=dojmf%d_+w'
+SECRET_KEY = secret.KEY
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
