@@ -17,8 +17,8 @@ requirejs.config({
 		auth: 'auth/auth',
 		auth_ui:	'auth/ui',
 
-		momohafeed: '/feed/cmd',
-		kyubeyauth: '/auth/cmd',
+		momohafeed: '/api/feed/cmd',
+		kyubeyauth: '/api/auth/cmd',
     },
     shim: {
         'bootstrap': {deps: ['jquery']},

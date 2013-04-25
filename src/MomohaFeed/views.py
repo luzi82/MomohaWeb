@@ -7,9 +7,9 @@ import MomohaFeed.cmds
 import django.core.exceptions
 import simplejson
 
-def index(request):
-
-    return render(request,"MomohaFeed/index.html")
+#def index(request):
+#
+#    return render(request,"MomohaFeed/index.html")
 
 
 def json(request):
