@@ -12,7 +12,6 @@ define([
 	
 	return {
 		cb: cb,
-		remote: remote,
 	};
 
 });
