@@ -11,6 +11,7 @@ import MomohaFeed
 import feedparser
 import time
 import enum
+from django.core.urlresolvers import reverse
 
 MY_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -64,7 +65,8 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
         # time0 = MomohaFeed.now64()
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        #response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -127,7 +129,7 @@ class SimpleTest(TestCase):
         self.start_server_loop(httpServer)
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url
@@ -138,7 +140,7 @@ class SimpleTest(TestCase):
         vm_subscription_0 = result['subscription']
 #        subscription_id = result['subscription']['id']
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'list_subscription',
         })})
         content=response.content
@@ -171,7 +173,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
         self.start_server_loop(httpServer)
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url
@@ -182,7 +184,7 @@ class SimpleTest(TestCase):
         vm_subscription = result['subscription']
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_set_enable',
             'argv':{
                 'subscription_id': subscription_id,
@@ -193,14 +195,14 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'list_subscription',
         })})
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(0, len(result['subscription_list']))
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_set_enable',
             'argv':{
                 'subscription_id': subscription_id,
@@ -211,7 +213,7 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'list_subscription',
         })})
         content=response.content
@@ -240,7 +242,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
         self.start_server_loop(httpServer)
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -251,7 +253,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -294,7 +296,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
         self.start_server_loop(httpServer)
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -305,7 +307,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -352,7 +354,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url
@@ -365,7 +367,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -379,7 +381,7 @@ class SimpleTest(TestCase):
         item_id = result['item_list'][0]['id']
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -426,7 +428,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -439,7 +441,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
         
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -454,7 +456,7 @@ class SimpleTest(TestCase):
         item_id = vm_item['id']
         
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_set_readdone',
             'argv':{
                 'subscription_id': subscription_id,
@@ -469,7 +471,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -483,7 +485,7 @@ class SimpleTest(TestCase):
         self.assertNotEqual(item_id, result['item_list'][0]['id'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -496,7 +498,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['item_detail']['readdone'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_set_readdone',
             'argv':{
                 'subscription_id': subscription_id,
@@ -511,7 +513,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -525,7 +527,7 @@ class SimpleTest(TestCase):
         self.assertEqual(item_id, result['item_list'][0]['id'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -560,7 +562,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -572,7 +574,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -592,7 +594,7 @@ class SimpleTest(TestCase):
 #        thread.start()
 #        self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_poll',
             'argv':{
                 'subscription_id': subscription_id
@@ -603,7 +605,7 @@ class SimpleTest(TestCase):
 
         self.assertEqual(True, result['success'])
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -639,7 +641,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':TEST_URL,
@@ -651,7 +653,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -672,7 +674,7 @@ class SimpleTest(TestCase):
 
         MomohaFeed.update_feed_pool(1000)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -692,7 +694,7 @@ class SimpleTest(TestCase):
 
         MomohaFeed.update_feed_pool(1000)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -728,7 +730,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -740,7 +742,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -752,7 +754,7 @@ class SimpleTest(TestCase):
         
         self.assertGreater(len(result['item_list']), 0)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_all_readdone',
             'argv':{
                 'subscription_id': subscription_id,
@@ -763,7 +765,7 @@ class SimpleTest(TestCase):
 
         self.assertEqual(True, result['success'])
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -797,7 +799,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -810,7 +812,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
         
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -825,7 +827,7 @@ class SimpleTest(TestCase):
         item_id = vm_item['id']
         
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_set_readdone',
             'argv':{
                 'subscription_id': subscription_id,
@@ -840,7 +842,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -854,7 +856,7 @@ class SimpleTest(TestCase):
         self.assertNotEqual(item_id, result['item_list'][0]['id'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -869,7 +871,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['item_list'][0]['readdone'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -883,7 +885,7 @@ class SimpleTest(TestCase):
         self.assertNotEqual(item_id, result['item_detail_list'][0]['id'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -919,7 +921,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -934,7 +936,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_detail',
             'argv':{
                 'subscription_id':subscription_id,
@@ -973,7 +975,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -986,7 +988,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1001,7 +1003,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False, vm_item['star'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_set_star',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1016,7 +1018,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1031,7 +1033,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, vm_item['star'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1044,7 +1046,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['item_detail']['star'])
     
     
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_set_star',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1059,7 +1061,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1074,7 +1076,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False, vm_item['star'])
 
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1109,7 +1111,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1121,7 +1123,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_detail',
             'argv':{
                 'subscription_id':subscription_id,
@@ -1132,7 +1134,7 @@ class SimpleTest(TestCase):
 
         feed_id = result['subscription_detail']['feed_id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1162,7 +1164,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1175,7 +1177,7 @@ class SimpleTest(TestCase):
         self.assertNotEqual(subscription_id, result['subscription']['id'])
         subscription_id = result['subscription']['id']
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_detail',
             'argv':{
                 'subscription_id':subscription_id,
@@ -1186,7 +1188,7 @@ class SimpleTest(TestCase):
 
         self.assertEqual(feed_id, result['subscription_detail']['feed_id'])
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1216,7 +1218,7 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':"invalid_url",
@@ -1228,7 +1230,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['success'])
         self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':"http://",
@@ -1240,7 +1242,7 @@ class SimpleTest(TestCase):
         self.assertEqual(False, result['success'])
         self.assertEqual(enum.FailReason.BAD_URL, result['fail_reason'])
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':"http:/www.google.com",
@@ -1268,7 +1270,7 @@ class SimpleTest(TestCase):
         # server not exist
         print "server not exist"
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1287,7 +1289,7 @@ class SimpleTest(TestCase):
         httpServer.timeout = 1
         httpServer.server_activate()
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1309,7 +1311,7 @@ class SimpleTest(TestCase):
 #        thread.start()
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1329,7 +1331,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1349,7 +1351,7 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1387,7 +1389,7 @@ class SimpleTest(TestCase):
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
         self.start_server_loop(httpServer)
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
                 'url':url,
@@ -1400,7 +1402,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
 
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_detail',
             'argv':{
                 'subscription_id':subscription_id,
@@ -1415,7 +1417,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['subscription_detail']['enable'])
         
         
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': subscription_id,
@@ -1443,7 +1445,7 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item',
             'argv':{
                 'subscription_id': 123,
@@ -1461,7 +1463,7 @@ class SimpleTest(TestCase):
         client = Client()
         client.login(username="user",password="pass")
 
-        response = client.post("/feed/json/",{'json':simplejson.dumps({
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': 123,
