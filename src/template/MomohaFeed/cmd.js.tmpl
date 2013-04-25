@@ -1,3 +1,5 @@
+{% load url from future %}
+
 define([
 	"jquery",
 	"cookie",
@@ -14,7 +16,7 @@ define([
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: "/feed/json/",
+			url: "{% url 'MomohaFeed.views.json' %}",
 			data: {
 				csrfmiddlewaretoken: $.cookie('csrftoken'),
 				json: JSON.stringify({

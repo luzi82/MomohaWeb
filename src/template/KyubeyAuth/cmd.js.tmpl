@@ -1,3 +1,5 @@
+{% load url from future %}
+
 define([
 	"jquery",
 	"cookie",
@@ -14,7 +16,7 @@ define([
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: "/auth/json/",
+			url: "{% url 'KyubeyAuth.views.json' %}",
 			data: {
 				csrfmiddlewaretoken: $.cookie('csrftoken'),
 				json: JSON.stringify({
