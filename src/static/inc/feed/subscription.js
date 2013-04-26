@@ -64,7 +64,7 @@ define([
 		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
 
 		$("#import").append($('<div id="module_subscription" />'));
-		$("#module_subscription").load("/static/feed/subscription.html #subscription_import",function(){
+		$("#module_subscription").load("inc/feed/subscription.html #subscription_import",function(){
 			$("#subscription_rm_modal_submit_btn").click(subscription_rm_modal_submit_btn_click);
 		});
 

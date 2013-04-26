@@ -1,7 +1,7 @@
 Requirements
 ============
 
-python-dev
+python-dev (required by django-celery)
 
 # apt-get install python-dev
 
@@ -29,6 +29,15 @@ lxml
 south
 
 # easy_install South
+
+
+Install in Ubuntu 12.04 server
+==============================
+
+using nginx
+
+# apt-get install python-pip python-dev gcc libxml2-dev libxslt-dev nginx python-flup
+# pip install Django==1.4.5 django-celery==3.0.11 feedparser==5.1.3 pytz lxml South
 
 
 Get source code

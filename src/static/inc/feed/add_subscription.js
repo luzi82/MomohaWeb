@@ -23,7 +23,7 @@ define([
 		$("#import").append(import_div);
 		import_div=$("#module_add_subscription");
 		
-		import_div.load("/static/feed/add_subscription.html #add_subscription_import",function(){
+		import_div.load("inc/feed/add_subscription.html #add_subscription_import",function(){
 			add_subscription_modal = $("#add_subscription_modal");
 			
 			add_subscription_submit_btn = $("#add_subscription_submit_btn");

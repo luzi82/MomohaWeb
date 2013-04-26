@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: '/static',
+    baseUrl: 'inc',
     paths: {
         jquery: 'jquery/jquery-1.9.1',
         bootstrap: 'bootstrap/js/bootstrap',
@@ -17,8 +17,8 @@ requirejs.config({
 		auth: 'auth/auth',
 		auth_ui:	'auth/ui',
 
-		momohafeed: '/api/feed/cmd',
-		kyubeyauth: '/api/auth/cmd',
+		momohafeed: '/feed/cmd',
+		kyubeyauth: '/auth/cmd',
     },
     shim: {
         'bootstrap': {deps: ['jquery']},

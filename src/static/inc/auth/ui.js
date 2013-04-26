@@ -40,7 +40,7 @@ define([
 	var load_ui_done = false;
 	var load_ui = function(callback){
 		if(!load_ui_done){
-			$("#module_auth").load("/static/auth/ui.html #auth_import",function(){
+			$("#module_auth").load("inc/auth/ui.html #auth_import",function(){
 				$('#auth_login_btn').click(function(){
 					var username = $('#auth_login_username').val();
 					var password = $('#auth_login_password').val();
