@@ -17,7 +17,7 @@ define([
 	var MENU_H = 48;
 	var SUBSCRIPTION_LIST_AREA_W = 240;
 	
-	var PHIBOX_W_MIN = 400;
+	var PHIBOX_W_MIN = 640;
 	var PHIBOX_H_MIN = Math.round(PHIBOX_W_MIN*PHI_1);
 	
 	var init = function(){

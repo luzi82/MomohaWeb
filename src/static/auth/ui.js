@@ -67,6 +67,24 @@ define([
 					if(password0!=password1){
 						return;
 					}
+					var disclaimer0 = $("#auth_reg_disclaimer0").is(':checked');
+					var disclaimer1 = $("#auth_reg_disclaimer1").is(':checked');
+					var disclaimer2 = $("#auth_reg_disclaimer2").is(':checked');
+					var disclaimer3 = $("#auth_reg_disclaimer3").is(':checked');
+					var disclaimer4 = $("#auth_reg_disclaimer4").is(':checked');
+					var disclaimer5 = $("#auth_reg_disclaimer5").is(':checked');
+					console.log("disclaimer0 "+disclaimer0);
+					if(!(
+						disclaimer0 &&
+						disclaimer1 &&
+						disclaimer2 &&
+						disclaimer3 &&
+						disclaimer4 &&
+						disclaimer5
+					)){
+						console.log("asdf");
+						return;
+					}
 					var username = $('#auth_reg_username').val();
 					var password = password0;
 					$("#auth_reg_username").prop('disabled', true);
