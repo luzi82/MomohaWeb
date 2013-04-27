@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
 #    url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^feed/', include('MomohaFeed.urls')),
-    url(r'^auth/', include('KyubeyAuth.urls')),
+    url(r'^api/feed/', include('MomohaFeed.urls')),
+    url(r'^api/auth/', include('KyubeyAuth.urls')),
 #    url(r'^/feed/$', RedirectView.as_view(url='feed/index.html') ),
 )

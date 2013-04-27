@@ -31,13 +31,64 @@ south
 # easy_install South
 
 
-Install in Ubuntu 12.04 server
-==============================
+Deploy in Ubuntu 12.04 server
+=============================
 
-using nginx
+using nginx, PostgreSQL
 
-# apt-get install python-pip python-dev gcc libxml2-dev libxslt-dev nginx python-flup
-# pip install Django==1.4.5 django-celery==3.0.11 feedparser==5.1.3 pytz lxml South
+# apt-get install python-pip python-dev gcc libxml2-dev libxslt-dev nginx python-flup git postgresql
+# pip install Django==1.4.5 django-celery==3.0.11 feedparser==5.1.3 pytz lxml South psycopg2
+# adduser --disabled-password momohaweb
+# sudo -u postgres createuser -d -R -S momohaweb
+# mkdir /opt/momohaweb
+# chown momohaweb:momohaweb -R /opt/momohaweb 
+
+# (create /etc/nginx/sites-available/momohaweb.conf)
+
+server {
+    listen 80;
+    server_name [domain.com];
+    access_log /var/log/nginx/momohaweb.access.log;
+    error_log /var/log/nginx/momohaweb.error.log;
+
+    location /static/ {
+        alias /opt/momohaweb/MomohaWeb/src/static/;
+        expires 30d;
+    }
+
+    location /media/ {
+        alias /home/www/myhostname/static/; # MEDIA_ROOT
+        expires 30d;
+    }
+
+    location / {
+        include fastcgi_params;
+        fastcgi_pass 127.0.0.1:8080;
+    }
+}
+
+# su - momohaweb
+$ createdb momohaweb
+$ (gen ssh key for github)
+$ cd /opt/momohaweb
+$ git clone --recurse-submodules git@github.com:luzi82/MomohaWeb.git
+$ cd /opt/momohaweb/MomohaWeb
+$ (create and modify /opt/momohaweb/MomohaWeb/src/MomohaWeb/secret.py from secret.py.example)
+$ (modify /opt/momohaweb/MomohaWeb/src/MomohaWeb/settings.py)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'momohaweb',                      
+        'USER': 'momohaweb',
+        'PASSWORD': '[password]',
+        'HOST': ''
+    }
+}
+
+$ cd /opt/hiauntie/MomohaWeb/src
+$ python manage.py syncdb --migrate
+$ python manage.py runfcgi host=127.0.0.1 port=8080
 
 
 Get source code
