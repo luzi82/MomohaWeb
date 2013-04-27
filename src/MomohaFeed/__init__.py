@@ -58,14 +58,14 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
                         (Count(MomohaFeed_itemread.enable)>0) readdone ,
                         (Count(MomohaFeed_itemstar.enable)>0) star
                     FROM
-                        MomohaFeed_item
-                        LEFT JOIN MomohaFeed_itemread
+                        "MomohaFeed_item" as MomohaFeed_item
+                        LEFT JOIN "MomohaFeed_itemread" as MomohaFeed_itemread
                             ON (
                                 MomohaFeed_itemread.item_id = MomohaFeed_item.id AND
                                 MomohaFeed_itemread.subscription_id = %s AND
                                 MomohaFeed_itemread.enable
                             )
-                        LEFT JOIN MomohaFeed_itemstar
+                        LEFT JOIN "MomohaFeed_itemstar" as MomohaFeed_itemstar
                             ON (
                                 MomohaFeed_itemstar.item_id = MomohaFeed_item.id AND
                                 MomohaFeed_itemstar.subscription_id = %s AND
@@ -106,14 +106,14 @@ def subscription_item_detail(subscription_id, item_id):
                 (Count(MomohaFeed_itemread.enable)>0) readdone ,
                 (Count(MomohaFeed_itemstar.enable)>0) star
             FROM
-                MomohaFeed_item
-                LEFT JOIN MomohaFeed_itemread
+                "MomohaFeed_item" as MomohaFeed_item
+                LEFT JOIN "MomohaFeed_itemread" as MomohaFeed_itemread
                     ON (
                         MomohaFeed_itemread.item_id = MomohaFeed_item.id AND
                         MomohaFeed_itemread.subscription_id = %s AND
                         MomohaFeed_itemread.enable
                     )
-                LEFT JOIN MomohaFeed_itemstar
+                LEFT JOIN "MomohaFeed_itemstar" as MomohaFeed_itemstar
                     ON (
                         MomohaFeed_itemstar.item_id = MomohaFeed_item.id AND
                         MomohaFeed_itemstar.subscription_id = %s AND
