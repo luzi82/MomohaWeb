@@ -88,3 +88,7 @@ td.subscription_item_brief_title {
 .subscription_item i {
 	margin-top : 3px;
 }
+
+.subscription_item_brief .title_text {
+	font-weight: bold;
+}
