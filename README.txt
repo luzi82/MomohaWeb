@@ -36,13 +36,15 @@ Deploy in Ubuntu 12.04 server
 
 using nginx, PostgreSQL
 
-# apt-get install python-pip python-dev gcc libxml2-dev libxslt-dev nginx python-flup git postgresql
+# apt-get install python-pip python-dev gcc libxml2-dev libxslt-dev nginx python-flup git postgresql rabbitmq-server
 # pip install Django==1.4.5 django-celery==3.0.11 feedparser==5.1.3 pytz lxml South psycopg2
 # adduser --disabled-password momohaweb
 # sudo -u postgres createuser -d -R -S momohaweb
+# rabbitmqctl add_user momohaweb [password]
+# rabbitmqctl add_vhost momohaweb_vhost
+# rabbitmqctl set_permissions -p momohaweb_vhost momohaweb ".*" ".*" ".*"
 # mkdir /opt/momohaweb
 # chown momohaweb:momohaweb -R /opt/momohaweb 
-
 # (create /etc/nginx/sites-available/momohaweb.conf)
 
 server {
@@ -51,23 +53,26 @@ server {
     access_log /var/log/nginx/momohaweb.access.log;
     error_log /var/log/nginx/momohaweb.error.log;
 
-    location /static/ {
+    location / {
         alias /opt/momohaweb/MomohaWeb/src/static/;
         expires 30d;
     }
 
-    location /media/ {
-        alias /home/www/myhostname/static/; # MEDIA_ROOT
+    location /data/ {
+        alias /opt/momohaweb/MomohaWeb/data/;
         expires 30d;
     }
 
-    location / {
+    location /api/ {
         include fastcgi_params;
         fastcgi_pass 127.0.0.1:8080;
     }
+
 }
 
+# ln -s /etc/nginx/sites-available/hiauntie.conf /etc/nginx/sites-enabled/
 # su - momohaweb
+
 $ createdb momohaweb
 $ (gen ssh key for github)
 $ cd /opt/momohaweb
@@ -86,7 +91,9 @@ DATABASES = {
     }
 }
 
-$ cd /opt/hiauntie/MomohaWeb/src
+BROKER_URL = 'amqp://momohaweb:[password]@localhost:5672/momohaweb_vhost'
+
+$ cd /opt/momohaweb/MomohaWeb/src
 $ python manage.py syncdb --migrate
 $ python manage.py runfcgi host=127.0.0.1 port=8080
 
