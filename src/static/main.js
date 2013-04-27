@@ -1,15 +1,5 @@
-var API_PATH = "";
-
 requirejs.config({
-	config: {
-		momohafeed: {
-			api_path: API_PATH,
-		},
-		kyubeyauth: {
-			api_path: API_PATH,
-		},
-	},
-    baseUrl: ' inc',
+    baseUrl: 'inc',
     paths: {
         jquery: 'jquery/jquery-1.9.1',
         bootstrap: 'bootstrap/js/bootstrap',
@@ -27,8 +17,8 @@ requirejs.config({
 		auth: 'auth/auth',
 		auth_ui:	'auth/ui',
 
-		momohafeed: '/feed/cmd',
-		kyubeyauth: '/auth/cmd',
+		momohafeed: '/api/feed/cmd',
+		kyubeyauth: '/api/auth/cmd',
     },
     shim: {
         'bootstrap': {deps: ['jquery']},

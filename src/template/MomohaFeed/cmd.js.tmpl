@@ -3,11 +3,9 @@
 define([
 	"jquery",
 	"cookie",
-	"module",
 ], function(
 	$
 	, _cookie
-	, module
 ) {
 
 //var module_momohafeed = (function(){
@@ -18,7 +16,7 @@ define([
 		$.ajax({
 			type: "POST",
 			dataType: "json",
-			url: module.config().api_path+"{% url 'MomohaFeed.views.json' %}",
+			url: "{% url 'MomohaFeed.views.json' %}",
 			data: {
 				csrfmiddlewaretoken: $.cookie('csrftoken'),
 				json: JSON.stringify({
