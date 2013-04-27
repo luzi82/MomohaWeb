@@ -34,11 +34,12 @@ d_start()
     else
         start-stop-daemon --start --quiet \
                    --pidfile $RUNFILE \
+                   --background \
                    --chuid $RUN_AS --exec /usr/bin/env -- python \
                    $PROJECT_ROOT/src/manage.py \
-                   celery worker -B --loglevel=info \
+                   celery worker -B -s $PROJECT_ROOT/celerybeat-schedule \
+                   --loglevel=info \
                    --pidfile=$RUNFILE
-        chmod 400 $RUNFILE
     fi
 }
 

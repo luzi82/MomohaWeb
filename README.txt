@@ -100,6 +100,10 @@ $ python manage.py syncdb --migrate
 # (modify /etc/init.d/momohaweb-django.sh if you need)
 # update-rc.d momohaweb-django.sh defaults 90
 
+# cp /opt/momohaweb/MomohaWeb/src/deploy/momohaweb-celery.sh /etc/init.d/momohaweb-celery.sh
+# (modify /etc/init.d/momohaweb-celery.sh if you need)
+# update-rc.d momohaweb-celery.sh defaults 90
+
 
 Get source code
 ===============
