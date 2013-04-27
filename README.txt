@@ -93,6 +93,9 @@ DATABASES = {
 
 BROKER_URL = 'amqp://momohaweb:[password]@localhost:5672/momohaweb_vhost'
 
+# cp /opt/momohaweb/MomohaWeb/src/deploy/momohaweb-django.sh /etc/init.d/momohaweb-django.sh
+# update-rc.d momohaweb-django.sh defaults 90
+
 $ cd /opt/momohaweb/MomohaWeb/src
 $ python manage.py syncdb --migrate
 $ python manage.py runfcgi host=127.0.0.1 port=8080

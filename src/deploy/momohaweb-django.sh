@@ -4,7 +4,7 @@
 # Required-Start:    networking
 # Required-Stop:     networking
 # Default-Start:     2 3 4 5
-# Default-Stop:      S 0 1 6
+# Default-Stop:      0 1 6
 # Short-Description: Start FastCGI servers with Django.
 # Description:       Django, in order to operate with FastCGI, must be started
 #                    in a very specific way with manage.py. This must be done
@@ -15,8 +15,8 @@
 
 #### SERVER SPECIFIC CONFIGURATION
 #DJANGO_SITES="site1 site2 site3"
-PROJECT_ROOT=/path/to/sites
-RUNFILES_PATH=$PROJECT_ROOT/run
+PROJECT_ROOT=/opt/momohaweb/MomohaWeb
+RUNFILES_PATH=$PROJECT_ROOT
 HOST=127.0.0.1
 #PORT_START=23746
 PORT=23746
