@@ -1,5 +1,15 @@
+var API_PATH = "";
+
 requirejs.config({
-    baseUrl: 'inc',
+	config: {
+		momohafeed: {
+			api_path: API_PATH,
+		},
+		kyubeyauth: {
+			api_path: API_PATH,
+		},
+	},
+    baseUrl: ' inc',
     paths: {
         jquery: 'jquery/jquery-1.9.1',
         bootstrap: 'bootstrap/js/bootstrap',
