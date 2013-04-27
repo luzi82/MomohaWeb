@@ -1,31 +1,26 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          FastCGI servers for Django
+# Provides:          MomohaWeb celery worker and beat
 # Required-Start:    networking
 # Required-Stop:     networking
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Start FastCGI servers with Django.
-# Description:       Django, in order to operate with FastCGI, must be started
-#                    in a very specific way with manage.py. This must be done
-#                    for each DJango web server that has to run.
+# Short-Description: MomohaWeb celery worker and beat
+# Description:       MomohaWeb celery worker and beat
 ### END INIT INFO
 #
 #
 
 #### SERVER SPECIFIC CONFIGURATION
 PROJECT_ROOT=/opt/momohaweb/MomohaWeb
-RUNFILES_PATH=$PROJECT_ROOT
-HOST=127.0.0.1
-PORT=23746
 RUN_AS=momohaweb
-FCGI_METHOD=threaded
+RUNFILE=$PROJECT_ROOT/MomohaWebCelery.pid
 #### DO NOT CHANGE ANYTHING AFTER THIS LINE!
 
 set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="MomohaWeb Django"
+DESC="MomohaWeb Celery"
 NAME=$0
 SCRIPTNAME=/etc/init.d/$NAME
 
@@ -34,16 +29,16 @@ SCRIPTNAME=/etc/init.d/$NAME
 #
 d_start()
 {
-    if [ -f $RUNFILES_PATH/MomohaWeb.pid ]; then
+    if [ -f $RUNFILE ]; then
         echo -n " already running"
     else
         start-stop-daemon --start --quiet \
-                   --pidfile $RUNFILES_PATH/MomohaWeb.pid \
+                   --pidfile $RUNFILE \
                    --chuid $RUN_AS --exec /usr/bin/env -- python \
-                   $PROJECT_ROOT/src/manage.py runfcgi \
-                   method=$FCGI_METHOD \
-                   host=$HOST port=$PORT pidfile=$RUNFILES_PATH/MomohaWeb.pid
-        chmod 400 $RUNFILES_PATH/MomohaWeb.pid
+                   $PROJECT_ROOT/src/manage.py \
+                   celery worker -B --loglevel=info \
+                   --pidfile=$RUNFILE
+        chmod 400 $RUNFILE
     fi
 }
 
@@ -51,10 +46,10 @@ d_start()
 #       Function that stops the daemon/service.
 #
 d_stop() {
-    start-stop-daemon --stop --quiet --pidfile $RUNFILES_PATH/MomohaWeb.pid \
+    start-stop-daemon --stop --quiet --pidfile $RUNFILE \
                       || echo -n " not running"
-    if [ -f $RUNFILES_PATH/MomohaWeb.pid ]; then
-       rm -f $RUNFILES_PATH/MomohaWeb.pid
+    if [ -f $RUNFILE ]; then
+       rm -f $RUNFILE
     fi
 }
 
