@@ -1471,6 +1471,11 @@ class SimpleTest(TestCase):
             },
         })})
         self.assertEqual(404,response.status_code)
+        
+    
+    def die(self):
+        self.fail("asdf")    
+    
 
     ##########
     
