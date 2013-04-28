@@ -81,7 +81,8 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
                 ( %s OR ( NOT I.readdone ) ) AND
                 ( %s OR ( I.star ) )
             ORDER BY
-                I.published DESC
+                I.published DESC ,
+                I.id ASC
         ''',
         [
             db_subscription.id,
@@ -122,7 +123,8 @@ def subscription_item_detail(subscription_id, item_id):
             WHERE
                 MomohaFeed_item.id = %s
             ORDER BY
-                MomohaFeed_item.published DESC
+                MomohaFeed_item.published DESC ,
+                MomohaFeed_item.id ASC
         ''',
         [
             subscription_id,
