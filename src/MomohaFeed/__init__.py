@@ -111,7 +111,7 @@ def subscription_list_content(
             range_id if (range_id!=None) else 0 , # ( MomohaFeed_item.id > %s )
             show_readdone, # ( %s OR ( NOT I.readdone )
             show_nonstar, # ( %s OR ( I.star ) )
-            item_count if (item_count!=None) else 0x7fffffff # LIMIT %s
+            item_count if (item_count!=None) else 0x7fffffff # LIMIT %s, issue 109
         ]
     )
 
