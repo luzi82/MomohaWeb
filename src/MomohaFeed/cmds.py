@@ -103,21 +103,21 @@ def subscription_set_enable(request,subscription_id,value):
     return { 'success' : True }
 
 
-@u403
-@cmd
-def subscription_list_item(request,subscription_id,show_readdone):
-
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
-
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=show_readdone)
-    
-    item_list = []
-    for db_item in db_item_list:
-        item_list.append(VmItem(db_item).__dict__)
-
-    return { 'item_list' : item_list }
+#@u403
+#@cmd
+#def subscription_list_item(request,subscription_id,show_readdone):
+#
+#    db_subscription = Subscription.objects.get(id=subscription_id)
+#    if(db_subscription.user != request.user):
+#        raise PermissionDenied
+#
+#    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=show_readdone)
+#    
+#    item_list = []
+#    for db_item in db_item_list:
+#        item_list.append(VmItem(db_item).__dict__)
+#
+#    return { 'item_list' : item_list }
 
 
 @u403

@@ -222,58 +222,58 @@ class SimpleTest(TestCase):
         self.assertEqual(vm_subscription, result['subscription_list'][0])
 
 
-#    @skip('skip')
-    def test_j_subscription_list_item(self):
-        
-        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
-        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
-
-        feed = open(MY_DIR+"/test/luzi82.xml").read()
-        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
-        httpServer.timeout = 1
-        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
-        httpServer.server_activate()
-        
-        User.objects.create_user("user",password="pass")
-        
-        client = Client()
-        client.login(username="user",password="pass")
-        
-#        thread = Thread(target=httpServer.handle_request)
-#        thread.start()
-        self.start_server_loop(httpServer)
-        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'add_subscription',
-            'argv':{
-                'url':url,
-            },
-        })})
-        content=response.content
-        result = simplejson.loads(content)
-        self.assertEqual(True, result['success'])
-        subscription_id = result['subscription']['id']
-        
-        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
-            'argv':{
-                'subscription_id': subscription_id,
-                'show_readdone'  : False,
-            },
-        })})
-        content=response.content
-        result = simplejson.loads(content)
-
-        for vm_item in result['item_list']:
-            self.verify_item(vm_item)
-        
-        vm_item = result['item_list'][0]
-        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
-        self.assertEqual(1364789700000, vm_item['published'])
-        self.assertEqual(
-            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
-            vm_item['link']
-        )
-        self.assertEqual(False,vm_item['readdone'])
+##    @skip('skip')
+#    def test_j_subscription_list_item(self):
+#        
+#        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+#        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+#
+#        feed = open(MY_DIR+"/test/luzi82.xml").read()
+#        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+#        httpServer.timeout = 1
+#        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+#        httpServer.server_activate()
+#        
+#        User.objects.create_user("user",password="pass")
+#        
+#        client = Client()
+#        client.login(username="user",password="pass")
+#        
+##        thread = Thread(target=httpServer.handle_request)
+##        thread.start()
+#        self.start_server_loop(httpServer)
+#        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+#            'cmd':'add_subscription',
+#            'argv':{
+#                'url':url,
+#            },
+#        })})
+#        content=response.content
+#        result = simplejson.loads(content)
+#        self.assertEqual(True, result['success'])
+#        subscription_id = result['subscription']['id']
+#        
+#        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+#            'cmd':'subscription_list_item',
+#            'argv':{
+#                'subscription_id': subscription_id,
+#                'show_readdone'  : False,
+#            },
+#        })})
+#        content=response.content
+#        result = simplejson.loads(content)
+#
+#        for vm_item in result['item_list']:
+#            self.verify_item(vm_item)
+#        
+#        vm_item = result['item_list'][0]
+#        self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
+#        self.assertEqual(1364789700000, vm_item['published'])
+#        self.assertEqual(
+#            'http://feedproxy.google.com/~r/luzi82_blog/~3/4wZwEC07FCY/blog-post_6399.html',
+#            vm_item['link']
+#        )
+#        self.assertEqual(False,vm_item['readdone'])
 
 
 #    @skip('skip')
@@ -368,7 +368,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -377,8 +377,8 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertEqual(u'もう誰にも頼らない', result['item_list'][0]['title'])
-        item_id = result['item_list'][0]['id']
+        self.assertEqual(u'もう誰にも頼らない', result['item_detail_list'][0]['title'])
+        item_id = result['item_detail_list'][0]['id']
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -442,7 +442,7 @@ class SimpleTest(TestCase):
         
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -451,7 +451,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
         item_id = vm_item['id']
         
@@ -472,7 +472,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -481,8 +481,8 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list'][0])
-        self.assertNotEqual(item_id, result['item_list'][0]['id'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertNotEqual(item_id, result['item_detail_list'][0]['id'])
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -514,7 +514,7 @@ class SimpleTest(TestCase):
         
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -523,8 +523,8 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list'][0])
-        self.assertEqual(item_id, result['item_list'][0]['id'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertEqual(item_id, result['item_detail_list'][0]['id'])
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -575,7 +575,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -584,7 +584,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][2]
+        vm_item = result['item_detail_list'][2]
         self.assertEqual(u'將軍澳醫院疑似H7N9個案測試結果呈陰性', vm_item['title'])
 
         feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
@@ -606,7 +606,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -615,7 +615,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][2]
+        vm_item = result['item_detail_list'][2]
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
@@ -654,7 +654,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -663,7 +663,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][2]
+        vm_item = result['item_detail_list'][2]
         self.assertEqual(u'將軍澳醫院疑似H7N9個案測試結果呈陰性', vm_item['title'])
 
         feed = open(MY_DIR+"/test/yahoo_hk_rss_1.xml").read()
@@ -672,10 +672,10 @@ class SimpleTest(TestCase):
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        MomohaFeed.update_feed_pool(1000)
+        MomohaFeed.update_feed_pool(2000)
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -684,18 +684,18 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][2]
+        vm_item = result['item_detail_list'][2]
         self.assertEqual(u'將軍澳醫院疑似H7N9個案測試結果呈陰性', vm_item['title'])
         
-        time.sleep(1500.0/1000.0)
+        time.sleep(2500.0/1000.0)
 
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
 
-        MomohaFeed.update_feed_pool(1000)
+        MomohaFeed.update_feed_pool(2000)
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -704,7 +704,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][2]
+        vm_item = result['item_detail_list'][2]
         self.assertEqual(u'馬道立：人大常委會解釋基本法　法院受約束', vm_item['title'])
 
 
@@ -743,7 +743,7 @@ class SimpleTest(TestCase):
         subscription_id = result['subscription']['id']
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -752,7 +752,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         
-        self.assertGreater(len(result['item_list']), 0)
+        self.assertGreater(len(result['item_detail_list']), 0)
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_all_readdone',
@@ -766,7 +766,7 @@ class SimpleTest(TestCase):
         self.assertEqual(True, result['success'])
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -775,7 +775,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         
-        self.assertEqual(0, len(result['item_list']))
+        self.assertEqual(0, len(result['item_detail_list']))
 
 
 #    @skip('skip')
@@ -813,7 +813,7 @@ class SimpleTest(TestCase):
         
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -822,7 +822,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
         item_id = vm_item['id']
         
@@ -843,7 +843,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -852,12 +852,12 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list'][0])
-        self.assertNotEqual(item_id, result['item_list'][0]['id'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertNotEqual(item_id, result['item_detail_list'][0]['id'])
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : True,
@@ -866,9 +866,9 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertIn('id',result['item_list'][0])
-        self.assertEqual(item_id, result['item_list'][0]['id'])
-        self.assertEqual(True, result['item_list'][0]['readdone'])
+        self.assertIn('id',result['item_detail_list'][0])
+        self.assertEqual(item_id, result['item_detail_list'][0]['id'])
+        self.assertEqual(True, result['item_detail_list'][0]['readdone'])
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -989,7 +989,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -998,7 +998,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         item_id = vm_item['id']
         self.assertEqual(False, vm_item['star'])
 
@@ -1019,7 +1019,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -1028,7 +1028,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         self.assertEqual(item_id, vm_item['id'])
         self.assertEqual(True, vm_item['star'])
 
@@ -1062,7 +1062,7 @@ class SimpleTest(TestCase):
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -1071,7 +1071,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         self.assertEqual(item_id, vm_item['id'])
         self.assertEqual(False, vm_item['star'])
 
@@ -1135,7 +1135,7 @@ class SimpleTest(TestCase):
         feed_id = result['subscription_detail']['feed_id']
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -1145,12 +1145,12 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         exist = False
-        for item in result['item_list']:
+        for item in result['item_detail_list']:
             exist = exist or ( item['title'] == u"年內查6500幢大廈消防" )
         self.assertTrue(exist)
     
         exist = False
-        for item in result['item_list']:
+        for item in result['item_detail_list']:
             exist = exist or ( item['title'] == u"六十五歲女子李瑞琼失蹤" )
         self.assertTrue(exist)
     
@@ -1189,7 +1189,7 @@ class SimpleTest(TestCase):
         self.assertEqual(feed_id, result['subscription_detail']['feed_id'])
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -1199,12 +1199,12 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         exist = False
-        for item in result['item_list']:
+        for item in result['item_detail_list']:
             exist = exist or ( item['title'] == u"年內查6500幢大廈消防" )
         self.assertFalse(exist) # issue 34
 
         exist = False
-        for item in result['item_list']:
+        for item in result['item_detail_list']:
             exist = exist or ( item['title'] == u"六十五歲女子李瑞琼失蹤" )
         self.assertTrue(exist)
 
@@ -1418,7 +1418,7 @@ class SimpleTest(TestCase):
         
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
+            'cmd':'subscription_list_item_detail',
             'argv':{
                 'subscription_id': subscription_id,
                 'show_readdone'  : False,
@@ -1427,7 +1427,7 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        vm_item = result['item_list'][0]
+        vm_item = result['item_detail_list'][0]
         self.assertEqual(u'もう誰にも頼らない', vm_item['title'])
         self.assertEqual(1364789700000, vm_item['published'])
         self.assertEqual(
@@ -1437,22 +1437,22 @@ class SimpleTest(TestCase):
         self.assertEqual(False,vm_item['readdone'])
 
 
-#    @skip('skip')
-    def test_j_subscription_list_item_404(self):
-
-        User.objects.create_user("user",password="pass")
-        
-        client = Client()
-        client.login(username="user",password="pass")
-
-        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
-            'cmd':'subscription_list_item',
-            'argv':{
-                'subscription_id': 123,
-                'show_readdone'  : False,
-            },
-        })})
-        self.assertEqual(404,response.status_code)
+##    @skip('skip')
+#    def test_j_subscription_list_item_404(self):
+#
+#        User.objects.create_user("user",password="pass")
+#        
+#        client = Client()
+#        client.login(username="user",password="pass")
+#
+#        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+#            'cmd':'subscription_list_item',
+#            'argv':{
+#                'subscription_id': 123,
+#                'show_readdone'  : False,
+#            },
+#        })})
+#        self.assertEqual(404,response.status_code)
 
 
 #    @skip('skip')
