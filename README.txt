@@ -80,7 +80,7 @@ server {
 $ createdb momohaweb
 $ (gen ssh key for github)
 $ cd /opt/momohaweb
-$ git clone --recurse-submodules git@github.com:luzi82/MomohaWeb.git
+$ git clone --recurse-submodules git://github.com/luzi82/MomohaWeb.git
 $ cd /opt/momohaweb/MomohaWeb
 $ (create and modify /opt/momohaweb/MomohaWeb/src/MomohaWeb/secret.py from secret.py.example)
 $ (modify /opt/momohaweb/MomohaWeb/src/MomohaWeb/settings.py)
