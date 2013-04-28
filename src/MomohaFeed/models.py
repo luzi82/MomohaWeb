@@ -25,7 +25,7 @@ class Item(models.Model):
     last_poll = models.BigIntegerField(db_index=True,null=True)
 
     title = models.CharField(max_length=TITLE_LENGTH,null=True)
-    published = models.BigIntegerField(null=True)
+    published = models.BigIntegerField(db_index=True,null=True)
     updated = models.BigIntegerField(null=True)
     link = models.CharField(max_length=URL_LENGTH,null=True)
     content = models.CharField(max_length=CONTENT_LENGTH,null=True)

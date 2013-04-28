@@ -115,6 +115,12 @@ Get source code
 $ git clone --recurse-submodules git@github.com:luzi82/MomohaWeb.git
 
 
+On database update
+==================
+
+$ python ./manage.py migrate
+
+
 Coding conventions
 ==================
 
