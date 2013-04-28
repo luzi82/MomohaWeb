@@ -1574,6 +1574,7 @@ class SimpleTest(TestCase):
     
 
     def start_server_loop(self, httpServer):
+        self.httpServer = httpServer
         self.server_run = True
         def loop():
             while(self.server_run):
@@ -1590,6 +1591,7 @@ class SimpleTest(TestCase):
     def setUp(self):
         self.server_run = False
         self.server_thread = None
+        self.httpServer = None
 
     
     def tearDown(self):
@@ -1597,6 +1599,10 @@ class SimpleTest(TestCase):
         if self.server_thread != None :
             self.server_thread.join()
             self.server_thread = None
+        if self.httpServer != None:
+            if self.httpServer.socket != None:
+                self.httpServer.socket.close()
+            self.httpServer = None
 
 
     ##########
