@@ -5,6 +5,10 @@ python-dev (required by django-celery)
 
 # apt-get install python-dev
 
+python-pip
+
+# apt-get install python-pip
+
 Django
 
 # pip install Django==1.4.5
