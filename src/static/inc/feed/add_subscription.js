@@ -67,18 +67,6 @@ define([
 		], function(
 			feed_list_subscription
 		) {
-			var onSuccess = function(){
-				add_subscription_progress_bar.css("width","60%");
-				var subscription_id = j.subscription.id;
-				feed_list_subscription.refresh(function(){
-					add_subscription_progress_bar.css("width","90%");
-					feed_list_subscription.select(subscription_id,function(){
-						busy=false;
-						add_subscription_modal.modal("hide");
-					});
-				});
-			};
-			
 			var onFail = function(){
 				busy = false;
 				add_subscription_submit_btn.removeClass("disabled");
@@ -88,7 +76,15 @@ define([
 			
 			momohafeed.add_subscription(input_url,function(j){
 				if(j.success){
-					onSuccess();
+					add_subscription_progress_bar.css("width","60%");
+					var subscription_id = j.subscription.id;
+					feed_list_subscription.refresh(function(){
+						add_subscription_progress_bar.css("width","90%");
+						feed_list_subscription.select(subscription_id,function(){
+							busy=false;
+							add_subscription_modal.modal("hide");
+						});
+					});
 				}else{
 					onFail();
 				}
