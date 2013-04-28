@@ -85,7 +85,7 @@ def subscription_list_content(
                             %s OR
                             ( MomohaFeed_item.published < %s ) OR
                             (
-                                ( MomohaFeed_item.published == %s ) AND
+                                ( MomohaFeed_item.published = %s ) AND
                                 ( MomohaFeed_item.id > %s )
                             )
                         )

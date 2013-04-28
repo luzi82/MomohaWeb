@@ -217,9 +217,9 @@ define([
 	var load_more_enough_loop = function(done_callback,fail_callback){
 		var dcb = done_callback;
 		var fcb = fail_callback;
-		console.log($("#subscription_main").height());
-		console.log($("#subscription_main").scrollTop());
-		console.log($("#subscription_list_item_table").height());
+		// console.log($("#subscription_main").height());
+		// console.log($("#subscription_main").scrollTop());
+		// console.log($("#subscription_list_item_table").height());
 		if(subscription_instance.load_end){
 			feed_utils.cb(done_callback);
 			return;
