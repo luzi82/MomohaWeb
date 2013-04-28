@@ -10,8 +10,6 @@ define([
 	, feed_utils
 ) {
 
-// var module_subscription = (function(){
-	
 	var subscription_instance = null;
 	
 	var show_all = false;
@@ -27,7 +25,8 @@ define([
 				subscription_instance.subscription_id,
 				function(j){
 					load(subscription_instance.subscription_id,null);
-				}
+				},
+				null // TODO issue 97
 			);
 		});
 
@@ -39,7 +38,8 @@ define([
 				subscription_instance.subscription_id,
 				function(j){
 					load(subscription_instance.subscription_id,null);
-				}
+				},
+				null // TODO issue 98
 			);
 		});
 		
@@ -106,7 +106,8 @@ define([
 					"target": "_blank",
 				});
 				subscription_header.show();
-			}
+			},
+			null // TODO issue 99
 		);
 		
 		momohafeed.subscription_list_item_detail(
@@ -143,7 +144,8 @@ define([
 				$(".subscription_item_brief").show();
 				load_bar(100);
 				feed_utils.cb(done_callback);
-			} // function(j)
+			} , // function(j)
+			null // TODO issue 100
 		);
 		
 	}
@@ -213,7 +215,8 @@ define([
 						$("#subscription_rm_modal").modal("hide");
 					});
 				});
-			}
+			},
+			null // TODO issue 101
 		);
 	}
 	
@@ -258,7 +261,8 @@ define([
 			subscription_instance.subscription_id,
 			row_data.vm_item.id,
 			true,
-			null
+			null, // no callback
+			null // TODO issue 102
 		);
 		ui_update_subscription_item(row_id);
 	}
@@ -284,7 +288,8 @@ define([
 			subscription_instance.subscription_id,
 			row_data.vm_item.id,
 			row_data.star,
-			null
+			null, // no callback
+			null // TODO issue 103
 		);
 		
 		ui_update_subscription_item(row_id);
@@ -293,12 +298,7 @@ define([
 	init();
 	
 	return {
-		// init: init,
 		load: load,
 	}
 	
-// })();
-// 
-// $(module_subscription.init);
-
 });

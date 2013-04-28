@@ -61,31 +61,39 @@ define([
 		add_subscription_progress.show();
 
 		busy = true;
-
+		
 		require([
 			"feed_list_subscription"
 		], function(
 			feed_list_subscription
 		) {
-			momohafeed.add_subscription(input_url,function(j){
-				console.log(JSON.stringify(j));
-				if(j.success){
-					add_subscription_progress_bar.css("width","60%");
-					var subscription_id = j.subscription.id;
-					feed_list_subscription.refresh(function(){
-						add_subscription_progress_bar.css("width","90%");
-						feed_list_subscription.select(subscription_id,function(){
-							busy=false;
-							add_subscription_modal.modal("hide");
-						});
+			var onSuccess = function(){
+				add_subscription_progress_bar.css("width","60%");
+				var subscription_id = j.subscription.id;
+				feed_list_subscription.refresh(function(){
+					add_subscription_progress_bar.css("width","90%");
+					feed_list_subscription.select(subscription_id,function(){
+						busy=false;
+						add_subscription_modal.modal("hide");
 					});
+				});
+			};
+			
+			var onFail = function(){
+				busy = false;
+				add_subscription_submit_btn.removeClass("disabled");
+				add_subscription_close_btn.removeClass("disabled");
+				add_subscription_progress_bar.css("width","0%");
+			};
+			
+			momohafeed.add_subscription(input_url,function(j){
+				if(j.success){
+					onSuccess();
 				}else{
-					busy = false;
-					add_subscription_submit_btn.removeClass("disabled");
-					add_subscription_close_btn.removeClass("disabled");
-					add_subscription_progress_bar.css("width","0%");
+					onFail();
 				}
-			});
+			},onFail // TODO issue 104
+			);
 		});
 	}
 

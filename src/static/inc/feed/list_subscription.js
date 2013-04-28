@@ -8,12 +8,6 @@ define([
 	, feed_utils
 ) {
 
-// var module_list_subscription = (function(){
-
-	// var init = function(){
-		// refresh(null);
-	// }
-	
 	var refresh = function(done_callback){
 		list_subscription_ul = $('#list_subscription_ul');
 		list_subscription_ul.empty();
@@ -38,7 +32,7 @@ define([
 				list_subscription_ul.append(li);
 			}
 			feed_utils.cb(done_callback);
-		});
+		},null); // TODO issue 96
 	}
 	
 	var select = function(subscription_id,done_callback){
@@ -52,10 +46,7 @@ define([
 		});
 	}
 	
-	// init();
-
 	return {
-		// init: init,
 		refresh: refresh,
 		select: select,
 	}

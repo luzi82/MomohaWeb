@@ -8,6 +8,8 @@ define([
 	, feed_utils
 ) {
 	
+	var AJAX_ERR = "AJAX_ERR";
+	
 	var add_user = function(username, password, callback){
 		kyubeyauth.add_user(
 			username, password,
@@ -19,6 +21,9 @@ define([
 					var reason = j.success?null:(j.reason);
 					callback(j.success, reason);
 				}
+			},
+			function(){
+				callback(false, AJAX_ERR);
 			}
 		);
 	};
@@ -34,6 +39,9 @@ define([
 					var reason = j.success?null:(j.reason);
 					callback(j.success, reason);
 				}
+			},
+			function(){
+				callback(false, AJAX_ERR);
 			}
 		);
 	};
@@ -43,7 +51,8 @@ define([
 			function(j){
 				$("body").trigger("logout_done");
 				if(callback){callback();}
-			}
+			},
+			null // issue 105
 		);
 	};
 
@@ -55,6 +64,9 @@ define([
 					var reason = j.success?null:(j.reason);
 					callback(j.success, reason);
 				}
+			},
+			function(){
+				callback(false, AJAX_ERR);
 			}
 		);
 	};
@@ -65,6 +77,9 @@ define([
 				if(callback){
 					callback(j.success);
 				}
+			},
+			function(){
+				callback(false);
 			}
 		);
 	};

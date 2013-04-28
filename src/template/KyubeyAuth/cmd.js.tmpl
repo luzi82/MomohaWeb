@@ -10,8 +10,6 @@ define([
 
 // !!! DONT REMOVE THIS LINE !!! {% csrf_token %}
 
-//var module_momohafeed = (function(){
-
 	var __remote__ = function(cmd,argv,callback){
 		if(argv==null)argv={};
 		if(callback==null)callback=function(){};
@@ -26,7 +24,7 @@ define([
 					argv: argv,
 				}),
 			},
-		}).done(callback);
+		}).done(callback).fail(failCallback);
 	}
 
 {% for cmd in cmd_list %}
@@ -34,16 +32,18 @@ define([
 		{% for arg in cmd.argv %}
 			{{ arg }} ,
 		{% endfor %}
-		callback
+		callback ,
+		failCallback
 	){
 		__remote__(
-			"{{ cmd.name }}",
+			"{{ cmd.name }}" ,
 			{
 			{% for arg in cmd.argv %}
 				{{ arg }} : {{ arg }} ,
 			{% endfor %}
-			},
-			callback
+			} ,
+			callback ,
+			failCallback
 		);
 	}
 {% endfor %}
@@ -54,6 +54,4 @@ define([
 		{% endfor %}
 	};
 	
-// })();
-
 });
