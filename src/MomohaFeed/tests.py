@@ -1473,10 +1473,6 @@ class SimpleTest(TestCase):
         self.assertEqual(404,response.status_code)
         
     
-    def test_die(self):
-        self.fail("asdf")    
-    
-
     ##########
     
     def now64(self):
