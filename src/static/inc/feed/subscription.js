@@ -135,7 +135,8 @@ define([
 					var detail_body = $("#subscription_item_detail_template").clone();
 						detail_body.attr("id","subscription_item_detail_"+i);
 						detail_body.data("row_id",i);
-						fill_subscription_item(detail_body,item);
+						detail_body.data("fill_done",false);
+						// fill_subscription_item(detail_body,item);
 					$("#subscription_list_item_table").append(detail_body);
 					
 					ui_update_subscription_item(i);
@@ -252,6 +253,12 @@ define([
 			$("#subscription_item_brief_"+subscription_instance.opening_row_id).show();
 			$("#subscription_item_detail_"+subscription_instance.opening_row_id).hide();
 		}
+		
+		if(!($("#subscription_item_detail_"+row_id).data("fill_done"))){
+			fill_subscription_item($("#subscription_item_detail_"+row_id), row_data.vm_item);
+			$("#subscription_item_detail_"+row_id).data("fill_done",true);
+		}
+		
 		$("#subscription_item_brief_"+row_id).hide();
 		$("#subscription_item_detail_"+row_id).show();
 		subscription_instance.opening_row_id = row_id;
