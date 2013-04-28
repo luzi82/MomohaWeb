@@ -44,7 +44,14 @@ def add_subscription(db_user,db_feed):
 #    
 #    return db_feed,db_subscription
 
-def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=True):
+def subscription_list_content(
+    db_subscription,
+    show_readdone=True,
+    show_nonstar=True,
+    range_published=None,
+    range_id=None,
+    item_count=None,
+):
     
     db_item_list = Item.objects.raw(
         '''
@@ -73,7 +80,15 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
                             )
                     WHERE
                         ( MomohaFeed_item.feed_id = %s ) AND
-                        ( MomohaFeed_item.last_poll >= %s )
+                        ( MomohaFeed_item.last_poll >= %s ) AND
+                        (
+                            %s OR
+                            ( MomohaFeed_item.published < %s ) OR
+                            (
+                                ( MomohaFeed_item.published == %s ) AND
+                                ( MomohaFeed_item.id > %s )
+                            )
+                        )
                     GROUP BY
                         MomohaFeed_item.id
                 ) AS I
@@ -83,14 +98,20 @@ def subscription_list_content(db_subscription,show_readdone=True,show_nonstar=Tr
             ORDER BY
                 I.published DESC ,
                 I.id ASC
+            LIMIT %s
         ''',
         [
-            db_subscription.id,
-            db_subscription.id,
-            db_subscription.feed.id,
-            db_subscription.start,
-            show_readdone,
-            show_nonstar,
+            db_subscription.id, # MomohaFeed_itemread.subscription_id = %s
+            db_subscription.id, # MomohaFeed_itemstar.subscription_id = %s
+            db_subscription.feed.id, # MomohaFeed_item.feed_id = %s
+            db_subscription.start, # MomohaFeed_item.last_poll >= %s
+            ( range_published == None ) and ( range_id == None ) , # %s
+            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published < %s )
+            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published == %s )
+            range_id if (range_id!=None) else 0 , # ( MomohaFeed_item.id > %s )
+            show_readdone, # ( %s OR ( NOT I.readdone )
+            show_nonstar, # ( %s OR ( I.star ) )
+            item_count if (item_count!=None) else 0x7fffffff # LIMIT %s
         ]
     )
 

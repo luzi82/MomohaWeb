@@ -1516,12 +1516,12 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         self.assertEqual(3, len(result['item_detail_list']))
-        self.assertEqual(u'もう誰にも頼らない', result['item_detail_list'][0].title)
-        self.assertEqual(u'團結', result['item_detail_list'][1].title)
-        self.assertEqual(u'最後に残った道しるべ', result['item_detail_list'][2].title)
+        self.assertEqual(u'もう誰にも頼らない', result['item_detail_list'][0]['title'])
+        self.assertEqual(u'團結', result['item_detail_list'][1]['title'])
+        self.assertEqual(u'最後に残った道しるべ', result['item_detail_list'][2]['title'])
         
-        next_range_published = result['item_detail_list'][2].published
-        next_range_id = result['item_detail_list'][2].id
+        next_range_published = result['item_detail_list'][2]['published']
+        next_range_id = result['item_detail_list'][2]['id']
         
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -1538,12 +1538,12 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
 
         self.assertEqual(3, len(result['item_detail_list']))
-        self.assertEqual(u'國旗與狗不准燃燒', result['item_detail_list'][0].title)
-        self.assertEqual(u'水無灯里生日 (-273歲)', result['item_detail_list'][1].title)
-        self.assertEqual(u'有一個月沒有寫 blog 了', result['item_detail_list'][2].title)
+        self.assertEqual(u'國旗與狗不准燃燒', result['item_detail_list'][0]['title'])
+        self.assertEqual(u'水無灯里生日 (-273歲)', result['item_detail_list'][1]['title'])
+        self.assertEqual(u'有一個月沒有寫 blog 了', result['item_detail_list'][2]['title'])
         
-        next_range_published = result['item_detail_list'][2].published
-        next_range_id = result['item_detail_list'][2].id
+        next_range_published = result['item_detail_list'][2]['published']
+        next_range_id = result['item_detail_list'][2]['id']
         
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -1559,9 +1559,9 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
 
-        self.assertEqual(18, len(result['item_detail_list']))
-        self.assertEqual(u'Mikupa 香港攻略', result['item_detail_list'][0].title)
-        self.assertEqual(u'相睇云云', result['item_detail_list'][17].title)
+        self.assertEqual(19, len(result['item_detail_list']))
+        self.assertEqual(u'Mikupa 香港攻略', result['item_detail_list'][0]['title'])
+        self.assertEqual(u'相睇云云', result['item_detail_list'][18]['title'])
 
 
     ##########

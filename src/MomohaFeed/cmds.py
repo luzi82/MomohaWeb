@@ -122,13 +122,19 @@ def subscription_set_enable(request,subscription_id,value):
 
 @u403
 @cmd
-def subscription_list_item_detail(request,subscription_id,show_readdone):
+def subscription_list_item_detail(request,subscription_id,show_readdone,range_published=None,range_id=None,item_count=None):
 
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=show_readdone)
+    db_item_list = MomohaFeed.subscription_list_content(
+        db_subscription,
+        show_readdone=show_readdone,
+        range_published=range_published,
+        range_id=range_id,
+        item_count=item_count
+    )
     
     item_detail_list = []
     for db_item in db_item_list:
