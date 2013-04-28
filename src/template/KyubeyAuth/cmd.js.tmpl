@@ -10,7 +10,7 @@ define([
 
 // !!! DONT REMOVE THIS LINE !!! {% csrf_token %}
 
-	var __remote__ = function(cmd,argv,callback){
+	var __remote__ = function(cmd,argv,callback,failCallback){
 		if(argv==null)argv={};
 		if(callback==null)callback=function(){};
 		$.ajax({
