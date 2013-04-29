@@ -1563,6 +1563,71 @@ class SimpleTest(TestCase):
         self.assertEqual(u'Mikupa 香港攻略', result['item_detail_list'][0]['title'])
         self.assertEqual(u'相睇云云', result['item_detail_list'][18]['title'])
 
+        
+    def issue_112(self):
+        '''Subscription custom name'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+        self.start_server_loop(httpServer)
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_set_title',
+            'argv':{
+                'subscription_id': subscription_id,
+                'title': 'asdf',
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+            'argv':{},
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(u'asdf', result['subscription_list'][0]['title'])
+        self.assertEqual(u'栗子現場直播', result['subscription_list'][0]['feed_title'])
+        self.assertEqual(u'asdf', result['subscription_list'][0]['subscription_title'])
+        
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{},
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(u'asdf', result['subscription_detail']['title'])
+        self.assertEqual(u'栗子現場直播', result['subscription_detail']['feed_title'])
+        self.assertEqual(u'asdf', result['subscription_detail']['subscription_title'])
+
 
     ##########
     

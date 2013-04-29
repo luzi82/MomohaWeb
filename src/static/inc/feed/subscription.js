@@ -336,7 +336,7 @@ define([
 		$("#subscription_rename_modal_progress_bar").css("width","10%");
 		$("#subscription_rename_modal_progress").show();
 		
-		momohafeed.subscription_set_name(
+		momohafeed.subscription_set_title(
 			subscription_instance.subscription_id,
 			newName,
 			function(){
