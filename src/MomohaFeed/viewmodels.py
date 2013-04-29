@@ -4,9 +4,13 @@ class VmSubscription(object):
     def __init__(self,db_subscription):
         
         self.id = db_subscription.id
-        self.title = db_subscription.feed.title
         self.link = db_subscription.feed.link
         self.enable = db_subscription.enable
+
+        if db_subscription.title != None :
+            self.title = db_subscription.title
+        else:
+            self.title = db_subscription.feed.title
 
 
 class VmSubscriptionDetail(VmSubscription):
@@ -20,6 +24,8 @@ class VmSubscriptionDetail(VmSubscription):
         self.url = db_subscription.feed.url
         self.last_poll = db_subscription.feed.last_poll
         self.last_detail_update = db_subscription.feed.last_detail_update
+        self.subscription_title = db_subscription.title
+        self.feed_title = db_subscription.feed.title
 
         self.last_poll_txt = time64_to_txt(self.last_poll)
         self.last_detail_update_txt = time64_to_txt(self.last_detail_update)

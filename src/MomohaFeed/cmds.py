@@ -103,6 +103,20 @@ def subscription_set_enable(request,subscription_id,value):
     return { 'success' : True }
 
 
+@u403
+@cmd
+def subscription_set_title(request,subscription_id,value):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+    
+    db_subscription.title = value
+    db_subscription.save()
+    
+    return { 'success' : True }
+
+
 #@u403
 #@cmd
 #def subscription_list_item(request,subscription_id,show_readdone):

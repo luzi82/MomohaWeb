@@ -38,6 +38,7 @@ class Subscription(models.Model):
     feed = models.ForeignKey(Feed,db_index=True)
     start = models.BigIntegerField()
     enable = models.BooleanField(db_index=True)
+    title = models.CharField(max_length=TITLE_LENGTH,null=True,default=None)
 
 
 class ItemRead(models.Model):
