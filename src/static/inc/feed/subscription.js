@@ -66,12 +66,15 @@ define([
 		});
 
 		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
+		
+		$("#subscription_show_rename_modal_btn").click(subscription_show_rename_modal_btn_click);
 
 		$("#subscription_main").scroll(subscription_main_scroll);
 
 		$("#import").append($('<div id="module_subscription" />'));
 		$("#module_subscription").load("inc/feed/subscription.html #subscription_import",function(){
 			$("#subscription_rm_modal_submit_btn").click(subscription_rm_modal_submit_btn_click);
+			$("#subscription_rename_modal_submit_btn").click(subscription_rename_modal_submit_btn_click);
 		});
 
 		ui_update_subscription_filter_btn();
@@ -281,6 +284,14 @@ define([
 		}
 		$("#subscription_rm_modal_progress").hide();
 	}
+
+	var subscription_show_rename_modal_btn_click = function(e){
+		if(subscription_instance==null){
+			e.preventDefault();
+			return;
+		}
+		$("#subscription_rename_modal_progress").hide();
+	}
 	
 	var subscription_rm_modal_submit_btn_click = function(){
 		if(subscription_instance==null)
@@ -310,6 +321,40 @@ define([
 				});
 			},
 			null // TODO issue 101
+		);
+	}
+	
+	var subscription_rename_modal_submit_btn_click = function(){
+		if(subscription_instance==null)
+			return;
+
+		var newName = $("#subscription_rename_name_input").val();
+		if(newName==""){
+			newName = null;
+		}
+		
+		$("#subscription_rename_modal_progress_bar").css("width","10%");
+		$("#subscription_rename_modal_progress").show();
+		
+		momohafeed.subscription_set_name(
+			subscription_instance.subscription_id,
+			newName,
+			function(){
+				// FIXME should call external rename listener
+				require([
+					"feed_list_subscription",
+					"feed_root_layout",
+				], function(
+					feed_list_subscription ,
+					feed_root_layout
+				){
+					$("#subscription_rename_modal_progress_bar").css("width","90%");
+					feed_list_subscription.refresh(null);
+					load(subscription_instance.subscription_id,null);
+					$("#subscription_rename_modal").modal("hide");
+				});
+			},
+			null // FIXME
 		);
 	}
 	
