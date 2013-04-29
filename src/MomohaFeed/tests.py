@@ -1564,7 +1564,7 @@ class SimpleTest(TestCase):
         self.assertEqual(u'相睇云云', result['item_detail_list'][18]['title'])
 
         
-    def issue_112(self):
+    def test_issue_112(self):
         '''Subscription custom name'''
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
