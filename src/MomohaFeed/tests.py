@@ -1709,9 +1709,11 @@ class SimpleTest(TestCase):
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscriptiontagsubscription_set',
             'argv':{
-                'subscriptiontag_id': subscriptiontag_id,
-                'subscription_id': subscription_id,
-                'enable': True,
+                'set_list':[{
+                    'subscriptiontag_id': subscriptiontag_id,
+                    'subscription_id': subscription_id,
+                    'enable': True,
+                }],
             },
         })})
         content=response.content
@@ -1732,9 +1734,11 @@ class SimpleTest(TestCase):
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscriptiontagsubscription_set',
             'argv':{
-                'subscriptiontag_id': subscriptiontag_id,
-                'subscription_id': subscription_id,
-                'enable': False,
+                'set_list':[{
+                    'subscriptiontag_id': subscriptiontag_id,
+                    'subscription_id': subscription_id,
+                    'enable': False,
+                }],
             },
         })})
         content=response.content

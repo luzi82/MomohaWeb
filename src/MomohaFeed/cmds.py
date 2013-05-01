@@ -331,25 +331,32 @@ def subscriptiontag_set_enable(request, subscriptiontag_id, enable):
 
 @u403
 @cmd
-def subscriptiontagsubscription_set(request, subscription_id, subscriptiontag_id, enable):
-
-    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
-    if(db_subscriptiontag.user != request.user):
-        raise PermissionDenied
-
-    db_subscription = Subscription.objects.get(id=subscription_id)
-    if(db_subscription.user != request.user):
-        raise PermissionDenied
+def subscriptiontagsubscription_set(request, set_list):
     
-    if enable:
-        SubscriptionTagSubscriptionRelation.objects.get_or_create(
-            subscription_tag = db_subscriptiontag,
-            subscription = db_subscription
-        )
-    else:
-        SubscriptionTagSubscriptionRelation.objects.filter(
-            subscription_tag = db_subscriptiontag,
-            subscription = db_subscription
-        ).delete()
+    for set_item in set_list:
+
+        db_subscriptiontag = SubscriptionTag.objects.get(id=set_item['subscriptiontag_id'])
+        if(db_subscriptiontag.user != request.user):
+            raise PermissionDenied
+    
+        db_subscription = Subscription.objects.get(id=set_item['subscription_id'])
+        if(db_subscription.user != request.user):
+            raise PermissionDenied
+        
+    for set_item in set_list:
+
+        db_subscriptiontag = SubscriptionTag.objects.get(id=set_item['subscriptiontag_id'])
+        db_subscription = Subscription.objects.get(id=set_item['subscription_id'])
+        
+        if set_item['enable']:
+            SubscriptionTagSubscriptionRelation.objects.get_or_create(
+                subscription_tag = db_subscriptiontag,
+                subscription = db_subscription
+            )
+        else:
+            SubscriptionTagSubscriptionRelation.objects.filter(
+                subscription_tag = db_subscriptiontag,
+                subscription = db_subscription
+            ).delete()
 
     return {'success': True}

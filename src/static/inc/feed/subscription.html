@@ -122,7 +122,8 @@
 	</div>
 	<div class="modal-body">
 		<form class="form-horizontal">
-			<!-- tag list here -->
+			<fieldset id="subscription_tag_modal_tag_item_list">
+			</fieldset>
 		</form>
 	</div>
 	<div class="modal-footer">
@@ -134,7 +135,7 @@
 	</div>
 </div>
 
-<form><fieldset>
+<form class="hide"><fieldset>
 	<label class="checkbox template" id="subscription_tag_modal_tag_item_template">
 		<input type="checkbox" class="subscription_tag_modal_tag_item_checkbox">
 		<span class="subscription_tag_modal_tag_item_title"></span>
@@ -149,9 +150,9 @@
 	<div class="modal-body">
 		<form class="form-horizontal">
 			<div class="control-group">
-				<label class="control-label" for="subscription_addtag_name_input">Name</label>
+				<label class="control-label" for="subscription_addtag_title_input">Name</label>
 				<div class="controls">
-					<input type="text" id="subscription_addtag_name_input" placeholder="tag name" class="input-block-level" />
+					<input type="text" id="subscription_addtag_title_input" placeholder="tag name" class="input-block-level" />
 				</div>
 			</div>
 		</form>
@@ -165,9 +166,10 @@
 	</div>
 </div>
 
-<ul>
+<ul class="hide">
 	<li id="list_subscription_li_template"><a class="list_subscription_a" href="#"><span class="list_subscription_title"></span></a></li>
-	<li id="list_subscription_group_li_template"><a class="list_subscription_a" href="#"><span class="list_subscription_title"></span></a></li>
+	<li id="list_subscription_tag_li_template" class="nav-header"><a class="list_subscription_a" href="#"><i class="icon-tag"></i> <span class="list_subscription_title"></span></a></li>
+	<li id="list_subscription_divider_li_template" class="divider"></li>
 </ul>
 
 </div>

@@ -1,3 +1,7 @@
 cd src
 python manage.py schemamigration MomohaFeed --auto
 cd ..
+
+cd src
+python manage.py migrate
+cd ..

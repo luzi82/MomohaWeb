@@ -66,15 +66,17 @@ define([
 		});
 
 		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
-		
 		$("#subscription_show_rename_modal_btn").click(subscription_show_rename_modal_btn_click);
-
+		$("#subscription_show_addtag_modal_btn").click(subscription_show_addtag_modal_btn_click);
+		$("#subscription_show_tag_modal_btn").click(subscription_show_tag_modal_btn_click);
 		$("#subscription_main").scroll(subscription_main_scroll);
 
 		$("#import").append($('<div id="module_subscription" />'));
 		$("#module_subscription").load("inc/feed/subscription.html #subscription_import",function(){
 			$("#subscription_rm_modal_submit_btn").click(subscription_rm_modal_submit_btn_click);
 			$("#subscription_rename_modal_submit_btn").click(subscription_rename_modal_submit_btn_click);
+			$("#subscription_addtag_modal_submit_btn").click(subscription_addtag_modal_submit_btn_click);
+			$("#subscription_tag_modal_submit_btn").click(subscription_tag_modal_submit_btn_click);
 		});
 
 		ui_update_subscription_filter_btn();
@@ -451,6 +453,116 @@ define([
 			load_more_enough(null,null,null); // FIXME
 			return;
 		}
+	};
+	
+	var subscription_show_addtag_modal_btn_click = function(){
+		$("#subscription_addtag_modal_progress").hide();
+	};
+	
+	var subscription_addtag_modal_submit_btn_click = function(){
+		var title = $("#subscription_addtag_title_input").val();
+		if(title.length<=0){
+			console.log(title.length);
+			return;
+		}
+		
+		$("#subscription_addtag_modal_progress_bar").css("width","10%");
+		$("#subscription_addtag_modal_progress").show();
+		
+		var onFail = function(){
+			$("#subscription_addtag_modal_progress").hide();
+			$("#subscription_addtag_modal_progress_bar").css("width","0%");
+		};
+		
+		momohafeed.add_subscriptiontag(
+			title,
+			function(j){
+				if(!j.success){
+					onFail();
+					return;
+				}
+				$('#subscription_addtag_modal').hide();
+				require([
+					"feed_list_subscription"
+				], function(
+					feed_list_subscription
+				) {
+					feed_list_subscription.refresh();
+				});
+			},
+			onFail
+		);
+	};
+	
+	var subscription_show_tag_modal_btn_click = function(){
+		require([
+			"feed_list_subscription"
+		], function(
+			feed_list_subscription
+		) {
+			$("#subscription_tag_modal_progress").hide();
+			$('#subscription_tag_modal_tag_item_list').empty();
+			
+			var fls_instance=feed_list_subscription.get_instance();
+			for(var k in fls_instance.tag_dict_dict){
+				var tag_dict = fls_instance.tag_dict_dict[k];
+				var tagged = tag_dict.subscription_list.indexOf(subscription_instance.subscription_id)>=0;
+				
+				var item = $('#subscription_tag_modal_tag_item_template').clone();
+					$('.subscription_tag_modal_tag_item_title',item).text(tag_dict.title);
+					item.toggleClass("template",false);
+					$('.subscription_tag_modal_tag_item_checkbox',item).data("subscription_id",subscription_instance.subscription_id);
+					$('.subscription_tag_modal_tag_item_checkbox',item).data("subscriptiontag_id",k);
+					$('.subscription_tag_modal_tag_item_checkbox',item).data("tagged",tagged);
+					$('.subscription_tag_modal_tag_item_checkbox',item).prop('checked',tagged);
+				$('#subscription_tag_modal_tag_item_list').append(item);
+			}
+		});
+	};
+	
+	var subscription_tag_modal_submit_btn_click = function(){
+		require([
+			"feed_list_subscription"
+		], function(
+			feed_list_subscription
+		) {
+			console.log('subscription_tag_modal_submit_btn_click');
+			var set_list=[];
+			$('.subscription_tag_modal_tag_item_checkbox','#subscription_tag_modal_tag_item_list').each(
+				function(){
+					var subscription_id = $(this).data('subscription_id');
+					var subscriptiontag_id = $(this).data('subscriptiontag_id');
+					var tagged = $(this).data('tagged');
+					var checked = $(this).prop('checked');
+					
+					if(tagged!=checked){
+						set_list.push({
+							subscriptiontag_id: subscriptiontag_id,
+							subscription_id: subscription_id,
+							enable: checked,
+						});
+					}
+				}
+			);
+			
+			var onFail=function(){
+				$("#subscription_tag_modal_progress").hide();
+			};
+			
+			momohafeed.subscriptiontagsubscription_set(
+				set_list,
+				function(j){
+					console.log(j);
+					if(!j.success){
+						onFail();
+						return;
+					}
+					$('#subscription_tag_modal').modal('hide');
+					feed_list_subscription.refresh();
+				},
+				onFail
+			);
+		});
 	};
 	
 	init();
