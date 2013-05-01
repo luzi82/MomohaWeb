@@ -1,4 +1,5 @@
 import time
+from MomohaFeed.models import Subscription
 class VmSubscription(object):
 
     def __init__(self,db_subscription):
@@ -53,11 +54,15 @@ class VmItem(object):
 
 class VmItemDetail(VmItem):
     
-    def __init__(self,db_item):
+    def __init__(self,db_subscription,db_item):
         
         VmItem.__init__(self,db_item)
         
         self.feed_id = db_item.feed.id
+        if type(db_subscription) == Subscription:
+            self.subscription_id = db_subscription.id
+        else:
+            self.subscription_id = db_subscription
         self.last_poll = db_item.last_poll
         self.updated = db_item.updated
         self.content = db_item.content

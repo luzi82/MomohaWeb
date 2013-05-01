@@ -72,6 +72,8 @@ define([
 		$("#subscription_show_rename_modal_btn").click(subscription_show_rename_modal_btn_click);
 		$("#subscription_show_addtag_modal_btn").click(subscription_show_addtag_modal_btn_click);
 		$("#subscription_show_tag_modal_btn").click(subscription_show_tag_modal_btn_click);
+		$("#subscription_show_tag_rm_modal_btn").click(subscription_show_tag_rm_modal_btn_click);
+		$("#subscription_show_tag_rename_modal_btn").click(subscription_show_tag_rename_modal_btn_click);
 		$("#subscription_main").scroll(subscription_main_scroll);
 
 		$("#import").append($('<div id="module_subscription" />'));
@@ -80,6 +82,8 @@ define([
 			$("#subscription_rename_modal_submit_btn").click(subscription_rename_modal_submit_btn_click);
 			$("#subscription_addtag_modal_submit_btn").click(subscription_addtag_modal_submit_btn_click);
 			$("#subscription_tag_modal_submit_btn").click(subscription_tag_modal_submit_btn_click);
+			$("#subscription_tag_rm_modal_submit_btn").click(subscription_tag_rm_modal_submit_btn_click);
+			$("#subscription_tag_rename_modal_submit_btn").click(subscription_tag_rename_modal_submit_btn_click);
 		});
 
 		ui_update_subscription_filter_btn();
@@ -108,7 +112,26 @@ define([
 			// open/close
 			opening_row_id: null,
 		};
-
+		
+		// menu
+		if(type==SUBSCRIPTION){
+			$("#subscription_poll_btn").show();
+			$("#subscription_all_readdone_btn").show();
+			$("#subscription_show_tag_modal_li").show();
+			$("#subscription_show_rename_modal_li").show();
+			$("#subscription_show_rm_modal_li").show();
+			$("#subscription_show_tag_rename_modal_li").hide();
+			$("#subscription_show_tag_rm_modal_li").hide();
+		}else if(type==SUBSCRIPTION_TAG){
+			$("#subscription_poll_btn").hide(); // TODO issue 116
+			$("#subscription_all_readdone_btn").hide(); // FIXME issue 117
+			$("#subscription_show_tag_modal_li").hide();
+			$("#subscription_show_rename_modal_li").hide();
+			$("#subscription_show_rm_modal_li").hide();
+			$("#subscription_show_tag_rename_modal_li").show();
+			$("#subscription_show_tag_rm_modal_li").show();
+		}
+		
 		$("#subscription_main_title").hide();
 		$("#subscription_list_item_table").empty();
 		load_bar(90);
@@ -126,9 +149,12 @@ define([
 					
 					var subscription_header = $("#subscription_header");
 					
+					$(".last_poll_text_td",subscription_header).show();
+					$(".link").show();
+					
 					$(".title_text",subscription_header).text(vm_subscription_detail.title);
 					$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll_txt);
-					$(".link").attr({
+					$(".link",subscription_header).attr({
 						"href": vm_subscription_detail.link,
 						"target": "_blank",
 					});
@@ -144,13 +170,15 @@ define([
 					subscription_instance.vm_subscription_detail = vm_subscription_detail;
 					
 					var subscription_header = $("#subscription_header");
+
+					$(".last_poll_text_td",subscription_header).hide();
+					$(".link_td",subscription_header).hide();
 					
 					$(".title_text",subscription_header).text(vm_subscription_detail.title);
-					// $(".last_poll_text",subscription_header).text(""); // FIXME
-					// $(".link").attr({ // FIXME
-						// "href": vm_subscription_detail.link,
-						// "target": "_blank",
-					// });
+					$(".link",subscription_header).attr({
+						"href": "#",
+						"target": "",
+					});
 					subscription_header.show();
 				},
 				null // FIXME
@@ -377,14 +405,12 @@ define([
 				// FIXME should call external rename listener
 				require([
 					"feed_list_subscription",
-					"feed_root_layout",
 				], function(
-					feed_list_subscription ,
-					feed_root_layout
+					feed_list_subscription
 				){
 					$("#subscription_rename_modal_progress_bar").css("width","90%");
 					feed_list_subscription.refresh(null);
-					load(subscription_instance.subscription_id,null);
+					load(subscription_instance.type,subscription_instance.subscription_id,null);
 					$("#subscription_rename_modal").modal("hide");
 				});
 			},
@@ -436,7 +462,7 @@ define([
 
 		row_data.readdone = true;
 		momohafeed.subscription_item_set_readdone(
-			subscription_instance.subscription_id,
+			row_data.vm_item.subscription_id,
 			row_data.vm_item.id,
 			true,
 			null, // no callback
@@ -513,7 +539,7 @@ define([
 					onFail();
 					return;
 				}
-				$('#subscription_addtag_modal').hide();
+				$('#subscription_addtag_modal').modal('hide');
 				require([
 					"feed_list_subscription"
 				], function(
@@ -596,6 +622,91 @@ define([
 			);
 		});
 	};
+	
+	///
+
+	var subscription_show_tag_rm_modal_btn_click = function(e){
+		if(subscription_instance==null){
+			e.preventDefault();
+			return;
+		}
+		$("#subscription_tag_rm_modal_progress").hide();
+	}
+
+	var subscription_tag_rm_modal_submit_btn_click = function(){
+		if(subscription_instance==null)
+			return;
+		
+		$("#subscription_tag_rm_modal_progress_bar").css("width","10%");
+		$("#subscription_tag_rm_modal_progress").show();
+		
+		momohafeed.subscriptiontag_set_enable(
+			subscription_instance.subscription_id,
+			false,
+			function(){
+				// TODO: issue 73:
+				// subscription_tag_rm_modal_submit_btn_click: should call rm-listener instead of calling outer module
+				require([
+					"feed_list_subscription",
+					"feed_root_layout",
+				], function(
+					feed_list_subscription ,
+					feed_root_layout
+				){
+					$("#subscription_tag_rm_modal_progress_bar").css("width","100%");
+					$("#subscription_tag_rm_modal").modal("hide");
+					feed_root_layout.hide_mainarea();
+					feed_list_subscription.refresh(function(){
+					});
+				});
+			},
+			null // TODO issue 101
+		);
+	}
+	
+	///
+	
+	var subscription_show_tag_rename_modal_btn_click = function(e){
+		if(subscription_instance==null){
+			e.preventDefault();
+			return;
+		}
+		$("#subscription_tag_rename_modal_progress").hide();
+	}
+	
+	var subscription_tag_rename_modal_submit_btn_click = function(){
+		if(subscription_instance==null)
+			return;
+
+		var newName = $("#subscription_tag_rename_name_input").val();
+		if(newName==""){
+			return;
+		}
+		
+		$("#subscription_tag_rename_modal_progress_bar").css("width","10%");
+		$("#subscription_tag_rename_modal_progress").show();
+		
+		momohafeed.subscriptiontag_set_title(
+			subscription_instance.subscription_id,
+			newName,
+			function(){
+				// FIXME should call external rename listener
+				require([
+					"feed_list_subscription",
+				], function(
+					feed_list_subscription
+				){
+					$("#subscription_tag_rename_modal_progress_bar").css("width","90%");
+					feed_list_subscription.refresh(null);
+					load(subscription_instance.type,subscription_instance.subscription_id,null);
+					$("#subscription_tag_rename_modal").modal("hide");
+				});
+			},
+			null // FIXME
+		);
+	}
+
+	///
 	
 	init();
 	

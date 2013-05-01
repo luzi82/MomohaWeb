@@ -53,7 +53,8 @@ def list_subscription(request):
         subscriptiontag_list.append(VmSubscriptionTag(db_subscriptiontag).__dict__)
     
     db_subscriptiontagsubscriptionrelation_list = SubscriptionTagSubscriptionRelation.objects.filter(
-        subscription_tag__user = request.user
+        subscription_tag__user = request.user ,
+        subscription_tag__enable = True
     )
     subscriptiontagsubscriptionrelation_list = []
     for db_subscriptiontagsubscriptionrelation in db_subscriptiontagsubscriptionrelation_list:
@@ -170,7 +171,7 @@ def subscription_list_item_detail(request,subscription_id,show_readdone,range_pu
     
     item_detail_list = []
     for db_item in db_item_list:
-        item_detail_list.append(VmItemDetail(db_item).__dict__)
+        item_detail_list.append(VmItemDetail(db_subscription,db_item).__dict__)
 
     return { 'item_detail_list' : item_detail_list }
 
@@ -178,11 +179,15 @@ def subscription_list_item_detail(request,subscription_id,show_readdone,range_pu
 @u403
 @cmd
 def subscription_item_detail(request,subscription_id,item_id):
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
     
     # db_item = Item.objects.get(id=item_id)
     db_item = MomohaFeed.subscription_item_detail(subscription_id, item_id)
     
-    return { 'item_detail': VmItemDetail(db_item).__dict__ }
+    return { 'item_detail': VmItemDetail(db_subscription,db_item).__dict__ }
 
 
 @u403
@@ -358,7 +363,7 @@ def subscriptiontag_list_item_detail(request,subscriptiontag_id,show_readdone,ra
     
     item_detail_list = []
     for db_item in db_item_list:
-        item_detail_list.append(VmItemDetail(db_item).__dict__)
+        item_detail_list.append(VmItemDetail(db_item.subscription_id,db_item).__dict__)
 
     return { 'item_detail_list' : item_detail_list }
 

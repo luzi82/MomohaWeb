@@ -196,6 +196,7 @@ def subscriptiontag_list_content(
                 (
                     SELECT
                         MomohaFeed_item.* ,
+                        MomohaFeed_subscription.id subscription_id,
                         (Count(MomohaFeed_itemread.enable)>0) readdone ,
                         (Count(MomohaFeed_itemstar.enable)>0) star
                     FROM

@@ -54,12 +54,12 @@
 			<td class="subscription_item_brief_title" colspan="2">
 				<a href="#" class="link"><h1><span class="title_text"></span></h1></a>
 			</td>
-			<td class="subscription_last_poll nowrap no_padding_right">
+			<td class="subscription_last_poll nowrap no_padding_right last_poll_text_td">
 				<i class="link_icon icon-refresh"></i>
 				<span class="last_poll_text"></span>
 			</td>
 			<td></td>
-			<td>
+			<td class="link_td">
 				<a href="#" class="link"><i class="link_icon icon-play"></i></a>
 			</td>
 		</tr>
@@ -171,6 +171,47 @@
 	<li id="list_subscription_tag_li_template" class="nav-header"><a class="list_subscription_a" href="#"><i class="icon-tag"></i> <span class="list_subscription_title"></span></a></li>
 	<li id="list_subscription_divider_li_template" class="divider"></li>
 </ul>
+
+<div id="subscription_tag_rm_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_tag_rm_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="subscription_tag_rm_modal_label">Unsubscribe</h3>
+	</div>
+	<div class="modal-body">
+		Sure!?
+	</div>
+	<div class="modal-footer">
+		<button id="subscription_tag_rm_modal_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="subscription_tag_rm_modal_submit_btn" class="btn btn-danger">Unsubscribe</button>
+		<div id="subscription_tag_rm_modal_progress" class="progress progress-striped active">
+			<div id="subscription_tag_rm_modal_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
+
+<div id="subscription_tag_rename_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_tag_rename_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="subscription_tag_rename_modal_label">Rename</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="subscription_tag_rename_name_input">Rename</label>
+				<div class="controls">
+					<input type="text" id="subscription_tag_rename_name_input" placeholder="" class="input-block-level" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button id="subscription_tag_rename_modal_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="subscription_tag_rename_modal_submit_btn" class="btn btn-primary">Rename</button>
+		<div id="subscription_tag_rename_modal_progress" class="progress progress-striped active">
+			<div id="subscription_tag_rename_modal_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
 
 </div>
 
