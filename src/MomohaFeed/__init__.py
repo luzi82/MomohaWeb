@@ -178,6 +178,86 @@ def update_feed_pool(ms):
         feedpoll.poll_feed(db_feed.url, now)
     
 
+def subscriptiontag_list_content(
+    db_subscriptiontag,
+    show_readdone=True,
+    show_nonstar=True,
+    range_published=None,
+    range_id=None,
+    item_count=None,
+):
+    
+    db_item_list = Item.objects.raw(
+        '''
+            SELECT
+                I.*,
+                I.readdone
+            FROM
+                (
+                    SELECT
+                        MomohaFeed_item.* ,
+                        (Count(MomohaFeed_itemread.enable)>0) readdone ,
+                        (Count(MomohaFeed_itemstar.enable)>0) star
+                    FROM
+                        "MomohaFeed_subscriptiontagsubscriptionrelation" as MomohaFeed_subscriptiontagsubscriptionrelation
+                        JOIN "MomohaFeed_subscription" as MomohaFeed_subscription
+                            ON (
+                                MomohaFeed_subscription.id = MomohaFeed_subscriptiontagsubscriptionrelation.subscription_id AND
+                                MomohaFeed_subscription.enable
+                            )
+                        JOIN "MomohaFeed_item" as MomohaFeed_item
+                            ON (
+                                MomohaFeed_item.feed_id = MomohaFeed_subscription.feed_id AND
+                                MomohaFeed_item.last_poll >= MomohaFeed_subscription.start
+                            )
+                        LEFT JOIN "MomohaFeed_itemread" as MomohaFeed_itemread
+                            ON (
+                                MomohaFeed_itemread.item_id = MomohaFeed_item.id AND
+                                MomohaFeed_itemread.subscription_id = MomohaFeed_subscription.id AND
+                                MomohaFeed_itemread.enable
+                            )
+                        LEFT JOIN "MomohaFeed_itemstar" as MomohaFeed_itemstar
+                            ON (
+                                MomohaFeed_itemstar.item_id = MomohaFeed_item.id AND
+                                MomohaFeed_itemstar.subscription_id = MomohaFeed_subscription.id AND
+                                MomohaFeed_itemstar.enable
+                            )
+                    WHERE
+                        ( MomohaFeed_subscriptiontagsubscriptionrelation.subscription_tag_id = %s ) AND
+                        (
+                            %s OR
+                            ( MomohaFeed_item.published < %s ) OR
+                            (
+                                ( MomohaFeed_item.published = %s ) AND
+                                ( MomohaFeed_item.id > %s )
+                            )
+                        )
+                    GROUP BY
+                        MomohaFeed_item.id
+                ) AS I
+            WHERE
+                ( %s OR ( NOT I.readdone ) ) AND
+                ( %s OR ( I.star ) )
+            ORDER BY
+                I.published DESC ,
+                I.id ASC
+            LIMIT %s
+        ''',
+        [
+            db_subscriptiontag.id, # ( MomohaFeed_subscriptiontagsubscriptionrelation.subscriptiontag_id = %s )
+            ( range_published == None ) and ( range_id == None ) , # %s
+            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published < %s )
+            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published == %s )
+            range_id if (range_id!=None) else 0 , # ( MomohaFeed_item.id > %s )
+            show_readdone, # ( %s OR ( NOT I.readdone )
+            show_nonstar, # ( %s OR ( I.star ) )
+            item_count if (item_count!=None) else 0x7fffffff # LIMIT %s, issue 109
+        ]
+    )
+
+    return db_item_list;
+
+
 def now64():
     
     ret = time.time()

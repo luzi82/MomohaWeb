@@ -3,7 +3,7 @@ from MomohaFeed.models import Subscription, Item, ItemRead, ItemStar,\
     SubscriptionTag, SubscriptionTagSubscriptionRelation
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail,\
     VmSubscriptionDetail, VmSubscriptionTag,\
-    VmSubscriptionTagSubscriptionRelation
+    VmSubscriptionTagSubscriptionRelation, VmSubscriptionTagDetail
 import MomohaFeed
 from MomohaFeed import now64, enum
 import inspect
@@ -327,6 +327,40 @@ def subscriptiontag_set_enable(request, subscriptiontag_id, enable):
     db_subscriptiontag.save()
     
     return {'success': True}
+
+
+@u403
+@cmd
+def subscriptiontag_detail(request,subscriptiontag_id):
+
+    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
+    if(db_subscriptiontag.user != request.user):
+        raise PermissionDenied
+
+    return { 'subscriptiontag_detail' : VmSubscriptionTagDetail(db_subscriptiontag).__dict__ }
+
+
+@u403
+@cmd
+def subscriptiontag_list_item_detail(request,subscriptiontag_id,show_readdone,range_published=None,range_id=None,item_count=None):
+
+    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
+    if(db_subscriptiontag.user != request.user):
+        raise PermissionDenied
+
+    db_item_list = MomohaFeed.subscriptiontag_list_content(
+        db_subscriptiontag,
+        show_readdone=show_readdone,
+        range_published=range_published,
+        range_id=range_id,
+        item_count=item_count
+    )
+    
+    item_detail_list = []
+    for db_item in db_item_list:
+        item_detail_list.append(VmItemDetail(db_item).__dict__)
+
+    return { 'item_detail_list' : item_detail_list }
 
 
 @u403

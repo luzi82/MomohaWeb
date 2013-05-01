@@ -53,18 +53,18 @@ define([
 				instance.subscription_dict_dict[subscription_id].tag_list.push(subscriptiontag_id);
 			}
 			
-			for(var k in instance.tag_dict_dict){
-				var tag_dict = instance.tag_dict_dict[k];
+			for(var subscriptiontag_id in instance.tag_dict_dict){
+				var tag_dict = instance.tag_dict_dict[subscriptiontag_id];
 				
 				// TODO issue 115
 				var li = $('#list_subscription_tag_li_template').clone();
 					$('.list_subscription_title',li).text(tag_dict.title);
-					// var a=$('.list_subscription_a',li);
-						// a.data("subscription_id",subscription.id)
-						// a.click(function(){
-							// subscription_id = $(this).data("subscription_id");
-							// select(subscription_id,null);
-						// });
+					var a=$('.list_subscription_a',li);
+						a.data("subscriptiontag_id",subscriptiontag_id)
+						a.click(function(){
+							subscriptiontag_id = $(this).data("subscriptiontag_id");
+							select_subscriptiontag(subscriptiontag_id,null);
+						});
 				list_subscription_ul.append(li);
 				
 				for(var i=0;i<tag_dict.subscription_list.length;++i){
@@ -114,7 +114,17 @@ define([
 			feed_subscription
 		) {
 			console.log("select "+subscription_id);
-			feed_subscription.load(subscription_id,done_callback);
+			feed_subscription.load(feed_subscription.SUBSCRIPTION,subscription_id,done_callback);
+		});
+	};
+
+	var select_subscriptiontag = function(subscriptiontag_id,done_callback){
+		require([
+			"feed_subscription",
+		], function(
+			feed_subscription
+		) {
+			feed_subscription.load(feed_subscription.SUBSCRIPTION_TAG,subscriptiontag_id,done_callback);
 		});
 	};
 	

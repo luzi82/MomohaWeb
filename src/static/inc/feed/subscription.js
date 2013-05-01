@@ -13,6 +13,9 @@ define([
 	var PHI = (1.0+Math.sqrt(5.0))/2.0;
 	
 	var LOAD_ITEM_COUNT = 64;
+	
+	var SUBSCRIPTION = "SUBSCRIPTION";
+	var SUBSCRIPTION_TAG = "SUBSCRIPTION_TAB";
 
 	var subscription_instance = null;
 	
@@ -28,7 +31,7 @@ define([
 			momohafeed.subscription_poll(
 				subscription_instance.subscription_id,
 				function(j){
-					load(subscription_instance.subscription_id,null);
+					load(subscription_instance.type,subscription_instance.subscription_id,null);
 				},
 				null // TODO issue 97
 			);
@@ -41,7 +44,7 @@ define([
 			momohafeed.subscription_all_readdone(
 				subscription_instance.subscription_id,
 				function(j){
-					load(subscription_instance.subscription_id,null);
+					load(subscription_instance.type,subscription_instance.subscription_id,null);
 				},
 				null // TODO issue 98
 			);
@@ -53,7 +56,7 @@ define([
 			$("#subscription_list_item_table").empty();
 			show_all = true;
 			ui_update_subscription_filter_btn();
-			load(subscription_instance.subscription_id,null);
+			load(subscription_instance.type,subscription_instance.subscription_id,null);
 		});
 
 		$("#subscription_filter_shownew_btn").click(function(){
@@ -62,7 +65,7 @@ define([
 			$("#subscription_list_item_table").empty();
 			show_all = false;
 			ui_update_subscription_filter_btn();
-			load(subscription_instance.subscription_id,null);
+			load(subscription_instance.type,subscription_instance.subscription_id,null);
 		});
 
 		$("#subscription_show_rm_modal_btn").click(subscription_show_rm_modal_btn_click);
@@ -82,12 +85,13 @@ define([
 		ui_update_subscription_filter_btn();
 	}
 
-	var load = function(subscription_id,done_callback){
+	var load = function(type,subscription_id,done_callback){
 		
 		$("#subscription_area").show();
 		
 		subscription_instance = {
 			// instance const
+			type: type,
 			subscription_id: subscription_id,
 			
 			// data			
@@ -113,24 +117,45 @@ define([
 			subscription_header.attr("id","subscription_header");
 		$("#subscription_list_item_table").append(subscription_header);
 		
-		momohafeed.subscription_detail(
-			subscription_id,
-			function(j){
-				var vm_subscription_detail = j.subscription_detail;
-				subscription_instance.vm_subscription_detail = vm_subscription_detail;
-				
-				var subscription_header = $("#subscription_header");
-				
-				$(".title_text",subscription_header).text(vm_subscription_detail.title);
-				$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll_txt);
-				$(".link").attr({
-					"href": vm_subscription_detail.link,
-					"target": "_blank",
-				});
-				subscription_header.show();
-			},
-			null // TODO issue 99
-		);
+		if(type==SUBSCRIPTION){
+			momohafeed.subscription_detail(
+				subscription_id,
+				function(j){
+					var vm_subscription_detail = j.subscription_detail;
+					subscription_instance.vm_subscription_detail = vm_subscription_detail;
+					
+					var subscription_header = $("#subscription_header");
+					
+					$(".title_text",subscription_header).text(vm_subscription_detail.title);
+					$(".last_poll_text",subscription_header).text(vm_subscription_detail.last_poll_txt);
+					$(".link").attr({
+						"href": vm_subscription_detail.link,
+						"target": "_blank",
+					});
+					subscription_header.show();
+				},
+				null // TODO issue 99
+			);
+		}else if(type==SUBSCRIPTION_TAG){
+			momohafeed.subscriptiontag_detail(
+				subscription_id,
+				function(j){
+					var vm_subscription_detail = j.subscriptiontag_detail;
+					subscription_instance.vm_subscription_detail = vm_subscription_detail;
+					
+					var subscription_header = $("#subscription_header");
+					
+					$(".title_text",subscription_header).text(vm_subscription_detail.title);
+					// $(".last_poll_text",subscription_header).text(""); // FIXME
+					// $(".link").attr({ // FIXME
+						// "href": vm_subscription_detail.link,
+						// "target": "_blank",
+					// });
+					subscription_header.show();
+				},
+				null // FIXME
+			);
+		}
 
 		load_bar(100);
 		
@@ -146,54 +171,61 @@ define([
 			return;
 		}
 		
-		momohafeed.subscription_list_item_detail(
+		var process = function(j){
+			console.log(JSON.stringify(j));
+			if(j.item_detail_list.length<LOAD_ITEM_COUNT){
+				subscription_instance.load_end = true;
+			}else{
+				subscription_instance.range_published = j.item_detail_list[LOAD_ITEM_COUNT-1].published;
+				subscription_instance.range_id = j.item_detail_list[LOAD_ITEM_COUNT-1].id;
+			}
+			for(var i=0;i<j.item_detail_list.length;++i){
+				var item = j.item_detail_list[i];
+				
+				var row_data = {
+					vm_item: item,
+					readdone: (item["readdone"]!=0),
+					star: (item["star"]!=0),
+				};
+				
+				var row_id = subscription_instance.row_data_next++;
+				subscription_instance.row_data_dict[row_id] = row_data;
+				
+				var brief_body = $("#subscription_item_brief_template").clone();
+					brief_body.attr("id","subscription_item_brief_"+row_id);
+					brief_body.data("row_id",row_id);
+					fill_subscription_item(brief_body,item);
+				$("#subscription_list_item_table").append(brief_body);
+				
+				var detail_body = $("#subscription_item_detail_template").clone();
+					detail_body.attr("id","subscription_item_detail_"+row_id);
+					detail_body.data("row_id",row_id);
+					detail_body.data("fill_done",false);
+					// fill_subscription_item(detail_body,item);
+				$("#subscription_list_item_table").append(detail_body);
+				
+				ui_update_subscription_item(row_id);
+				brief_body.show();
+				
+			} // for(i=0;i<j.item_detail_list.length;++i)
+			// $(".subscription_item_brief").show();
+			
+			feed_utils.cb(done_callback);
+		}
+		
+		var list_item_detail=null;
+		if(subscription_instance.type==SUBSCRIPTION){
+			list_item_detail=momohafeed.subscription_list_item_detail;
+		}else if(subscription_instance.type==SUBSCRIPTION_TAG){
+			list_item_detail=momohafeed.subscriptiontag_list_item_detail;
+		}
+		list_item_detail(
 			subscription_instance.subscription_id,
 			show_all,
 			subscription_instance.range_published,
 			subscription_instance.range_id,
 			LOAD_ITEM_COUNT,
-			function(j){
-				console.log(JSON.stringify(j));
-				if(j.item_detail_list.length<LOAD_ITEM_COUNT){
-					subscription_instance.load_end = true;
-				}else{
-					subscription_instance.range_published = j.item_detail_list[LOAD_ITEM_COUNT-1].published;
-					subscription_instance.range_id = j.item_detail_list[LOAD_ITEM_COUNT-1].id;
-				}
-				for(var i=0;i<j.item_detail_list.length;++i){
-					var item = j.item_detail_list[i];
-					
-					var row_data = {
-						vm_item: item,
-						readdone: (item["readdone"]!=0),
-						star: (item["star"]!=0),
-					};
-					
-					var row_id = subscription_instance.row_data_next++;
-					subscription_instance.row_data_dict[row_id] = row_data;
-					
-					var brief_body = $("#subscription_item_brief_template").clone();
-						brief_body.attr("id","subscription_item_brief_"+row_id);
-						brief_body.data("row_id",row_id);
-						fill_subscription_item(brief_body,item);
-					$("#subscription_list_item_table").append(brief_body);
-					
-					var detail_body = $("#subscription_item_detail_template").clone();
-						detail_body.attr("id","subscription_item_detail_"+row_id);
-						detail_body.data("row_id",row_id);
-						detail_body.data("fill_done",false);
-						// fill_subscription_item(detail_body,item);
-					$("#subscription_list_item_table").append(detail_body);
-					
-					ui_update_subscription_item(row_id);
-					brief_body.show();
-					
-				} // for(i=0;i<j.item_detail_list.length;++i)
-				// $(".subscription_item_brief").show();
-				
-				feed_utils.cb(done_callback);
-				
-			} , // function(j)
+			process,
 			fail_callback
 		);
 		
@@ -568,6 +600,8 @@ define([
 	init();
 	
 	return {
+		SUBSCRIPTION: SUBSCRIPTION,
+		SUBSCRIPTION_TAG: SUBSCRIPTION_TAG,
 		load: load,
 	}
 	

@@ -1672,6 +1672,17 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
         subscriptiontag_id = result['subscriptiontag']['id']
+        
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontag_detail',
+            'argv':{
+                'subscriptiontag_id':subscriptiontag_id,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual('9WjaWarN', result['subscriptiontag_detail']['title'])
 
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
@@ -1730,6 +1741,18 @@ class SimpleTest(TestCase):
         self.assertEqual(subscriptiontag_id, result['subscriptiontagsubscriptionrelation_list'][0]['subscriptiontag_id'])
         self.assertEqual(subscription_id, result['subscriptiontagsubscriptionrelation_list'][0]['subscription_id'])
         
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontag_list_item_detail',
+            'argv':{
+                'subscriptiontag_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(u'もう誰にも頼らない', result['item_detail_list'][0]['title'])
+
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscriptiontagsubscription_set',
