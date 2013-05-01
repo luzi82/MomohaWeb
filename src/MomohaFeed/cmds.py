@@ -1,7 +1,9 @@
 from django.core.exceptions import PermissionDenied, ValidationError
-from MomohaFeed.models import Subscription, Item, ItemRead, ItemStar
+from MomohaFeed.models import Subscription, Item, ItemRead, ItemStar,\
+    SubscriptionTag, SubscriptionTagSubscriptionRelation
 from MomohaFeed.viewmodels import VmSubscription, VmItem, VmItemDetail,\
-    VmSubscriptionDetail
+    VmSubscriptionDetail, VmSubscriptionTag,\
+    VmSubscriptionTagSubscriptionRelation
 import MomohaFeed
 from MomohaFeed import now64, enum
 import inspect
@@ -38,13 +40,29 @@ def list_subscription(request):
         user__exact = request.user,
         enable__exact = True
     ).select_related("feed")
-    
     subscription_list = []
     for db_subscription in db_subscription_list:
         subscription_list.append(VmSubscription(db_subscription).__dict__)
+        
+    db_subscriptiontag_list = SubscriptionTag.objects.filter(
+        user = request.user,
+        enable = True
+    )
+    subscriptiontag_list = []
+    for db_subscriptiontag in db_subscriptiontag_list:
+        subscriptiontag_list.append(VmSubscriptionTag(db_subscriptiontag).__dict__)
+    
+    db_subscriptiontagsubscriptionrelation_list = SubscriptionTagSubscriptionRelation.objects.filter(
+        subscription_tag__user = request.user
+    )
+    subscriptiontagsubscriptionrelation_list = []
+    for db_subscriptiontagsubscriptionrelation in db_subscriptiontagsubscriptionrelation_list:
+        subscriptiontagsubscriptionrelation_list.append(VmSubscriptionTagSubscriptionRelation(db_subscriptiontagsubscriptionrelation).__dict__)
     
     return {
-        'subscription_list' : subscription_list
+        'subscription_list': subscription_list,
+        'subscriptiontag_list': subscriptiontag_list,
+        'subscriptiontagsubscriptionrelation_list': subscriptiontagsubscriptionrelation_list,
     }
 
 
@@ -269,3 +287,69 @@ def subscription_item_set_star(request,subscription_id,item_id,value):
         ).update(enable = False)
 
     return { 'success' : True }
+
+
+@u403
+@cmd
+def add_subscriptiontag(request, title):
+    
+    db_subscriptiontag = SubscriptionTag.objects.create(
+        user = request.user,
+        title = title,
+    )
+    return {
+        'success': True,
+        'subscriptiontag': VmSubscriptionTag(db_subscriptiontag).__dict__
+    }
+
+@u403
+@cmd
+def subscriptiontag_set_title(request, subscriptiontag_id, title):
+    
+    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
+    if(db_subscriptiontag.user != request.user):
+        raise PermissionDenied
+
+    db_subscriptiontag.title = title
+    db_subscriptiontag.save()
+    
+    return {'success': True}
+
+
+@u403
+@cmd
+def subscriptiontag_set_enable(request, subscriptiontag_id, enable):
+    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
+    if(db_subscriptiontag.user != request.user):
+        raise PermissionDenied
+
+    db_subscriptiontag.enable = enable
+    db_subscriptiontag.save()
+    
+    return {'success': True}
+
+
+@u403
+@cmd
+def subscriptiontagsubscription_set(request, subscription_id, subscriptiontag_id, enable):
+
+    db_subscriptiontag = SubscriptionTag.objects.get(id=subscriptiontag_id)
+    if(db_subscriptiontag.user != request.user):
+        raise PermissionDenied
+
+    db_subscription = Subscription.objects.get(id=subscription_id)
+    if(db_subscription.user != request.user):
+        raise PermissionDenied
+    
+    if enable:
+        SubscriptionTagSubscriptionRelation.objects.get_or_create(
+            subscription_tag = db_subscriptiontag,
+            subscription = db_subscription
+        )
+    else:
+        SubscriptionTagSubscriptionRelation.objects.filter(
+            subscription_tag = db_subscriptiontag,
+            subscription = db_subscription
+        ).delete()
+
+    return {'success': True}

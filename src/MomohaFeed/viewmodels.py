@@ -70,3 +70,18 @@ class VmItemDetail(VmItem):
 
 def time64_to_txt(time64):
     return time.strftime("%Y-%m-%d %H:%M", time.localtime(time64/1000))
+
+
+class VmSubscriptionTag(object):
+    
+    def __init__(self, db_subscriptiontag):
+        self.id = db_subscriptiontag.id
+        self.title = db_subscriptiontag.title
+        self.enable = db_subscriptiontag.enable
+
+
+class VmSubscriptionTagSubscriptionRelation(object):
+    
+    def __init__(self, db_subscriptiontagsubscriptionrelation):
+        self.subscriptiontag_id = db_subscriptiontagsubscriptionrelation.subscription_tag.id
+        self.subscription_id = db_subscriptiontagsubscriptionrelation.subscription.id
