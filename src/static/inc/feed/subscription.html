@@ -48,7 +48,7 @@
 	</div>
 </div>
 
-<table>
+<table class="hide">
 	<thead id="subscription_header_template" class="template">
 		<tr>
 			<td class="subscription_item_brief_title" colspan="2">
@@ -114,6 +114,61 @@
 		</tr>
 	</tbody>
 </table>
+
+<div id="subscription_tag_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_tag_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="subscription_tag_modal_label">Tag</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<!-- tag list here -->
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button id="subscription_tag_modal_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+		<button id="subscription_tag_modal_submit_btn" class="btn btn-primary">Set tag</button>
+		<div id="subscription_tag_modal_progress" class="progress progress-striped active">
+			<div id="subscription_tag_modal_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
+
+<form><fieldset>
+	<label class="checkbox template" id="subscription_tag_modal_tag_item_template">
+		<input type="checkbox" class="subscription_tag_modal_tag_item_checkbox">
+		<span class="subscription_tag_modal_tag_item_title"></span>
+	</label>
+</fieldset></form>
+
+<div id="subscription_addtag_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_addtag_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="subscription_addtag_modal_label">Create tag</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="subscription_addtag_name_input">Name</label>
+				<div class="controls">
+					<input type="text" id="subscription_addtag_name_input" placeholder="tag name" class="input-block-level" />
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button id="subscription_addtag_modal_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="subscription_addtag_modal_submit_btn" class="btn btn-primary">Create</button>
+		<div id="subscription_addtag_modal_progress" class="progress progress-striped active">
+			<div id="subscription_addtag_modal_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
+
+<ul>
+	<li id="list_subscription_li_template"><a class="list_subscription_a" href="#"><span class="list_subscription_title"></span></a></li>
+	<li id="list_subscription_group_li_template"><a class="list_subscription_a" href="#"><span class="list_subscription_title"></span></a></li>
+</ul>
 
 </div>
 

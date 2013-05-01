@@ -1631,6 +1631,145 @@ class SimpleTest(TestCase):
         self.assertEqual(u'asdf', result['subscription_detail']['subscription_title'])
 
 
+    def test_issue_50(self):
+        '''Subscription tag management'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
+
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscriptiontag',
+            'argv':{
+                'title':'9WjaWarN',
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        subscriptiontag_id = result['subscriptiontag']['id']
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(1, len(result['subscriptiontag_list']))
+        self.assertEqual('9WjaWarN', len(result['subscriptiontag_list'][0]['title']))
+        self.assertEqual(subscriptiontag_id, len(result['subscriptiontag_list'][0]['id']))
+        
+ 
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontag_set_title',
+            'argv':{
+                'id':subscriptiontag_id,
+                'title':'EdJO5ZL8',
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+       
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(1, len(result['subscriptiontag_list']))
+        self.assertEqual('EdJO5ZL8', len(result['subscriptiontag_list'][0]['title']))
+        self.assertEqual(subscriptiontag_id, len(result['subscriptiontag_list'][0]['id']))
+
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontagsubscription_set',
+            'argv':{
+                'subscription': subscription_id,
+                'subscriptiontag': subscriptiontag_id,
+                'enable': True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(1, len(result['subscriptiontagsubscription_list']))
+        self.assertEqual(subscriptiontag_id, len(result['subscriptiontagsubscription_list'][0]['subscriptiontag_id']))
+        self.assertEqual(subscription_id, len(result['subscriptiontagsubscription_list'][0]['subscription_id']))
+        
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontagsubscription_set',
+            'argv':{
+                'subscription': subscription_id,
+                'subscriptiontag': subscriptiontag_id,
+                'enable': False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+        
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(0, len(result['subscriptiontagsubscription_list']))
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscriptiontag_set_enable',
+            'argv':{
+                'id':subscriptiontag_id,
+                'enable':False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(0, len(result['subscriptiontag_list']))
+
+    
     ##########
     
     def now64(self):
