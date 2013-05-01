@@ -234,7 +234,8 @@ def subscriptiontag_list_content(
                             )
                         )
                     GROUP BY
-                        MomohaFeed_item.id
+                        MomohaFeed_item.id ,
+                        subscription_id
                 ) AS I
             WHERE
                 ( %s OR ( NOT I.readdone ) ) AND
