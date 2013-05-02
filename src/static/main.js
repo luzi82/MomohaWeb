@@ -1,6 +1,6 @@
 requirejs.config({
     baseUrl: 'inc',
-    urlArgs: "bust=" + (new Date()).getTime(),
+    urlArgs: "_=" + LOAD_TIMESTAMP,
     paths: {
         jquery: 'jquery/jquery-1.9.1',
         bootstrap: 'bootstrap/js/bootstrap',
