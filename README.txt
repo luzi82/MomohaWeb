@@ -58,20 +58,24 @@ server {
     error_log /var/log/nginx/momohaweb.error.log;
 
     location / {
-        alias /opt/momohaweb/MomohaWeb/src/static/;
-        expires 30d;
+        alias /opt/momohaweb/MomohaWeb/static/;
     }
 
     location /data/ {
         alias /opt/momohaweb/MomohaWeb/data/;
-        expires 30d;
     }
 
     location /api/ {
         include fastcgi_params;
+        fastcgi_split_path_info ^()(.*)$;
         fastcgi_pass 127.0.0.1:8080;
     }
 
+    location /admin/ {
+        include fastcgi_params;
+        fastcgi_split_path_info ^()(.*)$;
+        fastcgi_pass 127.0.0.1:8080;
+    }
 }
 
 # ln -s /etc/nginx/sites-available/hiauntie.conf /etc/nginx/sites-enabled/
@@ -99,6 +103,7 @@ BROKER_URL = 'amqp://momohaweb:[password]@localhost:5672/momohaweb_vhost'
 
 $ cd /opt/momohaweb/MomohaWeb/src
 $ python manage.py syncdb --migrate
+$ python manage.py collectstatic --noinput --clear
 
 # cp /opt/momohaweb/MomohaWeb/src/deploy/momohaweb-django.sh /etc/init.d/momohaweb-django.sh
 # (modify /etc/init.d/momohaweb-django.sh if you need)
