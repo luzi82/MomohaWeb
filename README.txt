@@ -71,7 +71,7 @@ server {
         fastcgi_pass 127.0.0.1:8080;
     }
 
-    location /admin/ {
+    location /dj/ {
         include fastcgi_params;
         fastcgi_split_path_info ^()(.*)$;
         fastcgi_pass 127.0.0.1:8080;
@@ -101,6 +101,7 @@ DATABASES = {
 
 BROKER_URL = 'amqp://momohaweb:[password]@localhost:5672/momohaweb_vhost'
 
+$ mkdir /opt/momohaweb/MomohaWeb/static
 $ cd /opt/momohaweb/MomohaWeb/src
 $ python manage.py syncdb --migrate
 $ python manage.py collectstatic --noinput --clear
