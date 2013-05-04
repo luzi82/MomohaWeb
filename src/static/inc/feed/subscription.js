@@ -3,6 +3,8 @@ define([
 	"momohafeed",
 	"feed_share",
 	"feed_utils",
+	
+	'ajaxfileupload',
 ], function(
 	$
 	, momohafeed
@@ -84,6 +86,7 @@ define([
 			$("#subscription_tag_modal_submit_btn").click(subscription_tag_modal_submit_btn_click);
 			$("#subscription_tag_rm_modal_submit_btn").click(subscription_tag_rm_modal_submit_btn_click);
 			$("#subscription_tag_rename_modal_submit_btn").click(subscription_tag_rename_modal_submit_btn_click);
+			$('#subscription_importopml_modal_submit_btn').click(subscription_importopml_modal_submit_btn_click);
 		});
 
 		ui_update_subscription_filter_btn();
@@ -704,7 +707,31 @@ define([
 			},
 			null // FIXME
 		);
-	}
+	};
+	
+	var subscription_importopml_modal_submit_btn_click = function(){
+		var jin = JSON.stringify({cmd: 'import_opml'});
+		// var jin = "asdf";
+		console.log(jin);
+		$.ajaxFileUpload({
+			url:'/api/feed/upload/',
+			secureuri:false,
+			fileElementId:'opmlFile',
+			dataType: 'json',
+			data:{
+				csrfmiddlewaretoken: $.cookie('csrftoken'),
+				json: jin,
+			},
+			success: function (j, status)
+			{
+				console.log(j,status);
+			},
+			error: function (data, status, e)
+			{
+				console.log("error");
+			}
+		});
+	};
 
 	///
 	

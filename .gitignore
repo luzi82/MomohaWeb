@@ -6,3 +6,4 @@ src/celerybeat-schedule
 
 src/MomohaWeb/secret.py
 static
+tmp

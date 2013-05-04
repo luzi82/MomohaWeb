@@ -213,6 +213,31 @@
 	</div>
 </div>
 
+<div id="subscription_importopml_modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="subscription_importopml_modal_label" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="subscription_importopml_modal_label">Import OPML</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal">
+			<div class="control-group">
+				<label class="control-label" for="subscription_importopml_file_input">File</label>
+				<div class="controls">
+					<input id="subscription_importopml_file_input" type="file" name="opmlFile" class="input">
+					<!-- <input type="text" id="subscription_importopml_title_input" placeholder="tag name" class="input-block-level" /> -->
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button id="subscription_importopml_modal_close_btn" class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		<button id="subscription_importopml_modal_submit_btn" class="btn btn-primary">Import</button>
+		<div id="subscription_importopml_modal_progress" class="progress progress-striped active">
+			<div id="subscription_importopml_modal_progress_bar" class="bar"></div>
+		</div>
+	</div>
+</div>
+
 </div>
 
 </body>

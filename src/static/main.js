@@ -6,6 +6,7 @@ requirejs.config({
         bootstrap: 'bootstrap/js/bootstrap',
         cookie: 'cookie/jquery.cookie',
         json: 'json/json2',
+        ajaxfileupload: 'ajaxfileupload/ajaxfileupload',
 
 		feed_ui: 'feed/ui',
         feed_utils: 'feed/utils',
