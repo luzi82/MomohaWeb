@@ -76,6 +76,7 @@ define([
 		$("#subscription_show_tag_modal_btn").click(subscription_show_tag_modal_btn_click);
 		$("#subscription_show_tag_rm_modal_btn").click(subscription_show_tag_rm_modal_btn_click);
 		$("#subscription_show_tag_rename_modal_btn").click(subscription_show_tag_rename_modal_btn_click);
+		$("#subscription_show_importopml_modal_btn").click(subscription_show_importopml_modal_btn_click);
 		$("#subscription_main").scroll(subscription_main_scroll);
 
 		$("#import").append($('<div id="module_subscription" />'));
@@ -709,34 +710,50 @@ define([
 		);
 	};
 	
+	var subscription_show_importopml_modal_btn_click = function(){
+		$("#subscription_importopml_modal_progress").hide();
+	};
+	
 	var subscription_importopml_modal_submit_btn_click = function(){
 		var onFail=function(){
 			console.log("onFail");
+			$("#subscription_importopml_modal_progress").hide();
 		};
-		
-		$.ajaxFileUpload({
-			url:'/api/feed/upload/',
-			secureuri:false,
-			fileElementId:'subscription_importopml_file_input',
-			dataType: 'json',
-			data:{
-				csrfmiddlewaretoken: $.cookie('csrftoken'),
-				json: JSON.stringify({cmd: 'import_opml'}),
-			},
-			success: function (j, status)
-			{
-				console.log(j,status);
-				if(!j.accept){
+
+		$("#subscription_importopml_modal_progress_bar").css("width","10%");
+		$("#subscription_importopml_modal_progress").show();
+
+		require([
+			"feed_list_subscription",
+		], function(
+			feed_list_subscription
+		){
+			$.ajaxFileUpload({
+				url:'/api/feed/upload/',
+				secureuri:false,
+				fileElementId:'subscription_importopml_file_input',
+				dataType: 'json',
+				data:{
+					csrfmiddlewaretoken: $.cookie('csrftoken'),
+					json: JSON.stringify({cmd: 'import_opml'}),
+				},
+				success: function (j, status)
+				{
+					console.log(j,status);
+					if(!j.success){
+						onFail();
+						return;
+					}
+					$("#subscription_importopml_modal_progress_bar").css("width","100%");
+					$("#subscription_importopml_modal").modal("hide");
+					feed_list_subscription.refresh();
+				},
+				error: function (data, status, e)
+				{
+					console.log("error");
 					onFail();
-					return;
 				}
-				feed_list_subscription.refresh();
-			},
-			error: function (data, status, e)
-			{
-				console.log("error");
-				onFail();
-			}
+			});
 		});
 	};
 

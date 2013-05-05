@@ -6,6 +6,7 @@ from django.shortcuts import render
 import MomohaFeed.cmds
 import django.core.exceptions
 import simplejson
+import cgi
 
 #def index(request):
 #
@@ -39,7 +40,7 @@ def upload(request):
     except ObjectDoesNotExist:
         raise Http404
 
-    return HttpResponse(simplejson.dumps(ret), mimetype='application/json')
+    return HttpResponse(simplejson.dumps(ret), mimetype='text/plain')
 
 
 def json(request):
