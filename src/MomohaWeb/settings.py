@@ -24,6 +24,9 @@ DATABASES = {
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'OPTIONS': {
+            'timeout': 20,
+        }
     }
 }
 
@@ -183,6 +186,8 @@ LOGGING = {
 
 # test_azumakiyohiko
 feedparser.PREFERRED_XML_PARSERS=[]
+
+OPML_IMPORT_THREAD_COUNT = 2
 
 # APP djcelery
 BROKER_URL = 'django://'

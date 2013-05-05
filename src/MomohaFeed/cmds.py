@@ -12,6 +12,8 @@ import xml.dom.minidom
 import simplejson
 from xml.dom import Node
 from lxml import etree
+import threading
+from django.conf import settings
 
 
 cmd_list = []
@@ -429,9 +431,14 @@ def import_opml(request, postfile):
 #    fileraw = postfile.read()
 #    dom = xml.dom.minidom.parseString(fileraw)
     tree = etree.parse(postfile)
-    import_result_list = []
-    
-    rssoutline_to_db = {}
+#    import_result_list = []
+
+    runtime_dict = {
+        "target_dict_list": [],
+        "offset": 0,
+        "cv": threading.Condition(),
+        "rssoutline_to_dbid": {},
+    }
     
     for outline in tree.findall(".//outline[@type][@xmlUrl][@text]"):
         if outline.get('type') != 'rss':
@@ -440,25 +447,60 @@ def import_opml(request, postfile):
         xmlUrl = outline.get('xmlUrl')
         text = outline.get('text')
 
-        import_result = {
+        target_dict = {
             'url': xmlUrl,
             'title': text,
             'success': False,
+            'path': tree.getpath(outline)
         }
-        print simplejson.dumps(import_result)
-        import_result_list.append(import_result)
-        
-        ret = MomohaFeed._add_subscription(request.user, xmlUrl)
-        if not ret['success']:
-            import_result['fail_reason'] = ret['fail_reason']
-            continue
-        import_result['success'] = True
-        import_result['subscription_id'] = ret['db_subscription'].id
-        if ret['db_subscription'].feed.title != text:
-            ret['db_subscription'].title = text
-            ret['db_subscription'].save()
-        rssoutline_to_db[tree.getpath(outline)] = ret['db_subscription']
+#        print simplejson.dumps(target_dict)
+        runtime_dict['target_dict_list'].append(target_dict)
     
+    runtime_dict['target_len'] = len(runtime_dict['target_dict_list'])
+
+    def thread_unit(runtime_dict):
+        print "thread start"
+        while True:
+            try:
+                runtime_dict['cv'].acquire()
+                print "acquire"
+                if runtime_dict['offset'] >= runtime_dict['target_len']:
+                    runtime_dict['cv'].release()
+                    return
+                target_dict = runtime_dict['target_dict_list'][runtime_dict['offset']]
+                runtime_dict['offset'] += 1
+                print "release"
+                runtime_dict['cv'].release()
+                
+                ret = MomohaFeed._add_subscription(request.user, target_dict['url'])
+                if not ret['success']:
+                    target_dict['fail_reason'] = ret['fail_reason']
+                    continue
+                target_dict['success'] = True
+                target_dict['subscription_id'] = ret['db_subscription'].id
+                if(
+                    (
+                        (ret['db_subscription'].feed.title != target_dict['title']) and
+                        (ret['db_subscription'].title == None)
+                    ) or
+                    (ret['db_subscription'].title != target_dict['title'])
+                ):
+                    ret['db_subscription'].title = target_dict['title']
+                    ret['db_subscription'].save()
+                runtime_dict["rssoutline_to_dbid"][target_dict['path']] = ret['db_subscription'].id
+            except Exception as e:
+                print e
+        print "thread end"
+
+    thread_list = []            
+    for _ in range(settings.OPML_IMPORT_THREAD_COUNT):
+        t = threading.Thread(target=thread_unit,args=(runtime_dict,))
+        thread_list.append(t)
+        t.start()
+    
+    for t in thread_list:
+        t.join()
+
     for outline in tree.xpath('/opml/body/outline[@text]'):
         if outline.get('type')!=None:
             continue
@@ -469,18 +511,16 @@ def import_opml(request, postfile):
             title = outline.get('text'),
         )
         for outline2 in outline.findall('.//outline[@type][@xmlUrl][@text]'):
-            if not tree.getpath(outline2) in rssoutline_to_db:
+            if not tree.getpath(outline2) in runtime_dict["rssoutline_to_dbid"]:
                 continue;
-            db_subscription = rssoutline_to_db[tree.getpath(outline2)]
+            db_subscription_id = runtime_dict["rssoutline_to_dbid"][tree.getpath(outline2)]
+            db_subscription = Subscription.objects.get(id=db_subscription_id)
             SubscriptionTagSubscriptionRelation.objects.get_or_create(
                 subscription_tag = db_subscriptiontag,
                 subscription = db_subscription,
             )
                 
 
-    print simplejson.dumps(import_result_list)
-    
     return {
         'success': True,
-        'import_result_list': import_result_list,
     }
