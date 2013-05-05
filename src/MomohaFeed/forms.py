@@ -4,6 +4,10 @@ import django.forms
 class JsonForm (django.forms.Form):
     json = django.forms.CharField()
 
+class UploadForm (django.forms.Form):
+    json = django.forms.CharField()
+    file = django.forms.FileField() 
+
 #class AddSubscriptionForm (django.forms.Form):
 #    url = django.forms.URLField()
 #

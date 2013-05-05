@@ -12,6 +12,9 @@ import feedparser
 import time
 import enum
 from django.core.urlresolvers import reverse
+from lxml import etree
+import pprint
+import xml.sax
 
 MY_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -1796,7 +1799,266 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         self.assertEqual(0, len(result['subscriptiontag_list']))
 
+
+    def test_issue_106(self):
+        '''google reader import'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
+        httpServer.set_get_output('/yahoo.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/rico.xml").read()
+        httpServer.set_get_output('/rico.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+        
+        opml = open(MY_DIR+"/test/opml.xml")
+        response = client.post(reverse('MomohaFeed.views.upload'),{
+            'json': simplejson.dumps({
+                'cmd':'import_opml',
+            }),
+            'file': opml
+        })
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
     
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(3, len(result['subscription_list']))
+        self.assertEqual(u'title0', result['subscription_list'][0]['title'])
+        subscription0_id = result['subscription_list'][0]['id']
+        self.assertEqual(u'title1', result['subscription_list'][1]['title'])
+        subscription1_id = result['subscription_list'][1]['id']
+        self.assertEqual(u'title2', result['subscription_list'][2]['title'])
+
+        self.assertEqual(1, len(result['subscriptiontag_list']))
+        self.assertEqual(u'tag0', result['subscriptiontag_list'][0]['title'])
+        subscriptiontag_id = result['subscriptiontag_list'][0]['id']
+
+        self.assertEqual(2, len(result['subscriptiontagsubscriptionrelation_list']))
+        self.assertEqual(subscriptiontag_id, result['subscriptiontagsubscriptionrelation_list'][0]['subscriptiontag_id'])
+        self.assertEqual(subscription0_id, result['subscriptiontagsubscriptionrelation_list'][0]['subscription_id'])
+        self.assertEqual(subscriptiontag_id, result['subscriptiontagsubscriptionrelation_list'][1]['subscriptiontag_id'])
+        self.assertEqual(subscription1_id, result['subscriptiontagsubscriptionrelation_list'][1]['subscription_id'])
+
+        
+    def test_azumakiyohiko(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/azumakiyohiko.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/azumakiyohiko.xml").read()
+        httpServer.set_get_output('/azumakiyohiko.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+    
+    def test_azumakiyohiko_x(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/azumakiyohiko.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/azumakiyohiko_x.xml").read()
+        httpServer.set_get_output('/azumakiyohiko.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        
+
+    def test_azumakiyohiko_x2(self):
+        print "azumakiyohiko_x.xml"
+        feedparser.parse(MY_DIR+"/test/azumakiyohiko_x.xml")
+        print "azumakiyohiko.xml"
+        feedparser.parse(MY_DIR+"/test/azumakiyohiko.xml")
+
+
+    def test_azumakiyohiko_rss(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/azumakiyohiko.rss.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+
+    def test_178_rss(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/178.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+    
+    def test_passiontimes_rss(self):
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        feed = open(MY_DIR+"/test/passiontimes.xml").read()
+        httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        self.start_server_loop(httpServer)
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertEqual(True, result['success'])
+
+
+#    def test_azumakiyohiko_x3(self):
+#        print "azumakiyohiko_x.xml"
+#        f = feedparser._open_resource(
+#            MY_DIR+"/test/azumakiyohiko_x.xml",
+#            etag=None,
+#            modified=None,
+#            agent=None,
+#            referrer=None,
+#            handlers=[],
+#            request_headers={}
+#        )
+#        data = f.read()
+#        print data
+#
+#
+#    def test_azumakiyohiko_x4(self):
+#        print "azumakiyohiko_x.xml"
+#        parse_result = feedparserx.parse(MY_DIR+"/test/azumakiyohiko_x.xml")
+#        self.assertTrue(( not parse_result.has_key('version') ) or ( parse_result['version'] == '' ))
+#        parse_result = feedparserx.parse(MY_DIR+"/test/luzi82.xml")
+#        self.assertTrue(not ( not parse_result.has_key('version') ) or ( parse_result['version'] == '' ))
+#        self.assertEqual(u'栗子現場直播',parse_result.feed.title)
+#
+#    def test_azumakiyohiko_x5(self):
+#        print "azumakiyohiko_x.xml"
+#        
+#        f=open(MY_DIR+"/test/azumakiyohiko_x.xml")
+##        data=f.read()
+#        
+#        saxparser = xml.sax.make_parser([])
+#        saxparser.setFeature(xml.sax.handler.feature_namespaces, 1)
+#        try:
+#            # disable downloading external doctype references, if possible
+#            saxparser.setFeature(xml.sax.handler.feature_external_ges, 0)
+#        except xml.sax.SAXNotSupportedException:
+#            pass
+##        saxparser.setContentHandler(feedparser)
+##        saxparser.setErrorHandler(feedparser)
+#        source = xml.sax.xmlreader.InputSource()
+#        source.setByteStream(f)
+#        try:
+#            print "XxnjwiFj"
+#            saxparser.parse(source)
+#            print "4A0R4dVV"
+#        except xml.sax.SAXException, e:
+#            pass
+        
+        
     ##########
     
     def now64(self):

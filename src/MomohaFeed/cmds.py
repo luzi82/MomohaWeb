@@ -8,6 +8,10 @@ import MomohaFeed
 from MomohaFeed import now64, enum
 import inspect
 import urlparse
+import xml.dom.minidom
+import simplejson
+from xml.dom import Node
+from lxml import etree
 
 
 cmd_list = []
@@ -71,41 +75,56 @@ def list_subscription(request):
 @cmd
 def add_subscription(request,url):
     
-    now = MomohaFeed.now64()
-
-    urlparse_result = urlparse.urlparse(url)
-    urlparse_good = True
-    urlparse_good = urlparse_good and (urlparse_result.scheme in ['http','https'])
-    urlparse_good = urlparse_good and (urlparse_result.netloc != "")
-    
-    if not urlparse_good:
-        return {
-            'success': False,
-            'fail_reason': enum.FailReason.BAD_URL,
-        }
-        
-    db_feed = None
-    
-    if db_feed == None:
-        db_feed = MomohaFeed.feedpoll.poll_feed(url, now)
-    
-    if db_feed == None:
-        url2 = MomohaFeed.feedpoll.poll_html(url)
-        if url2 != None:
-            db_feed = MomohaFeed.feedpoll.poll_feed(url2, now)
-
-    if db_feed == None:
-        return {
-            'success': False,
-            'fail_reason': enum.FailReason.BAD_FEED_SOURCE,
-        }
-        
-    db_subscription = MomohaFeed.add_subscription(request.user, db_feed)
-
-    return {
-        'success': True,
-        'subscription' : VmSubscription(db_subscription).__dict__
+    ret = MomohaFeed._add_subscription(request.user, url)
+#    return {
+#        'success': ret['success'],
+#        'subscription' : VmSubscription(ret['db_subscription']).__dict__
+#    }
+    rett = {
+        'success': ret['success'],
     }
+    if 'db_subscription' in ret:
+        rett['subscription'] = VmSubscription(ret['db_subscription']).__dict__
+    if 'fail_reason' in ret:
+        rett['fail_reason'] = ret['fail_reason']
+    return rett
+    
+    
+#    now = MomohaFeed.now64()
+#
+#    urlparse_result = urlparse.urlparse(url)
+#    urlparse_good = True
+#    urlparse_good = urlparse_good and (urlparse_result.scheme in ['http','https'])
+#    urlparse_good = urlparse_good and (urlparse_result.netloc != "")
+#    
+#    if not urlparse_good:
+#        return {
+#            'success': False,
+#            'fail_reason': enum.FailReason.BAD_URL,
+#        }
+#        
+#    db_feed = None
+#    
+#    if db_feed == None:
+#        db_feed = MomohaFeed.feedpoll.poll_feed(url, now)
+#    
+#    if db_feed == None:
+#        url2 = MomohaFeed.feedpoll.poll_html(url)
+#        if url2 != None:
+#            db_feed = MomohaFeed.feedpoll.poll_feed(url2, now)
+#
+#    if db_feed == None:
+#        return {
+#            'success': False,
+#            'fail_reason': enum.FailReason.BAD_FEED_SOURCE,
+#        }
+#        
+#    db_subscription = MomohaFeed.add_subscription(request.user, db_feed)
+#
+#    return {
+#        'success': True,
+#        'subscription' : VmSubscription(db_subscription).__dict__
+#    }
 
 
 @u403
@@ -399,3 +418,69 @@ def subscriptiontagsubscription_set(request, set_list):
             ).delete()
 
     return {'success': True}
+
+
+@u403
+@cmd
+def import_opml(request, postfile):
+    if(postfile.size>1024*512):
+        return {'success':False, 'fail_reason':enum.FailReason.BAD_FILE_SIZE}
+    
+#    fileraw = postfile.read()
+#    dom = xml.dom.minidom.parseString(fileraw)
+    tree = etree.parse(postfile)
+    import_result_list = []
+    
+    rssoutline_to_db = {}
+    
+    for outline in tree.findall(".//outline[@type][@xmlUrl][@text]"):
+        if outline.get('type') != 'rss':
+            continue
+        
+        xmlUrl = outline.get('xmlUrl')
+        text = outline.get('text')
+
+        import_result = {
+            'url': xmlUrl,
+            'title': text,
+            'success': False,
+        }
+        print simplejson.dumps(import_result)
+        import_result_list.append(import_result)
+        
+        ret = MomohaFeed._add_subscription(request.user, xmlUrl)
+        if not ret['success']:
+            import_result['fail_reason'] = ret['fail_reason']
+            continue
+        import_result['success'] = True
+        import_result['subscription_id'] = ret['db_subscription'].id
+        if ret['db_subscription'].feed.title != text:
+            ret['db_subscription'].title = text
+            ret['db_subscription'].save()
+        rssoutline_to_db[tree.getpath(outline)] = ret['db_subscription']
+    
+    for outline in tree.xpath('/opml/body/outline[@text]'):
+        if outline.get('type')!=None:
+            continue
+        if outline.get('xmlUrl')!=None:
+            continue
+        db_subscriptiontag = SubscriptionTag.objects.create(
+            user = request.user,
+            title = outline.get('text'),
+        )
+        for outline2 in outline.findall('.//outline[@type][@xmlUrl][@text]'):
+            if not tree.getpath(outline2) in rssoutline_to_db:
+                continue;
+            db_subscription = rssoutline_to_db[tree.getpath(outline2)]
+            SubscriptionTagSubscriptionRelation.objects.get_or_create(
+                subscription_tag = db_subscriptiontag,
+                subscription = db_subscription,
+            )
+                
+
+    print simplejson.dumps(import_result_list)
+    
+    return {
+        'success': True,
+        'import_result_list': import_result_list,
+    }

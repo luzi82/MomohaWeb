@@ -6,7 +6,8 @@ import time
 from django.utils.timezone import utc
 import calendar
 import HTMLParser
-from MomohaFeed import feedpoll
+from MomohaFeed import feedpoll, enum
+import urlparse
 
        
 def add_feed(url):
@@ -28,6 +29,45 @@ def add_subscription(db_user,db_feed):
     )
     
     return db_subscription
+
+
+def _add_subscription(db_user,url):
+    
+    now = now64()
+    
+    urlparse_result = urlparse.urlparse(url)
+    urlparse_good = True
+    urlparse_good = urlparse_good and (urlparse_result.scheme in ['http','https'])
+    urlparse_good = urlparse_good and (urlparse_result.netloc != "")
+    
+    if not urlparse_good:
+        return {
+            'success': False,
+            'fail_reason': enum.FailReason.BAD_URL,
+        }
+        
+    db_feed = None
+    
+    if db_feed == None:
+        db_feed = feedpoll.poll_feed(url, now)
+    
+    if db_feed == None:
+        url2 = feedpoll.poll_html(url)
+        if url2 != None:
+            db_feed = feedpoll.poll_feed(url2, now)
+
+    if db_feed == None:
+        return {
+            'success': False,
+            'fail_reason': enum.FailReason.BAD_FEED_SOURCE,
+        }
+    
+    db_subscription = add_subscription(db_user, db_feed)
+
+    return {
+        'success': True,
+        'db_subscription' : db_subscription
+    }
 
 
 #def subscription_add(db_user,url):

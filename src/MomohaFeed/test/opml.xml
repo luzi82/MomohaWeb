@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.0">
+    <head>
+        <title>asdf</title>
+    </head>
+    <body>
+    	<outline text="tag0">
+	    	<outline
+	    		text="title0"
+	    		type="rss"
+	    		xmlUrl="http://localhost:10080/luzi82.xml"
+    		/>
+	    	<outline text="tag1">
+		    	<outline
+		    		text="title1"
+		    		type="rss"
+		    		xmlUrl="http://localhost:10080/rico.xml"
+	    		/>
+	    	</outline>
+    	</outline>
+    	<outline
+    		text="title2"
+    		type="rss"
+    		xmlUrl="http://localhost:10080/yahoo.xml"
+		/>
+    	<outline
+    		text="title3"
+    		type="rss"
+    		xmlUrl="http://localhost:10080/not_exist.xml"
+		/>
+	</body>
+</opml>

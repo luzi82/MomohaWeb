@@ -3,6 +3,7 @@ import os
 import djcelery
 import socket
 import secret
+import feedparser
 
 PROJECT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -179,6 +180,9 @@ LOGGING = {
         }
     }
 }
+
+# test_azumakiyohiko
+feedparser.PREFERRED_XML_PARSERS=[]
 
 # APP djcelery
 BROKER_URL = 'django://'

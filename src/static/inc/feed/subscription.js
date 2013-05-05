@@ -710,25 +710,32 @@ define([
 	};
 	
 	var subscription_importopml_modal_submit_btn_click = function(){
-		var jin = JSON.stringify({cmd: 'import_opml'});
-		// var jin = "asdf";
-		console.log(jin);
+		var onFail=function(){
+			console.log("onFail");
+		};
+		
 		$.ajaxFileUpload({
 			url:'/api/feed/upload/',
 			secureuri:false,
-			fileElementId:'opmlFile',
+			fileElementId:'subscription_importopml_file_input',
 			dataType: 'json',
 			data:{
 				csrfmiddlewaretoken: $.cookie('csrftoken'),
-				json: jin,
+				json: JSON.stringify({cmd: 'import_opml'}),
 			},
 			success: function (j, status)
 			{
 				console.log(j,status);
+				if(!j.accept){
+					onFail();
+					return;
+				}
+				feed_list_subscription.refresh();
 			},
 			error: function (data, status, e)
 			{
 				console.log("error");
+				onFail();
 			}
 		});
 	};

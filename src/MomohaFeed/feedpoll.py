@@ -11,13 +11,17 @@ import traceback
 
 def poll_feed(url, now):
     """if success, return db_feed, otherwise None"""
-
+    print("poll_feed "+url)
+    
     htmlparser = HTMLParser.HTMLParser()
     
     parse_result = feedparser.parse(url)
     
     if ( not parse_result.has_key('version') ) or ( parse_result['version'] == '' ):
+        print("poll_feed "+url+" fail")
         return None
+    
+    print("poll_feed "+url+" ok")
     
     db_feed, _ = MomohaFeed.models.Feed.objects.get_or_create(
         url = url,
@@ -36,9 +40,22 @@ def poll_feed(url, now):
     
     for entry in parse_result.entries:
         
+        if hasattr(entry,'id'):
+            entry_id = entry.id
+        else:
+            entry_id = ""
+            if hasattr(entry,'link'):
+                entry_id += entry.link
+            entry_id += "-"
+            if hasattr(entry,'title'):
+                entry_id += entry.title
+            entry_id += "-"
+            if hasattr(entry,'published'):
+                entry_id += entry.published
+        
         db_item,item_create = Item.objects.get_or_create(
              feed = db_feed,
-             key = entry.id
+             key = entry_id
         )
 
         db_item.last_poll = now
@@ -66,19 +83,27 @@ def poll_feed(url, now):
             entry_published = entry_updated
         if entry_updated == None:
             entry_updated = entry_published
+            
+        entry_title = None
+        if hasattr(entry,'title'):
+            entry_title = entry.title
+        
+        entry_link = None
+        if hasattr(entry,'link'):
+            entry_link = entry.link
         
         if (
             item_create or
-            db_item.title != entry.title or
+            db_item.title != entry_title or
             db_item.published != entry_published or
             db_item.updated != entry_updated or
-            db_item.link != entry.link or
+            db_item.link != entry_link or
             db_item.content != entry_content
         ):
-            db_item.title = entry.title
+            db_item.title = entry_title
             db_item.published = entry_published
             db_item.updated = entry_updated
-            db_item.link = entry.link
+            db_item.link = entry_link
             db_item.content = entry_content
             db_item.last_detail_update = now
         
@@ -89,6 +114,7 @@ def poll_feed(url, now):
 
 def poll_html(url):
     """return url of feed pointed by html, or None"""
+    print("poll_html "+url)
 
     try:
         content = urllib2.urlopen(url).read()

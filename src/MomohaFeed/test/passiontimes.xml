@@ -1,0 +1,1434 @@
+<?xml version="1.0"?>
+<rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+        <channel>
+                <title>笑死朕 - PassionTimes Podcast</title>
+                <link>http://www.passiontimes.hk</link>
+                <description>一個以搞笑改變世界的節目。</description>
+                <language>en-us</language>
+                <copyright>http://www.passiontimes.hk</copyright>
+                <lastBuildDate>Sat, 04 May 2013 21:37:13 +0800</lastBuildDate>
+                <webMaster>info@passiontimes.hk (PassionTimes)</webMaster>
+                <ttl>1</ttl>
+				<itunes:author>黃洋達、陳秀慧 @ 熱血時報</itunes:author>
+	            <itunes:explicit>yes</itunes:explicit>
+				<itunes:image>
+	             <url>http://www.passiontimes.hk/images/picon-5.jpg</url>
+	             <title>Programme Banner</title>
+				 <link>http://www.passiontimes.hk/?view=prog5</link>
+				</itunes:image>
+		        <itunes:link rel="image" type="video/jpeg" href="http://www.passiontimes.hk/images/picon-5.jpg">PassionTimes</itunes:link>
+		        <itunes:link rel="image" type="video/jpeg" href="http://www.passiontimes.hk/thumbnail.php?size=350&amp;path=images/picon-5.jpg">PassionTimes</itunes:link>
+
+					<item>
+							<title>第1集 水蟹扮河蟹 20100921-1</title>
+							<description>(Part 1) 水蟹扮河蟹</description>
+							<pubDate>Tue, 21 Sep 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/001/king20100921.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第2集 漫畫抗爭 申辦亞運 20100928-1</title>
+							<description>(Part 1) 漫畫抗爭 申辦亞運</description>
+							<pubDate>Tue, 28 Sep 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/002/king20100928a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第3集 保險騙案 20101005-1</title>
+							<description>(Part 1) 保險騙案</description>
+							<pubDate>Tue, 05 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/003/king20101005a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第3集 保險騙案 20101005-2</title>
+							<description>(Part 2) 保險騙案</description>
+							<pubDate>Tue, 05 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/003/king20101005b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第4集 金錢師 20101012-1</title>
+							<description>(Part 1) 金錢師</description>
+							<pubDate>Tue, 12 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/004/king20101012a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第4集 金錢師 20101012-2</title>
+							<description>(Part 2) 金錢師</description>
+							<pubDate>Tue, 12 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/004/king20101012b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第5集 施政報告(置安心曾任權退任保障計劃) 20101019-1</title>
+							<description>(Part 1) 施政報告(置安心曾任權退任保障計劃)</description>
+							<pubDate>Tue, 19 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/005/king20101019a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第5集 施政報告(置安心曾任權退任保障計劃) 20101019-2</title>
+							<description>(Part 2) 施政報告(置安心曾任權退任保障計劃)</description>
+							<pubDate>Tue, 19 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/005/king20101019b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第6集 告白 20101026-1</title>
+							<description>(Part 1) 告白</description>
+							<pubDate>Tue, 26 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/006/king20101026a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第6集 告白 20101026-2</title>
+							<description>(Part 2) 告白</description>
+							<pubDate>Tue, 26 Oct 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/006/king20101026b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第7集 獨立採訪宣言 20101102-1</title>
+							<description>(Part 1) 獨立採訪宣言</description>
+							<pubDate>Tue, 02 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/007/king20101102a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第7集 獨立採訪宣言 20101102-2</title>
+							<description>(Part 2) 獨立採訪宣言</description>
+							<pubDate>Tue, 02 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/007/king20101102b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第8集 廖雁寧(小丁) 20101109-1</title>
+							<description>(Part 1) 廖雁寧(小丁)</description>
+							<pubDate>Tue, 09 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/008/king20101109a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第8集 廖雁寧(小丁) 20101109-2</title>
+							<description>(Part 2) 廖雁寧(小丁)</description>
+							<pubDate>Tue, 09 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/008/king20101109b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第9集 朕的搞笑之道 20101123-1</title>
+							<description>(Part 1) 朕的搞笑之道</description>
+							<pubDate>Tue, 23 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/009/king20101123a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第9集 朕的搞笑之道 20101123-2</title>
+							<description>(Part 2) 朕的搞笑之道</description>
+							<pubDate>Tue, 23 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/009/king20101123b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第10集 認真的搞笑最迷人/食字Gag是如何煉成的 20101130-1</title>
+							<description>(Part 1) 認真的搞笑最迷人/食字Gag是如何煉成的</description>
+							<pubDate>Tue, 30 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/010/king20101130a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第10集 認真的搞笑最迷人/食字Gag是如何煉成的 20101130-2</title>
+							<description>(Part 2) 認真的搞笑最迷人/食字Gag是如何煉成的</description>
+							<pubDate>Tue, 30 Nov 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/010/king20101130b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第11集 一毫子慾望X荃家福祿壽 20101214-1</title>
+							<description>(Part 1) 一毫子慾望X荃家福祿壽</description>
+							<pubDate>Tue, 14 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/011/king20101214a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第11集 一毫子慾望X荃家福祿壽 20101214-2</title>
+							<description>(Part 2) 一毫子慾望X荃家福祿壽</description>
+							<pubDate>Tue, 14 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/011/king20101214b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第11集 一毫子慾望X荃家福祿壽 20101214-3</title>
+							<description>(Part 3) 一毫子慾望X荃家福祿壽</description>
+							<pubDate>Tue, 14 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/011/king20101214c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第12集 笑死朕 x 頭條新聞 20101221-1</title>
+							<description>(Part 1) 笑死朕 x 頭條新聞</description>
+							<pubDate>Tue, 21 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/012/king20101221a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第12集 笑死朕 x 頭條新聞 20101221-2</title>
+							<description>(Part 2) 笑死朕 x 頭條新聞</description>
+							<pubDate>Tue, 21 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/012/king20101221b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第13集 2010十大笑死朕事件回顧 20101228-1</title>
+							<description>(Part 1) 2010十大笑死朕事件回顧</description>
+							<pubDate>Tue, 28 Dec 2010 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/013/king20101228.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第14集 港女老婆的老公 20110104-1</title>
+							<description>(Part 1) 港女老婆的老公</description>
+							<pubDate>Tue, 04 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/014/king20110104a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第14集 港女老婆的老公 20110104-2</title>
+							<description>(Part 2) 港女老婆的老公</description>
+							<pubDate>Tue, 04 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/014/king20110104b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第15集 金錢師上京 20110118-1</title>
+							<description>(Part 1) 金錢師上京</description>
+							<pubDate>Tue, 18 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/015/king20110118a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第15集 金錢師上京 20110118-2</title>
+							<description>(Part 2) 金錢師上京</description>
+							<pubDate>Tue, 18 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/015/king20110118b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第16集 飯氣劇場 20110125-1</title>
+							<description>(Part 1) 飯氣劇場</description>
+							<pubDate>Tue, 25 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/016/king20110125a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第16集 飯氣劇場 20110125-2</title>
+							<description>(Part 2) 飯氣劇場</description>
+							<pubDate>Tue, 25 Jan 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/016/king20110125b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第17集 記者真係賤過泥？ 20110208-1</title>
+							<description>(Part 1) 記者真係賤過泥？</description>
+							<pubDate>Tue, 08 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/017/king20110208a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第17集 記者真係賤過泥？ 20110208-2</title>
+							<description>(Part 2) 記者真係賤過泥？</description>
+							<pubDate>Tue, 08 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/017/king20110208b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第18集 魔鬼教練 20110215-1</title>
+							<description>(Part 1) 魔鬼教練</description>
+							<pubDate>Tue, 15 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/018/king20110215a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第18集 魔鬼教練 20110215-2</title>
+							<description>(Part 2) 魔鬼教練</description>
+							<pubDate>Tue, 15 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/018/king20110215b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第19集 星屑醫生找J數 20110222-1</title>
+							<description>(Part 1) 星屑醫生找J數</description>
+							<pubDate>Tue, 22 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/019/king20110222a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第19集 星屑醫生找J數 20110222-2</title>
+							<description>(Part 2) 星屑醫生找J數</description>
+							<pubDate>Tue, 22 Feb 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/019/king20110222b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第20集 財經預算案‧消滅貧窮 20110301-1</title>
+							<description>(Part 1) 財經預算案‧消滅貧窮</description>
+							<pubDate>Tue, 01 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/020/king20110301a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第20集 財經預算案‧消滅貧窮 20110301-2</title>
+							<description>(Part 2) 財經預算案‧消滅貧窮</description>
+							<pubDate>Tue, 01 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/020/king20110301b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第21集 「人民力量」散水事件／抗爭與論述 20110308-1</title>
+							<description>(Part 1) 「人民力量」散水事件／抗爭與論述</description>
+							<pubDate>Tue, 08 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/021/king20110308a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第21集 「人民力量」散水事件／抗爭與論述 20110308-2</title>
+							<description>(Part 2) 「人民力量」散水事件／抗爭與論述</description>
+							<pubDate>Tue, 08 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/021/king20110308b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第22集 香港右翼 20110315-1</title>
+							<description>(Part 1) 香港右翼</description>
+							<pubDate>Tue, 15 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/022/king20110315a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第22集 香港右翼 20110315-2</title>
+							<description>(Part 2) 香港右翼</description>
+							<pubDate>Tue, 15 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/022/king20110315b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第23集 主流傳媒以外的日本地震／偏見下的中港關係 20110322-1</title>
+							<description>(Part 1) 主流傳媒以外的日本地震／偏見下的中港關係</description>
+							<pubDate>Tue, 22 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/023/king20110322a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第23集 主流傳媒以外的日本地震／偏見下的中港關係 20110322-2</title>
+							<description>(Part 2) 主流傳媒以外的日本地震／偏見下的中港關係</description>
+							<pubDate>Tue, 22 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/023/king20110322b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第24集 Social Network 20110329-1</title>
+							<description>(Part 1) Social Network</description>
+							<pubDate>Tue, 29 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/024/king20110329a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第24集 Social Network 20110329-2</title>
+							<description>(Part 2) Social Network</description>
+							<pubDate>Tue, 29 Mar 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/024/king20110329b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第25集 Rock Motel 20110405-1</title>
+							<description>(Part 1) Rock Motel</description>
+							<pubDate>Tue, 05 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/025/king20110405a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第25集 Rock Motel 20110405-2</title>
+							<description>(Part 2) Rock Motel</description>
+							<pubDate>Tue, 05 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/025/king20110405b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第26集 把仔達人 20110412-1</title>
+							<description>(Part 1) 把仔達人</description>
+							<pubDate>Tue, 12 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/026/king20110412a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第26集 把仔達人 20110412-2</title>
+							<description>(Part 2) 把仔達人</description>
+							<pubDate>Tue, 12 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/026/king20110412b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第26集 把仔達人 20110412-3</title>
+							<description>(Part 3) 把仔達人</description>
+							<pubDate>Tue, 12 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/026/king20110412c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第27集 3D肉蒲團，埋身肉搏 20110426-1</title>
+							<description>(Part 1) 3D肉蒲團，埋身肉搏</description>
+							<pubDate>Tue, 26 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/027/king20110426a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第27集 3D肉蒲團，埋身肉搏 20110426-2</title>
+							<description>(Part 2) 3D肉蒲團，埋身肉搏</description>
+							<pubDate>Tue, 26 Apr 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/027/king20110426b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第28集 棟篤生活 20110503-1</title>
+							<description>(Part 1) 棟篤生活</description>
+							<pubDate>Tue, 03 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/028/king20110503a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第28集 棟篤生活 20110503-2</title>
+							<description>(Part 2) 棟篤生活</description>
+							<pubDate>Tue, 03 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/028/king20110503b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第28集 棟篤生活 20110503-3</title>
+							<description>(Part 3) 棟篤生活</description>
+							<pubDate>Tue, 03 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/028/king20110503c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第29集 德育及國民教育 20110510-1</title>
+							<description>(Part 1) 德育及國民教育</description>
+							<pubDate>Tue, 10 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/029/king20110510a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第29集 德育及國民教育 20110510-2</title>
+							<description>(Part 2) 德育及國民教育</description>
+							<pubDate>Tue, 10 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/029/king20110510b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第30集 活化工廈殺死藝術 20110517-1</title>
+							<description>(Part 1) 活化工廈殺死藝術</description>
+							<pubDate>Tue, 17 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/030/king20110517a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第30集 活化工廈殺死藝術 20110517-2</title>
+							<description>(Part 2) 活化工廈殺死藝術</description>
+							<pubDate>Tue, 17 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/030/king20110517b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第31集 甘小文 20110524-1</title>
+							<description>(Part 1) 甘小文</description>
+							<pubDate>Tue, 24 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/031/king20110524a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第31集 甘小文 20110524-2</title>
+							<description>(Part 2) 甘小文</description>
+							<pubDate>Tue, 24 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/031/king20110524b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第32集 飛霜廿二年 20110531-1</title>
+							<description>(Part 1) 飛霜廿二年</description>
+							<pubDate>Tue, 31 May 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/032/king20110531.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第33集 台長發飈 / 黑色幽默 20110614-1</title>
+							<description>(Part 1) 台長發飈 / 黑色幽默</description>
+							<pubDate>Tue, 14 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/033/king20110614a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第33集 台長發飈 / 黑色幽默 20110614-2</title>
+							<description>(Part 2) 台長發飈 / 黑色幽默</description>
+							<pubDate>Tue, 14 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/033/king20110614b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第34集 搞笑之道在於分享 20110621-1</title>
+							<description>(Part 1) 搞笑之道在於分享</description>
+							<pubDate>Tue, 21 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/034/king20110621a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第34集 搞笑之道在於分享 20110621-2</title>
+							<description>(Part 2) 搞笑之道在於分享</description>
+							<pubDate>Tue, 21 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/034/king20110621b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第35集 惡搞有罪／高登遊行團／V煞團 20110628-1</title>
+							<description>(Part 1) 惡搞有罪／高登遊行團／V煞團</description>
+							<pubDate>Tue, 28 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/035/king20110628a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第35集 惡搞有罪／高登遊行團／V煞團 20110628-2</title>
+							<description>(Part 2) 惡搞有罪／高登遊行團／V煞團</description>
+							<pubDate>Tue, 28 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/035/king20110628b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第35集 惡搞有罪／高登遊行團／V煞團 20110628-3</title>
+							<description>(Part 3) 惡搞有罪／高登遊行團／V煞團</description>
+							<pubDate>Tue, 28 Jun 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/035/king20110628c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第36集 笑死朕x神秘之夜（回顧七一，展望713） 20110706-1</title>
+							<description>(Part 1) 笑死朕x神秘之夜（回顧七一，展望713）</description>
+							<pubDate>Wed, 06 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/036/king20110706a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第36集 笑死朕x神秘之夜（回顧七一，展望713） 20110706-2</title>
+							<description>(Part 2) 笑死朕x神秘之夜（回顧七一，展望713）</description>
+							<pubDate>Wed, 06 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/036/king20110706b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第37集 書展亂鬥 20110719-1</title>
+							<description>(Part 1) 書展亂鬥</description>
+							<pubDate>Tue, 19 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/037/king20110719a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第37集 書展亂鬥 20110719-2</title>
+							<description>(Part 2) 書展亂鬥</description>
+							<pubDate>Tue, 19 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/037/king20110719b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第37集 書展亂鬥 20110719-3</title>
+							<description>(Part 3) 書展亂鬥</description>
+							<pubDate>Tue, 19 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/037/king20110719c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第38集 地產霸權迫走天航 20110726-1</title>
+							<description>(Part 1) 地產霸權迫走天航</description>
+							<pubDate>Tue, 26 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/038/king20110726a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第38集 地產霸權迫走天航 20110726-2</title>
+							<description>(Part 2) 地產霸權迫走天航</description>
+							<pubDate>Tue, 26 Jul 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/038/king20110726b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第39集 電視劇 20110802-1</title>
+							<description>(Part 1) 電視劇</description>
+							<pubDate>Tue, 02 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/039/king20110802.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第40集 《功夫熊貓》打殘《武俠》 20110809-1</title>
+							<description>(Part 1) 《功夫熊貓》打殘《武俠》</description>
+							<pubDate>Tue, 09 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/040/king20110809a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第40集 《功夫熊貓》打殘《武俠》 20110809-2</title>
+							<description>(Part 2) 《功夫熊貓》打殘《武俠》</description>
+							<pubDate>Tue, 09 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/040/king20110809b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第41集 東非旱災為何得不到國際關注 20110816-1</title>
+							<description>(Part 1) 東非旱災為何得不到國際關注</description>
+							<pubDate>Tue, 16 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/041/king20110816a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第41集 東非旱災為何得不到國際關注 20110816-2</title>
+							<description>(Part 2) 東非旱災為何得不到國際關注</description>
+							<pubDate>Tue, 16 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/041/king20110816b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第42集 亞洲成人博覽 20110823-1</title>
+							<description>(Part 1) 亞洲成人博覽</description>
+							<pubDate>Tue, 23 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/042/king20110823a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第42集 亞洲成人博覽 20110823-2</title>
+							<description>(Part 2) 亞洲成人博覽</description>
+							<pubDate>Tue, 23 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/042/king20110823b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第43集 討伐惡警 20110830-1</title>
+							<description>(Part 1) 討伐惡警</description>
+							<pubDate>Tue, 30 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/043/king20110830a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第43集 討伐惡警 20110830-2</title>
+							<description>(Part 2) 討伐惡警</description>
+							<pubDate>Tue, 30 Aug 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/043/king20110830b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第44集 9月1日衝擊替補論壇 20110907-1</title>
+							<description>(Part 1) 9月1日衝擊替補論壇</description>
+							<pubDate>Wed, 07 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/044/king20110906.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第45集 笑死朕逮補機制/搞笑與類型研究 20110921-1</title>
+							<description>(Part 1) 笑死朕逮補機制/搞笑與類型研究</description>
+							<pubDate>Wed, 21 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/045/king20110921a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第45集 笑死朕逮補機制/搞笑與類型研究 20110921-2</title>
+							<description>(Part 2) 笑死朕逮補機制/搞笑與類型研究</description>
+							<pubDate>Wed, 21 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/045/king20110921b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第45集 笑死朕逮補機制/搞笑與類型研究 20110921-3</title>
+							<description>(Part 3) 笑死朕逮補機制/搞笑與類型研究</description>
+							<pubDate>Wed, 21 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/045/king20110921c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第46集 男女電影大不同 20110927-1</title>
+							<description>(Part 1) 男女電影大不同</description>
+							<pubDate>Tue, 27 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/046/king20110927a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第46集 男女電影大不同 20110927-2</title>
+							<description>(Part 2) 男女電影大不同</description>
+							<pubDate>Tue, 27 Sep 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/046/king20110927b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第47集 Mr. Bean與志村健 20111004-1</title>
+							<description>(Part 1) Mr. Bean與志村健</description>
+							<pubDate>Tue, 04 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/047/king20111004a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第47集 Mr. Bean與志村健 20111004-2</title>
+							<description>(Part 2) Mr. Bean與志村健</description>
+							<pubDate>Tue, 04 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/047/king20111004b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第48集 林超榮-笑爆鳥 20111011-1</title>
+							<description>(Part 1) 林超榮-笑爆鳥</description>
+							<pubDate>Tue, 11 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/048/king20111011a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第48集 林超榮-笑爆鳥 20111011-2</title>
+							<description>(Part 2) 林超榮-笑爆鳥</description>
+							<pubDate>Tue, 11 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/048/king20111011b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第49集 玻璃面具 20111018-1</title>
+							<description>(Part 1) 玻璃面具</description>
+							<pubDate>Tue, 18 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/049/king20111018a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第49集 玻璃面具 20111018-2</title>
+							<description>(Part 2) 玻璃面具</description>
+							<pubDate>Tue, 18 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/049/king20111018b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第50集 刃牙 20111025-1</title>
+							<description>(Part 1) 刃牙</description>
+							<pubDate>Tue, 25 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/050/king20111025a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第50集 刃牙 20111025-2</title>
+							<description>(Part 2) 刃牙</description>
+							<pubDate>Tue, 25 Oct 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/050/king20111025b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第51集 抽亁香港 20111101-1</title>
+							<description>(Part 1) 抽亁香港</description>
+							<pubDate>Tue, 01 Nov 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/051/king20111101a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第51集 抽亁香港 20111101-2</title>
+							<description>(Part 2) 抽亁香港</description>
+							<pubDate>Tue, 01 Nov 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/051/king20111101b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第52集 網台 20111115-1</title>
+							<description>(Part 1) 網台</description>
+							<pubDate>Tue, 15 Nov 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/052/king20111115a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第52集 網台 20111115-2</title>
+							<description>(Part 2) 網台</description>
+							<pubDate>Tue, 15 Nov 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/052/king20111115b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第53集 (走難版)戀愛笑死朕 20111115-1</title>
+							<description>(Part 1) (走難版)戀愛笑死朕</description>
+							<pubDate>Tue, 15 Nov 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/053/king20111128.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第54集 銀魂 20111205-1</title>
+							<description>(Part 1) 銀魂</description>
+							<pubDate>Mon, 05 Dec 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/054/king20111205.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第55集 2011年十大笑死朕事件回顧! 20111230-1</title>
+							<description>(Part 1) 2011年十大笑死朕事件回顧!</description>
+							<pubDate>Fri, 30 Dec 2011 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/055/king20111230.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第56集 嚦咕嚦咕新年財 20120129-1</title>
+							<description>(Part 1) 嚦咕嚦咕新年財</description>
+							<pubDate>Sun, 29 Jan 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/056/king20120128.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第57集 BL之謎 20120406-1</title>
+							<description>(Part 1) BL之謎</description>
+							<pubDate>Fri, 06 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/057/king20120406a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第57集 BL之謎 20120406-2</title>
+							<description>(Part 2) BL之謎</description>
+							<pubDate>Fri, 06 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/057/king20120406b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第58集 貓 20120413-1</title>
+							<description>(Part 1) 貓</description>
+							<pubDate>Fri, 13 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/058/king20120413a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第58集 貓 20120413-2</title>
+							<description>(Part 2) 貓</description>
+							<pubDate>Fri, 13 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/058/king20120413b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第59集 最鐘意睇人仆街 20120420-1</title>
+							<description>(Part 1) 最鐘意睇人仆街</description>
+							<pubDate>Fri, 20 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/059/king20120420a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第59集 最鐘意睇人仆街 20120420-2</title>
+							<description>(Part 2) 最鐘意睇人仆街</description>
+							<pubDate>Fri, 20 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/059/king20120420b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第60集 我們的快樂政治 20120427-1</title>
+							<description>(Part 1) 我們的快樂政治</description>
+							<pubDate>Fri, 27 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/060/king20120427a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第60集 我們的快樂政治 20120427-2</title>
+							<description>(Part 2) 我們的快樂政治</description>
+							<pubDate>Fri, 27 Apr 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/060/king20120427b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第61集 Talkshow 大計 !!! 20120504-1</title>
+							<description>(Part 1) Talkshow 大計 !!!</description>
+							<pubDate>Fri, 04 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/061/king20120504a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第61集 Talkshow 大計 !!! 20120504-2</title>
+							<description>(Part 2) Talkshow 大計 !!!</description>
+							<pubDate>Fri, 04 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/061/king20120504b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第62集 決戰前夕 20120511-1</title>
+							<description>(Part 1) 決戰前夕</description>
+							<pubDate>Fri, 11 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/062ar/king20120511.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第63集 新九龍皇帝 20120518-1</title>
+							<description>(Part 1) 新九龍皇帝</description>
+							<pubDate>Fri, 18 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/063yy/king20120518.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第64集 笑死本宮 20120525-1</title>
+							<description>(Part 1) 笑死本宮</description>
+							<pubDate>Fri, 25 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/064/king20120525a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第64集 笑死本宮 20120525-2</title>
+							<description>(Part 2) 笑死本宮</description>
+							<pubDate>Fri, 25 May 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/064/king20120525b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第65集 六四 復仇者聯盟 20120601-1</title>
+							<description>(Part 1) 六四 復仇者聯盟</description>
+							<pubDate>Fri, 01 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/065/king20120601a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第65集 六四 復仇者聯盟 20120601-2</title>
+							<description>(Part 2) 六四 復仇者聯盟</description>
+							<pubDate>Fri, 01 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/065/king20120601b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第66集 六月飛霜 20120608-1</title>
+							<description>(Part 1) 六月飛霜</description>
+							<pubDate>Fri, 08 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/066/king20120609a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第66集 六月飛霜 20120608-2</title>
+							<description>(Part 2) 六月飛霜</description>
+							<pubDate>Fri, 08 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/066/king20120609b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第67集 司徒夾帶 20120615-1</title>
+							<description>(Part 1) 司徒夾帶</description>
+							<pubDate>Fri, 15 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/067/king20120615a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第67集 司徒夾帶 20120615-2</title>
+							<description>(Part 2) 司徒夾帶</description>
+							<pubDate>Fri, 15 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/067/king20120615b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第68集 七 一 20120629-1</title>
+							<description>(Part 1) 七 一</description>
+							<pubDate>Fri, 29 Jun 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/068/king20120629.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第69集 我們的棟篤生活 20120706-1</title>
+							<description>(Part 1) 我們的棟篤生活</description>
+							<pubDate>Fri, 06 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/069/king20120706a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第69集 我們的棟篤生活 20120706-2</title>
+							<description>(Part 2) 我們的棟篤生活</description>
+							<pubDate>Fri, 06 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/069/king20120706b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第70集 洗腦 ! 20120713-1</title>
+							<description>(Part 1) 洗腦 !</description>
+							<pubDate>Fri, 13 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/070/king20120713a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第70集 洗腦 ! 20120713-2</title>
+							<description>(Part 2) 洗腦 !</description>
+							<pubDate>Fri, 13 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/070/king20120713b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第71集 王牌至尊 20120720-1</title>
+							<description>(Part 1) 王牌至尊</description>
+							<pubDate>Fri, 20 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/071/king20120720a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第71集 王牌至尊 20120720-2</title>
+							<description>(Part 2) 王牌至尊</description>
+							<pubDate>Fri, 20 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/071/king20120720b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第72集 《蝙蝠俠 - 夜神起義》 20120727-1</title>
+							<description>(Part 1) 《蝙蝠俠 - 夜神起義》</description>
+							<pubDate>Fri, 27 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/072/king20120727.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第72集 《蝙蝠俠 - 夜神起義》 20120727-2</title>
+							<description>(Part 2) 《蝙蝠俠 - 夜神起義》</description>
+							<pubDate>Fri, 27 Jul 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/072/king20120727.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第73集 票投黃洋達 20120821-1</title>
+							<description>(Part 1) 票投黃洋達</description>
+							<pubDate>Tue, 21 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/073/king20120821.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第74集 杯葛一人兩票 20120824-1</title>
+							<description>(Part 1) 杯葛一人兩票</description>
+							<pubDate>Fri, 24 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/074/king20120824a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第74集 杯葛一人兩票 20120824-2</title>
+							<description>(Part 2) 杯葛一人兩票</description>
+							<pubDate>Fri, 24 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/074/king20120824b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第75集 消失的社區 20120825-1</title>
+							<description>(Part 1) 消失的社區</description>
+							<pubDate>Sat, 25 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/075/king20120825.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第76集 食窮民建聯，票投黃洋達 20120826-1</title>
+							<description>(Part 1) 食窮民建聯，票投黃洋達</description>
+							<pubDate>Sun, 26 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/076/king20120826.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第77集 一人一票選港姐 20120827-1</title>
+							<description>(Part 1) 一人一票選港姐</description>
+							<pubDate>Mon, 27 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/077/king20120827.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第78集 配票策略 20120828-1</title>
+							<description>(Part 1) 配票策略</description>
+							<pubDate>Tue, 28 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/078/king20120828.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第79集 我最唔鐘意嗌交 20120829-1</title>
+							<description>(Part 1) 我最唔鐘意嗌交</description>
+							<pubDate>Wed, 29 Aug 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/079/king20120830.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第80集 蘋果，啋佢生芒果 20120901-1</title>
+							<description>(Part 1) 蘋果，啋佢生芒果</description>
+							<pubDate>Sat, 01 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/080/king20120901a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第80集 蘋果，啋佢生芒果 20120901-2</title>
+							<description>(Part 2) 蘋果，啋佢生芒果</description>
+							<pubDate>Sat, 01 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/080/king20120901b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第80集 蘋果，啋佢生芒果 20120901-3</title>
+							<description>(Part 3) 蘋果，啋佢生芒果</description>
+							<pubDate>Sat, 01 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/080/king20120901a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第80集 蘋果，啋佢生芒果 20120901-4</title>
+							<description>(Part 4) 蘋果，啋佢生芒果</description>
+							<pubDate>Sat, 01 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/080/king20120901b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第81集 超級白票 20120902-1</title>
+							<description>(Part 1) 超級白票</description>
+							<pubDate>Sun, 02 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/081/king20120902a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第81集 超級白票 20120902-2</title>
+							<description>(Part 2) 超級白票</description>
+							<pubDate>Sun, 02 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/081/king20120902b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第82集 海琪的笑死朕 20120903-1</title>
+							<description>(Part 1) 海琪的笑死朕</description>
+							<pubDate>Mon, 03 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/082/king20120903.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第82集 海琪的笑死朕 20120903-2</title>
+							<description>(Part 2) 海琪的笑死朕</description>
+							<pubDate>Mon, 03 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/082/king20120903a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第82集 海琪的笑死朕 20120903-3</title>
+							<description>(Part 3) 海琪的笑死朕</description>
+							<pubDate>Mon, 03 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/082/king20120903b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第83集 拉倒國民教育 20120904-1</title>
+							<description>(Part 1) 拉倒國民教育</description>
+							<pubDate>Tue, 04 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/083/king20120904.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第83集 拉倒國民教育 20120904-2</title>
+							<description>(Part 2) 拉倒國民教育</description>
+							<pubDate>Tue, 04 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/083/king20120904a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第83集 拉倒國民教育 20120904-3</title>
+							<description>(Part 3) 拉倒國民教育</description>
+							<pubDate>Tue, 04 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/083/king20120904b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第84集 反抺黑 20120905-1</title>
+							<description>(Part 1) 反抺黑</description>
+							<pubDate>Wed, 05 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/084/king20120905.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第84集 反抺黑 20120905-2</title>
+							<description>(Part 2) 反抺黑</description>
+							<pubDate>Wed, 05 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/084/king20120905a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第84集 反抺黑 20120905-3</title>
+							<description>(Part 3) 反抺黑</description>
+							<pubDate>Wed, 05 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/084/king20120905b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第85集 投票策略 20120906-1</title>
+							<description>(Part 1) 投票策略</description>
+							<pubDate>Thu, 06 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/085/king20120906.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第85集 投票策略 20120906-2</title>
+							<description>(Part 2) 投票策略</description>
+							<pubDate>Thu, 06 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/085/king20120906a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第85集 投票策略 20120906-3</title>
+							<description>(Part 3) 投票策略</description>
+							<pubDate>Thu, 06 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/085/king20120906b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第86集 投票反洗腦 20120907-1</title>
+							<description>(Part 1) 投票反洗腦</description>
+							<pubDate>Fri, 07 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/086/king20120907.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第87集 投票日前夕 20120908-1</title>
+							<description>(Part 1) 投票日前夕</description>
+							<pubDate>Sat, 08 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://www.civicpassion.com/Radio/king/087/king20120908.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第88集 蒼井空 20120920-1</title>
+							<description>(Part 1) 蒼井空</description>
+							<pubDate>Thu, 20 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/088/005-088-1-gdlamst.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第88集 蒼井空 20120920-2</title>
+							<description>(Part 2) 蒼井空</description>
+							<pubDate>Thu, 20 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/088/005-088-2-eniwtbu.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第89集 邪道的王道 20120927-1</title>
+							<description>(Part 1) 邪道的王道</description>
+							<pubDate>Thu, 27 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/089/005-089-1-kwmente.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第89集 邪道的王道 20120927-2</title>
+							<description>(Part 2) 邪道的王道</description>
+							<pubDate>Thu, 27 Sep 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/089/005-089-2-82nmqnw.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第90集 講故佬 20121005-1</title>
+							<description>(Part 1) 講故佬</description>
+							<pubDate>Fri, 05 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/090/king20121005a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第90集 講故佬 20121005-2</title>
+							<description>(Part 2) 講故佬</description>
+							<pubDate>Fri, 05 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/090/king20121005b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第91集 黃子華洗燥 20121012-1</title>
+							<description>(Part 1) 黃子華洗燥</description>
+							<pubDate>Fri, 12 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/091/king20121012a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第91集 黃子華洗燥 20121012-2</title>
+							<description>(Part 2) 黃子華洗燥</description>
+							<pubDate>Fri, 12 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/091/king20121012b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第92集 DBC 復播運動 20121019-1</title>
+							<description>(Part 1) DBC 復播運動</description>
+							<pubDate>Fri, 19 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/092/king20121019a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第92集 DBC 復播運動 20121019-2</title>
+							<description>(Part 2) DBC 復播運動</description>
+							<pubDate>Fri, 19 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/092/king20121019b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第93集 八婆會館/撑言論自由 20121026-1</title>
+							<description>(Part 1) 八婆會館/撑言論自由</description>
+							<pubDate>Fri, 26 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/093/king20121026a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第93集 八婆會館/撑言論自由 20121026-2</title>
+							<description>(Part 2) 八婆會館/撑言論自由</description>
+							<pubDate>Fri, 26 Oct 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/093/king20121026b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第94集 微型寫作，呃like教學 20121102-1</title>
+							<description>(Part 1) 微型寫作，呃like教學</description>
+							<pubDate>Fri, 02 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/094/king20121102a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第94集 微型寫作，呃like教學 20121102-2</title>
+							<description>(Part 2) 微型寫作，呃like教學</description>
+							<pubDate>Fri, 02 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/094/king20121102b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第95集 Phone-in 測試失敗 20121109-1</title>
+							<description>(Part 1) Phone-in 測試失敗</description>
+							<pubDate>Fri, 09 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/095/king20121109a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第95集 Phone-in 測試失敗 20121109-2</title>
+							<description>(Part 2) Phone-in 測試失敗</description>
+							<pubDate>Fri, 09 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/095/king20121109b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第96集 剖析鬧爆文化 20121116-1</title>
+							<description>(Part 1) 剖析鬧爆文化</description>
+							<pubDate>Fri, 16 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/096/king20121116a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第96集 剖析鬧爆文化 20121116-2</title>
+							<description>(Part 2) 剖析鬧爆文化</description>
+							<pubDate>Fri, 16 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/096/king20121116b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第96集 剖析鬧爆文化 20121116-3</title>
+							<description>(Part 3) 剖析鬧爆文化</description>
+							<pubDate>Fri, 16 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/096/king20121116c.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第97集 輿論戰 20121123-1</title>
+							<description>(Part 1) 輿論戰</description>
+							<pubDate>Fri, 23 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/097/king20121123a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第97集 輿論戰 20121123-2</title>
+							<description>(Part 2) 輿論戰</description>
+							<pubDate>Fri, 23 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/097/king20121123b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第98集 熱血癲狗 20121130-1</title>
+							<description>(Part 1) 熱血癲狗</description>
+							<pubDate>Fri, 30 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/098/king20121230a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第98集 熱血癲狗 20121130-2</title>
+							<description>(Part 2) 熱血癲狗</description>
+							<pubDate>Fri, 30 Nov 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/098/king20121230b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第99集 莫言.負心總是讀書人 20121207-1</title>
+							<description>(Part 1) 莫言.負心總是讀書人</description>
+							<pubDate>Fri, 07 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/099/king20121207a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第99集 莫言.負心總是讀書人 20121207-2</title>
+							<description>(Part 2) 莫言.負心總是讀書人</description>
+							<pubDate>Fri, 07 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/099/king20121207b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第100集 義播100集 20121214-1</title>
+							<description>(Part 1) 義播100集</description>
+							<pubDate>Fri, 14 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/100/king20121214a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第100集 義播100集 20121214-2</title>
+							<description>(Part 2) 義播100集</description>
+							<pubDate>Fri, 14 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/100/king20121214b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第101集 末日創作論/天敵進化論 20121221-1</title>
+							<description>(Part 1) 末日創作論/天敵進化論</description>
+							<pubDate>Fri, 21 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/101/king20121221a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第101集 末日創作論/天敵進化論 20121221-2</title>
+							<description>(Part 2) 末日創作論/天敵進化論</description>
+							<pubDate>Fri, 21 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/101/king20121221b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第102集 2012十大笑死朕事件 20121228-1</title>
+							<description>(Part 1) 2012十大笑死朕事件</description>
+							<pubDate>Fri, 28 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/102/king20121228a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第102集 2012十大笑死朕事件 20121228-2</title>
+							<description>(Part 2) 2012十大笑死朕事件</description>
+							<pubDate>Fri, 28 Dec 2012 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/102/king20121228b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第103集 大班老味 20130104-1</title>
+							<description>(Part 1) 大班老味</description>
+							<pubDate>Fri, 04 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/103/king20130104a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第103集 大班老味 20130104-2</title>
+							<description>(Part 2) 大班老味</description>
+							<pubDate>Fri, 04 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/103/king20130104b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第104集 一代宗師 20130111-1</title>
+							<description>(Part 1) 一代宗師</description>
+							<pubDate>Fri, 11 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/104/king20130111a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第104集 一代宗師 20130111-2</title>
+							<description>(Part 2) 一代宗師</description>
+							<pubDate>Fri, 11 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/104/king20130111b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第105集 JoJo的奇妙冒險 X Gucci 20130118-1</title>
+							<description>(Part 1) JoJo的奇妙冒險 X Gucci</description>
+							<pubDate>Fri, 18 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/105/king20130118a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第105集 JoJo的奇妙冒險 X Gucci 20130118-2</title>
+							<description>(Part 2) JoJo的奇妙冒險 X Gucci</description>
+							<pubDate>Fri, 18 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/105/king20130118b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第106集 老表你好嘢 20130125-1</title>
+							<description>(Part 1) 老表你好嘢</description>
+							<pubDate>Fri, 25 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/106/king20130125a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第106集 老表你好嘢 20130125-2</title>
+							<description>(Part 2) 老表你好嘢</description>
+							<pubDate>Fri, 25 Jan 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/106/king20130125b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第107集 奶粉慌，一定要政治化 20130201-1</title>
+							<description>(Part 1) 奶粉慌，一定要政治化</description>
+							<pubDate>Fri, 01 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/107/king20130201a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第107集 奶粉慌，一定要政治化 20130201-2</title>
+							<description>(Part 2) 奶粉慌，一定要政治化</description>
+							<pubDate>Fri, 01 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/107/king20130201b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第108集 年宵特別版 20130208-1</title>
+							<description>(Part 1) 年宵特別版</description>
+							<pubDate>Fri, 08 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/108/king20130208a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第108集 年宵特別版 20130208-2</title>
+							<description>(Part 2) 年宵特別版</description>
+							<pubDate>Fri, 08 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/108/king20130208b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第109集 西遊:一萬年系列 20130215-1</title>
+							<description>(Part 1) 西遊:一萬年系列</description>
+							<pubDate>Fri, 15 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/109/king20130215a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第109集 西遊:一萬年系列 20130215-2</title>
+							<description>(Part 2) 西遊:一萬年系列</description>
+							<pubDate>Fri, 15 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/109/king20130215b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第110集 AKB48-熱血計劃 20130222-1</title>
+							<description>(Part 1) AKB48-熱血計劃</description>
+							<pubDate>Fri, 22 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/110/king20130222a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第110集 AKB48-熱血計劃 20130222-2</title>
+							<description>(Part 2) AKB48-熱血計劃</description>
+							<pubDate>Fri, 22 Feb 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/110/king20130222b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第111集 膠化社運-佔領中環 20130301-1</title>
+							<description>(Part 1) 膠化社運-佔領中環</description>
+							<pubDate>Fri, 01 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/111/king20130301a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第111集 膠化社運-佔領中環 20130301-2</title>
+							<description>(Part 2) 膠化社運-佔領中環</description>
+							<pubDate>Fri, 01 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/111/king20130301b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第112集 佔領運動,如何可以不散水? 20130308-1</title>
+							<description>(Part 1) 佔領運動,如何可以不散水?</description>
+							<pubDate>Fri, 08 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/112/king20130308a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第112集 佔領運動,如何可以不散水? 20130308-2</title>
+							<description>(Part 2) 佔領運動,如何可以不散水?</description>
+							<pubDate>Fri, 08 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/112/king20130308b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第113集 大時代 20130315-1</title>
+							<description>(Part 1) 大時代</description>
+							<pubDate>Fri, 15 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/113/king20130315a_MP3WRAP.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第113集 大時代 20130315-2</title>
+							<description>(Part 2) 大時代</description>
+							<pubDate>Fri, 15 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/113/king20130315b_MP3WRAP.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第114集 佔領光環與自瀆 20130322-1</title>
+							<description>(Part 1) 佔領光環與自瀆</description>
+							<pubDate>Fri, 22 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/114/king20130322a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第114集 佔領光環與自瀆 20130322-2</title>
+							<description>(Part 2) 佔領光環與自瀆</description>
+							<pubDate>Fri, 22 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/114/king20130322b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第115集 熱血公民 特立獨行 20130327-1</title>
+							<description>(Part 1) 熱血公民 特立獨行</description>
+							<pubDate>Wed, 27 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/115/king20130327a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第115集 熱血公民 特立獨行 20130327-2</title>
+							<description>(Part 2) 熱血公民 特立獨行</description>
+							<pubDate>Wed, 27 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/115/king20130327b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第116集 挪威的森林 ‧ 奪回青春 20130329-1</title>
+							<description>(Part 1) 挪威的森林 ‧ 奪回青春</description>
+							<pubDate>Fri, 29 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/116/king20130329a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第116集 挪威的森林 ‧ 奪回青春 20130329-2</title>
+							<description>(Part 2) 挪威的森林 ‧ 奪回青春</description>
+							<pubDate>Fri, 29 Mar 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/116/king20130329b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第117集 從葉問看「何謂港產片」 20130405-1</title>
+							<description>(Part 1) 從葉問看「何謂港產片」</description>
+							<pubDate>Fri, 05 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/117/king20130405a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第117集 從葉問看「何謂港產片」 20130405-2</title>
+							<description>(Part 2) 從葉問看「何謂港產片」</description>
+							<pubDate>Fri, 05 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/117/king20130405b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第118集 騎劫佔領中環 20130412-1</title>
+							<description>(Part 1) 騎劫佔領中環</description>
+							<pubDate>Fri, 12 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/118/king20130412a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第118集 騎劫佔領中環 20130412-2</title>
+							<description>(Part 2) 騎劫佔領中環</description>
+							<pubDate>Fri, 12 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/118/king20130412b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第119集  [No] 向政府說不●文化抗共 20130419-1</title>
+							<description>(Part 1)  [No] 向政府說不●文化抗共</description>
+							<pubDate>Fri, 19 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/119/king20130419a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第119集  [No] 向政府說不●文化抗共 20130419-2</title>
+							<description>(Part 2)  [No] 向政府說不●文化抗共</description>
+							<pubDate>Fri, 19 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/119/king20130419b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第120集 「元氣彈式民主運動」 20130426-1</title>
+							<description>(Part 1) 「元氣彈式民主運動」</description>
+							<pubDate>Fri, 26 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/120/king20130426a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第120集 「元氣彈式民主運動」 20130426-2</title>
+							<description>(Part 2) 「元氣彈式民主運動」</description>
+							<pubDate>Fri, 26 Apr 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/120/king20130426b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第121集 進擊的巨鴨 20130502-1</title>
+							<description>(Part 1) 進擊的巨鴨</description>
+							<pubDate>Thu, 02 May 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/121/king20130502a.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第121集 進擊的巨鴨 20130502-2</title>
+							<description>(Part 2) 進擊的巨鴨</description>
+							<pubDate>Thu, 02 May 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/121/king20130502b.mp3" length="" type="audio/mpeg"/>
+					</item>
+					<item>
+							<title>第121集 進擊的巨鴨 20130502-3</title>
+							<description>(Part 3) 進擊的巨鴨</description>
+							<pubDate>Thu, 02 May 2013 00:00:00 +0800</pubDate>
+							<enclosure url="http://ub1.passiontimes.hk/programme/05/121/king20130502c.mp3" length="" type="audio/mpeg"/>
+					</item>
+
+        </channel>
+        </rss>

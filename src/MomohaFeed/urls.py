@@ -23,6 +23,7 @@ urlpatterns = patterns(
 #    url(r'^j_subscription_poll/$','j_subscription_poll'),
 
     url(r'^json/$','json'),
+    url(r'^upload/$','upload'),
     url(r'^cmd.js$','cmd_js'),
 
 )
