@@ -494,7 +494,7 @@ def import_opml(request, postfile):
         print "thread end"
 
     if 'test' in sys.argv:
-        # django - thread - db work-around
+        # django+test+thread+db problem work-around
         thread_unit(runtime_dict)
     else:
         thread_list = []            

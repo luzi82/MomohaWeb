@@ -101,6 +101,8 @@ DATABASES = {
 
 BROKER_URL = 'amqp://momohaweb:[password]@localhost:5672/momohaweb_vhost'
 
+OPML_IMPORT_THREAD_COUNT = 32
+
 $ mkdir /opt/momohaweb/MomohaWeb/static
 $ cd /opt/momohaweb/MomohaWeb/src
 $ python manage.py syncdb --migrate
