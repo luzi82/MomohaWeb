@@ -14,6 +14,7 @@ from xml.dom import Node
 from lxml import etree
 import threading
 from django.conf import settings
+import sys
 
 
 cmd_list = []
@@ -492,14 +493,18 @@ def import_opml(request, postfile):
                 print e
         print "thread end"
 
-    thread_list = []            
-    for _ in range(settings.OPML_IMPORT_THREAD_COUNT):
-        t = threading.Thread(target=thread_unit,args=(runtime_dict,))
-        thread_list.append(t)
-        t.start()
-    
-    for t in thread_list:
-        t.join()
+    if 'test' in sys.argv:
+        # django - thread - db work-around
+        thread_unit(runtime_dict)
+    else:
+        thread_list = []            
+        for _ in range(settings.OPML_IMPORT_THREAD_COUNT):
+            t = threading.Thread(target=thread_unit,args=(runtime_dict,))
+            thread_list.append(t)
+            t.start()
+        
+        for t in thread_list:
+            t.join()
 
     for outline in tree.xpath('/opml/body/outline[@text]'):
         if outline.get('type')!=None:
