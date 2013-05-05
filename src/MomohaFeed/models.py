@@ -63,8 +63,8 @@ class ItemStar(models.Model):
 class SubscriptionTag(models.Model):
 
     user = models.ForeignKey(auth_models.User,db_index=True)
+    title = models.CharField(max_length=TITLE_LENGTH,null=True,default=None,db_index=True)
 
-    title = models.CharField(max_length=TITLE_LENGTH,null=True,default=None)
     enable = models.BooleanField(db_index=True, default=True)
 
 

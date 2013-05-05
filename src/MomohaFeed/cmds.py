@@ -464,7 +464,7 @@ def import_opml(request, postfile):
             continue
         if outline.get('xmlUrl')!=None:
             continue
-        db_subscriptiontag = SubscriptionTag.objects.create(
+        db_subscriptiontag, _ = SubscriptionTag.objects.get_or_create(
             user = request.user,
             title = outline.get('text'),
         )
