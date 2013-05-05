@@ -3,7 +3,6 @@ sqlite.db
 src/celerybeat-schedule
 /.settings/
 *~
-
 src/MomohaWeb/secret.py
-static
+/static
 tmp
