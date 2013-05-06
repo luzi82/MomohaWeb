@@ -217,7 +217,7 @@ def update_feed_pool(ms):
     
     for db_feed in db_feed_list:
         feedpoll.poll_feed(db_feed.url, now64())
-        if now64()-start > 20*1000:
+        if now64()-start > 40*1000:
             break
 
 
