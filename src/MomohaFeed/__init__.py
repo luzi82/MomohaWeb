@@ -211,12 +211,15 @@ def update_feed_pool(ms):
     
     now = now64()
     last_poll_max = now-ms
+    start = now
     
     db_feed_list = Feed.objects.filter(last_poll__lte = last_poll_max).order_by('last_poll')
     
     for db_feed in db_feed_list:
-        feedpoll.poll_feed(db_feed.url, now)
-    
+        feedpoll.poll_feed(db_feed.url, now64())
+        if now64()-start > 20*1000:
+            break
+
 
 def subscriptiontag_list_content(
     db_subscriptiontag,
