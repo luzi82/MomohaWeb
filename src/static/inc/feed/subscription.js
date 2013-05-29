@@ -45,6 +45,7 @@ define([
 			load_bar(10);
 			momohafeed.subscription_all_readdone(
 				subscription_instance.subscription_id,
+				subscription_instance.readall_range_first_poll,
 				function(j){
 					load(subscription_instance.type,subscription_instance.subscription_id,null);
 				},
@@ -106,8 +107,9 @@ define([
 			type: type,
 			subscription_id: subscription_id,
 			
-			// data			
+			// data
 			vm_subscription_detail: null,
+			readall_range_first_poll: null,
 			row_data_dict: {},
 			row_data_next: 0,
 			
@@ -209,6 +211,9 @@ define([
 		
 		var process = function(j){
 			console.log(JSON.stringify(j));
+			if((j.now)&&(subscription_instance.readall_range_first_poll==null)){
+				subscription_instance.readall_range_first_poll = j.now;
+			}
 			if(j.item_detail_list.length<LOAD_ITEM_COUNT){
 				subscription_instance.load_end = true;
 			}else{

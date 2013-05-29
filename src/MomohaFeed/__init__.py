@@ -133,7 +133,7 @@ def subscription_list_content(
                         (
                             %s OR
                             ( MomohaFeed_item.first_poll < %s ) OR
-                            ( MomohaFeed_item.first_poll = NULL )
+                            ( MomohaFeed_item.first_poll IS NULL )
                         )
                     GROUP BY
                         MomohaFeed_item.id
