@@ -782,6 +782,8 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         self.assertEqual(0, len(result['item_detail_list']))
+        
+        time0 = self.now64()
 
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
@@ -812,7 +814,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_all_readdone',
             'argv':{
                 'subscription_id': subscription_id,
-                'range_published': 1359476880001,
+                'range_first_poll': time0-1000,
             },
         })})
         content=response.content
@@ -830,7 +832,31 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         
-        self.assertEqual(4, len(result['item_detail_list']))
+        self.assertEqual(25, len(result['item_detail_list']))
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_all_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+                'range_first_poll': self.now64(),
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(0, len(result['item_detail_list']))
 
 
 #    @skip('skip')

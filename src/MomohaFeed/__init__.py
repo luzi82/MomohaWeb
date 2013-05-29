@@ -91,6 +91,7 @@ def subscription_list_content(
     range_published=None,
     range_id=None,
     item_count=None,
+    range_first_poll=None,
 ):
     
     db_item_list = Item.objects.raw(
@@ -128,6 +129,11 @@ def subscription_list_content(
                                 ( MomohaFeed_item.published = %s ) AND
                                 ( MomohaFeed_item.id > %s )
                             )
+                        ) AND
+                        (
+                            %s OR
+                            ( MomohaFeed_item.first_poll < %s ) OR
+                            ( MomohaFeed_item.first_poll = NULL )
                         )
                     GROUP BY
                         MomohaFeed_item.id
@@ -147,8 +153,10 @@ def subscription_list_content(
             db_subscription.start, # MomohaFeed_item.last_poll >= %s
             ( range_published == None ) and ( range_id == None ) , # %s
             range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published < %s )
-            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published == %s )
+            range_published if (range_published!=None) else 0 , # ( MomohaFeed_item.published = %s )
             range_id if (range_id!=None) else 0 , # ( MomohaFeed_item.id > %s )
+            ( range_first_poll == None ) , # %s
+            range_first_poll if (range_first_poll!=None) else 0 , # ( MomohaFeed_item.first_poll < %s )
             show_readdone, # ( %s OR ( NOT I.readdone )
             show_nonstar, # ( %s OR ( I.star ) )
             item_count if (item_count!=None) else 0x7fffffff # LIMIT %s, issue 109

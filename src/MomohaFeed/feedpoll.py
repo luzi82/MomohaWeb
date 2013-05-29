@@ -59,6 +59,8 @@ def poll_feed(url, now):
         )
 
         db_item.last_poll = now
+        if item_create :
+            db_item.first_poll = now
 
         entry_content = None
         if hasattr(entry,'content') and len(entry.content) >= 1:
