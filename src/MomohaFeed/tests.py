@@ -783,8 +783,6 @@ class SimpleTest(TestCase):
         
         self.assertEqual(0, len(result['item_detail_list']))
         
-        time0 = self.now64()
-
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'add_subscription',
             'argv':{
@@ -808,13 +806,15 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         self.assertEqual(25, len(result['item_detail_list']))
+        self.assertIn('now',result)
         #print result['item_detail_list']
+        time = result['now']
         
         response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
             'cmd':'subscription_all_readdone',
             'argv':{
                 'subscription_id': subscription_id,
-                'range_first_poll': time0-1000,
+                'range_first_poll': time-10000,
             },
         })})
         content=response.content
@@ -838,7 +838,7 @@ class SimpleTest(TestCase):
             'cmd':'subscription_all_readdone',
             'argv':{
                 'subscription_id': subscription_id,
-                'range_first_poll': self.now64(),
+                'range_first_poll': time,
             },
         })})
         content=response.content

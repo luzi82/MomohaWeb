@@ -195,7 +195,7 @@ def subscription_list_item_detail(request,subscription_id,show_readdone,range_pu
     for db_item in db_item_list:
         item_detail_list.append(VmItemDetail(db_subscription,db_item).__dict__)
 
-    return { 'item_detail_list' : item_detail_list }
+    return { 'item_detail_list' : item_detail_list, 'now' : MomohaFeed.now64() }
 
 
 @u403
