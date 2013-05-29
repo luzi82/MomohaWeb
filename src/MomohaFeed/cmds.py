@@ -257,13 +257,13 @@ def subscription_poll(request,subscription_id):
 
 @u403
 @cmd
-def subscription_all_readdone(request,subscription_id):
+def subscription_all_readdone(request,subscription_id,range_published=None):
     
     db_subscription = Subscription.objects.get(id=subscription_id)
     if(db_subscription.user != request.user):
         raise PermissionDenied
 
-    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=False)
+    db_item_list = MomohaFeed.subscription_list_content(db_subscription,show_readdone=False,range_published=range_published)
     now = now64()
 
     for db_item in db_item_list:

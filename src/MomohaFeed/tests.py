@@ -716,6 +716,7 @@ class SimpleTest(TestCase):
         
         TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
         url = 'http://localhost:{0}/test.xml'.format(TMP_HTTP_PORT)
+        url1 = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
 
         httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
         httpServer.timeout = 1
@@ -728,6 +729,8 @@ class SimpleTest(TestCase):
         
         feed = open(MY_DIR+"/test/yahoo_hk_rss_0.xml").read()
         httpServer.set_get_output('/test.xml', 'text/rss', feed)
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
 
 #        thread = Thread(target=httpServer.handle_request)
 #        thread.start()
@@ -779,6 +782,55 @@ class SimpleTest(TestCase):
         result = simplejson.loads(content)
         
         self.assertEqual(0, len(result['item_detail_list']))
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url1,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(25, len(result['item_detail_list']))
+        #print result['item_detail_list']
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_all_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+                'range_published': 1359476880001,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        
+        self.assertEqual(4, len(result['item_detail_list']))
 
 
 #    @skip('skip')
