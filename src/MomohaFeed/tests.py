@@ -2087,7 +2087,82 @@ class SimpleTest(TestCase):
         content=response.content
         result = simplejson.loads(content)
         self.assertEqual(True, result['success'])
+        
+        
+    def test_54_tdd (self):
+        '''subscription list, add unread count'''
+        
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+        url = 'http://localhost:{0}/luzi82.xml'.format(TMP_HTTP_PORT)
 
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        httpServer.set_get_output('/luzi82.xml', 'text/rss', feed)
+        httpServer.server_activate()
+        
+        User.objects.create_user("user",password="pass")
+        
+        client = Client()
+        client.login(username="user",password="pass")
+        
+#        thread = Thread(target=httpServer.handle_request)
+#        thread.start()
+        self.start_server_loop(httpServer)
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        subscription_id = result['subscription']['id']
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertIn('unread_count', result['subscription_list'][0])
+        self.assertEqual(25, result['subscription_list'][0]['unread_count'])
+
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_list_item_detail',
+            'argv':{
+                'subscription_id': subscription_id,
+                'show_readdone'  : False,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        item_id = result['item_detail_list'][0]['id']
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_item_set_readdone',
+            'argv':{
+                'subscription_id': subscription_id,
+                'item_id': item_id,
+                'value': True,
+            },
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(True, result['success'])
+        
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'list_subscription',
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+
+        self.assertEqual(24, result['subscription_list'][0]['unread_count'])
 
 #    def test_azumakiyohiko_x3(self):
 #        print "azumakiyohiko_x.xml"
