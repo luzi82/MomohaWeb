@@ -80,7 +80,8 @@ def list_subscription(request):
                                 ( MFS.user_id = %s ) AND
                                 MFS.enable
                             GROUP BY
-                                MomohaFeed_item.id
+                                MomohaFeed_item.id ,
+                                MFS.id
                         ) AS S
                     WHERE
                         ( NOT S.readdone )
