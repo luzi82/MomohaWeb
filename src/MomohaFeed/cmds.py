@@ -43,10 +43,87 @@ def u403(f):
 @cmd
 def list_subscription(request):
     
-    db_subscription_list = Subscription.objects.filter(
-        user__exact = request.user,
-        enable__exact = True
-    ).select_related("feed")
+#    db_subscription_list = Subscription.objects.filter(
+#        user__exact = request.user,
+#        enable__exact = True
+#    ).select_related("feed")
+
+    db_subscription_list = Subscription.objects.raw(
+        '''
+            SELECT
+                MomohaFeed_subscription.* ,
+                Count(SS.subscription_id) unread_count
+            FROM
+                "MomohaFeed_subscription" as MomohaFeed_subscription
+                LEFT JOIN (
+                    SELECT
+                        S.*
+                    FROM
+                        (
+                            SELECT
+                                MFS.id subscription_id ,
+                                MomohaFeed_item.id item_id ,
+                                (Count(MomohaFeed_itemread.enable)>0) readdone
+                            FROM
+                                "MomohaFeed_subscription" as MFS
+                                LEFT JOIN "MomohaFeed_item" as MomohaFeed_item
+                                    ON (
+                                        MomohaFeed_item.feed_id = MFS.feed_id
+                                    )
+                                LEFT JOIN "MomohaFeed_itemread" as MomohaFeed_itemread
+                                    ON (
+                                        MomohaFeed_itemread.item_id = MomohaFeed_item.id AND
+                                        MomohaFeed_itemread.subscription_id = MFS.id AND
+                                        MomohaFeed_itemread.enable
+                                    )
+                            WHERE
+                                ( MFS.user_id = %s ) AND
+                                MFS.enable
+                            GROUP BY
+                                MomohaFeed_item.id
+                        ) AS S
+                    WHERE
+                        ( NOT S.readdone )
+                ) AS SS
+                    ON (
+                        SS.subscription_id = MomohaFeed_subscription.id
+                    )
+            WHERE
+                ( MomohaFeed_subscription.user_id = %s ) AND
+                MomohaFeed_subscription.enable
+            GROUP BY
+                MomohaFeed_subscription.id
+        ''',
+        [
+            request.user.id, # ( MFS.user = %s ) AND
+            request.user.id  # ( MomohaFeed_subscription.user = %s ) AND
+        ]
+    )
+
+#    db_subscription_list = Subscription.objects.raw(
+#        '''
+#            SELECT
+#                MomohaFeed_subscription.* ,
+#                Count(II.id) item_count
+#            FROM
+#                "MomohaFeed_subscription" as MomohaFeed_subscription
+#                LEFT JOIN (
+#                    SELECT
+#                        MomohaFeed_item.*
+#                    FROM
+#                        "MomohaFeed_item" as MomohaFeed_item
+#                ) AS II
+#            WHERE
+#                ( MomohaFeed_subscription.user_id = %s ) AND
+#                MomohaFeed_subscription.enable
+#            GROUP BY
+#                MomohaFeed_subscription.id
+#        ''',
+#        [
+#            request.user.id, # ( MomohaFeed_subscription.user = %s ) AND
+#        ]
+#    )
+    
     subscription_list = []
     for db_subscription in db_subscription_list:
         subscription_list.append(VmSubscription(db_subscription).__dict__)

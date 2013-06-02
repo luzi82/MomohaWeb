@@ -7,6 +7,8 @@ class VmSubscription(object):
         self.id = db_subscription.id
         self.link = db_subscription.feed.link
         self.enable = db_subscription.enable
+        if hasattr(db_subscription, 'unread_count'):
+            self.unread_count = db_subscription.unread_count
 
         if db_subscription.title != None :
             self.title = db_subscription.title
