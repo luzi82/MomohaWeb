@@ -41,6 +41,7 @@ define([
 				var subscription = j.subscription_list[i];
 				instance.subscription_dict_dict[subscription.id]={
 					title: subscription.title,
+					unread_count: subscription.unread_count,
 					tag_list: [],
 				}
 			}
@@ -73,6 +74,7 @@ define([
 					
 					var li = $('#list_subscription_li_template').clone();
 						$('.list_subscription_title',li).text(subscription.title);
+						$('.list_subscription_unreadcount',li).text(subscription.unread_count);
 						var a=$('.list_subscription_a',li);
 							a.data("subscription_id",subscription_id)
 							a.click(function(){
