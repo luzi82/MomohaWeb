@@ -19,6 +19,15 @@ def poll_feed(url, now):
     
     if ( not parse_result.has_key('version') ) or ( parse_result['version'] == '' ):
         print("poll_feed "+url+" fail")
+        try:
+            db_feed = MomohaFeed.models.Feed.objects.get(
+                url = url,
+            )
+            print("update last_poll " +str(now))
+            db_feed.last_poll = now
+            db_feed.save()
+        except:
+            pass
         return None
     
     print("poll_feed "+url+" ok")

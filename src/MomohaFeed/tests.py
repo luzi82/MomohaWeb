@@ -2167,6 +2167,100 @@ class SimpleTest(TestCase):
 
         self.assertEqual(24, result['subscription_list'][0]['unread_count'])
 
+    def test_130(self):
+        TMP_HTTP_PORT = SimpleTest.TMP_HTTP_PORT
+ 
+        url0 = 'http://localhost:{0}/0.xml'.format(TMP_HTTP_PORT)
+        url1 = 'http://localhost:{0}/1.xml'.format(TMP_HTTP_PORT)
+         
+        feed = open(MY_DIR+"/test/luzi82.xml").read()
+        httpServer = memhttpserver.MemHTTPServer(('localhost',TMP_HTTP_PORT))
+        httpServer.timeout = 1
+        httpServer.set_get_output('/0.xml', 'text/rss', feed)
+        httpServer.set_get_output('/1.xml', 'text/rss', feed)
+        httpServer.server_activate()
+         
+        User.objects.create_user("user",password="pass")
+         
+        client = Client()
+        client.login(username="user",password="pass")
+ 
+        self.start_server_loop(httpServer)
+         
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url0,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertIn('success', result)
+        self.assertIn('subscription', result)
+        self.assertEqual(True, result['success'])
+        subscription_id0 = result['subscription']['id']
+ 
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'add_subscription',
+            'argv':{
+                'url':url1,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertIn('success', result)
+        self.assertIn('subscription', result)
+        self.assertEqual(True, result['success'])
+        subscription_id1 = result['subscription']['id']
+ 
+        MomohaFeed.update_feed_pool(0)
+         
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id0,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        last_poll0 = result['subscription_detail']['last_poll']
+ 
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id1,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        last_poll1 = result['subscription_detail']['last_poll']
+         
+        httpServer.set_get_output('/0.xml', None, None, 404)
+ 
+        time.sleep(0.01)
+ 
+        MomohaFeed.update_feed_pool(0)
+ 
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id0,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertGreater(result['subscription_detail']['last_poll'],last_poll0) # issue 130
+ 
+        response = client.post(reverse('MomohaFeed.views.json'),{'json':simplejson.dumps({
+            'cmd':'subscription_detail',
+            'argv':{
+                'subscription_id':subscription_id1,
+            }
+        })})
+        content=response.content
+        result = simplejson.loads(content)
+        self.assertGreater(result['subscription_detail']['last_poll'],last_poll1)
+
 #    def test_azumakiyohiko_x3(self):
 #        print "azumakiyohiko_x.xml"
 #        f = feedparser._open_resource(
